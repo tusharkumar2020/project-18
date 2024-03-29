@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Sitio Web</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: darkturquoise;
+            color: white;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: larger;
+        }
+
+        nav ul li a.active {
+            font-weight: bold;
+        }
+
+        .contact-info {
+            margin: 20px;
+        }
+
+        .contact-info h2 {
+            color: #333;
+        }
+
+        .contact-info p {
+            color: #666;
+        }
+
+        .contact-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .contact-info ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/" style="font-size: larger;">Inicio</a></li>
+                <li><a href="/about" style="font-size: larger;">Acerca de</a></li>
+                <li><a href="/contact" class="active" style="font-size: larger;">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contact-info">
+        <h2>Información de contacto</h2>
+        <p>Puedes contactarnos a través de los siguientes medios:</p>
+        <ul>
+            <li>Teléfono: 123-456-7890</li>
+            <li>Correo electrónico: info@example.com</li>
+            <li>Dirección: Calle Principal, Ciudad, País</li>
+        </ul>
+    </div>
+
+    <!-- Otro contenido de la página -->
+
+</body>
+</html>
