@@ -28,7 +28,7 @@ SECRET_KEY =\
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]'] 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'https://missspidey-8080.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai'] 
 CSRF_TRUSTED_ORIGINS = []
 
 REST_FRAMEWORK = {
