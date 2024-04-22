@@ -11,6 +11,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class CarMake(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
+    
 # - Any other fields you would like to include in car make model
 
 def __str__(self):
