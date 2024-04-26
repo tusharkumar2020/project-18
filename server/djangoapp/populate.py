@@ -49,9 +49,8 @@ def initiate():
         {"name":"X7", "type":"SUV", "year": 2023, "car_make":car_make_instances[8]},
         {"name":"Golf", "type":"Hatchback", "year": 2023, "car_make":car_make_instances[9]},
         {"name":"Passat", "type":"Sedan", "year": 2023, "car_make":car_make_instances[9]},
-        {"name":"Tiguan", "type":"SUV", "year": 2023, "car_make":car_make_instances[9]}
+        {"name":"Tiguan", "type":"SUV", "year": 2023, "car_make":car_make_instances[9]},
     ]
     
     for data in car_model_data:
         CarModel.objects.create(name=data['name'], type=data['type'], year=data['year'], car_make=data['car_make'])
-    print("Populate not implemented. Add data manually")
