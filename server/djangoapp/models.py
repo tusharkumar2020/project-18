@@ -10,7 +10,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class CarMake(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    country_of_origin = models.CharField(max_length=50)  # Country where the make is headquartered
     def __str__(self):
         return self.name  # Return the name as the string representation
 
@@ -41,17 +40,5 @@ class CarModel(models.Model):
             MaxValueValidator(2023),
             MinValueValidator(2015)
         ])
-    TRANSMISSION = [
-        ('AUTOMATIC','Automatic'),
-        ('MANUAL','Manual'),
-        ('ROBOTIC','Robotic'),
-    ]
-    transmission_type = models.CharField(max_length=10, choices=TRANSMISSION, default='Automatic')
-    ENGINES = [
-        ('GASOLINE','Gasoline'),
-        ('ELECTRIC','Electric'),
-        ('HYBRID','Hybrid'),
-    ]
-    engine_type = models.CharField(max_length=10, choices=ENGINES, default='Gasoline')
     def __str__(self):
         return self.name  # Return the name as the string representation
