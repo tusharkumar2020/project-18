@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-from django.contrib.auth.password_validation import UserAttributeSimilarityValidator
+from django.contrib.auth.password_validation /
+import UserAttributeSimilarityValidator
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,12 +30,16 @@ SECRET_KEY =\
 DEBUG = True
 
 ALLOWED_HOSTS = [
-'localhost',
-'https://ronennaz3-8000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai',
-'https://ronennaz3-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
+    'localhost',
+    'https://ronennaz3-8000.theianext-0-labs'/
+    '-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai',
+    'https://ronennaz3-8000.theiadockernext-0-labs'/
+    '-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
 CSRF_TRUSTED_ORIGINS = [
-'https://ronennaz3-8000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai',
-'https://ronennaz3-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
+    'https://ronennaz3-8000.theianext-0-labs'/
+    '-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai',
+    'https://ronennaz3-8000.theiadockernext-0-labs'/
+    '-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
