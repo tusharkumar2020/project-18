@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
-
+from django.contrib.auth.password_validation import UserAttributeSimilarityValidator
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -96,8 +96,7 @@ DATABASES = {
     }
 }
 
-validator =
-django.contrib.auth.password_validation.UserAttributeSimilarityValidator
+validator = UserAttributeSimilarityValidator()
 
 AUTH_PASSWORD_VALIDATORS = [
     {
