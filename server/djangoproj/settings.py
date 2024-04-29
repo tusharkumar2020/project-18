@@ -29,10 +29,10 @@ SECRET_KEY =\
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost','https://krutpatel93-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai']
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = ['https://krutpatel93-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai']
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ['https://krutpatel93-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
 }
 
 # Application definition
@@ -134,5 +134,5 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'frontend/static')]
 

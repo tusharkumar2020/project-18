@@ -15,11 +15,11 @@ let checkSession = ()=>{
 
   if (curr_user && curr_user !== "") {
     document.getElementById("loginlogout").innerHTML = 
-    '<span class="homepage_links">' + curr_user +'</span>' +
-    '<a class="homepage_links" onclick="logout()" href="/">Logout</a>'
+    '<span class="homepage_links" >' + curr_user +'</span>' +
+    '<a class="homepage_links"  onclick="logout()" href="/">Logout</a>'
   } else {
     document.getElementById("loginlogout").innerHTML = 
-    '<a class="homepage_links" href="/login">Login</a>'+
+    '<a class="homepage_links" style="padding-right: 50px" href="/login">Login</a>'+
     '<a class="homepage_links"  href="/register">Register</a>'
   }
  }
