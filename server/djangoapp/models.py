@@ -1,6 +1,14 @@
 from django.db import models
-from django.utils.timezone import now  # Removed unused import
+#from django.utils.timezone import now  # Removed unused import
 from django.core.validators import MaxValueValidator, MinValueValidator
+
+class CarMake(models.Model): 
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
 
 class CarMake(models.Model):
     name = models.CharField(max_length=100)
@@ -28,12 +36,13 @@ class CarModel(models.Model):
         ('CROSSOVER', 'Crossover'),
     ]
     type = models.CharField(max_length=11, choices=CAR_TYPES, default='SUV')
-    year = models.IntegerField(default=2023,
-                                validators=[
-                                    MaxValueValidator(2023),
-                                    MinValueValidator(2015)
-                                ])
+    year = models.IntegerField(
+        default=2023,
+        validators=[
+            MaxValueValidator(2023),
+            MinValueValidator(2015)
+        ]
+    )
 
     def __str__(self):
         return self.name
-
