@@ -44,8 +44,11 @@ def registration(request):
         User.objects.get(username=username)
     except User.DoesNotExist:
         logger.debug("{} is new user".format(username))
-        user = User.objects.create_user(username=username, first_name=first_name,
-                                    last_name=last_name, password=password, email=email)
+        user = User.objects.create_user(username=username,
+                                        first_name=first_name,
+                                        last_name=last_name,
+                                        password=password,
+                                        email=email)
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
@@ -74,9 +77,7 @@ def get_dealer_reviews(request, dealer_id):
         endpoint = f"/fetchReviews/dealer/{dealer_id}"
         reviews = get_request(endpoint)
         for review_detail in reviews:
-            response = analyze_review_sentiments(review_detail['review'])
-            if 'sentiment' in response:
-                review_detail['sentiment'] = response['sentiment']
+            analyze_review_sentiments(review_detail['review'])
         return JsonResponse({"status": 200, "reviews": reviews})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
