@@ -1,9 +1,8 @@
 from django.db import models
-#from django.utils.timezone import now  # Removed unused import
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class CarMake(models.Model): 
-    name = models.CharField(max_length=100)
+    name = models.CharField (max_length=100) 
     description = models.TextField()
 
     def __str__(self):
@@ -46,3 +45,4 @@ class CarModel(models.Model):
 
     def __str__(self):
         return self.name
+    
