@@ -1,6 +1,5 @@
 from .models import CarMake, CarModel
 
-
 def initiate():
     car_make_data = [
         {"name": "NISSAN", "description": "Great cars. Japanese technology"},
@@ -18,12 +17,12 @@ def initiate():
     for data in car_make_data:
         car_make_instances.append(CarMake.objects.create(
             name=data['name'], description=data['description']
-            ))
-        
-# Create CarModel instances with the corresponding CarMake instance
+        ))
+
+    # Create CarModel instances with the corresponding CarMake instance
     car_model_data = [
         {"name": "Pathfinder", "type": "SUV", "year": 2023,
-        "car_make": car_make_instances[0]},
+         "car_make": car_make_instances[0]},
         {"name": "Qashqai", "type": "SUV", "year": 2023,
          "car_make": car_make_instances[0]},
         {"name": "XTRAIL", "type": "SUV", "year": 2023,
@@ -38,7 +37,7 @@ def initiate():
          "car_make": car_make_instances[2]},
         {"name": "A5", "type": "SUV", "year": 2023,
          "car_make": car_make_instances[2]},
-        {"name": "A6", "type": "SUV", "year": 2023, 
+        {"name": "A6", "type": "SUV", "year": 2023,
          "car_make": car_make_instances[2]},
         {"name": "Sorrento", "type": "SUV", "year": 2023,
          "car_make": car_make_instances[3]},
@@ -56,7 +55,7 @@ def initiate():
          "car_make": car_make_instances[5]},
         {"name": "Focus", "type": "Hatchback", "year": 2023,
          "car_make": car_make_instances[5]},
-        {"name": "Ranger", "type": "Pickup", "year": 2023, 
+        {"name": "Ranger", "type": "Pickup", "year": 2023,
          "car_make": car_make_instances[5]},
         {"name": "Cruze", "type": "Sedan", "year": 2023,
          "car_make": car_make_instances[6]},
@@ -87,4 +86,4 @@ def initiate():
         CarModel.objects.create(
             name=data['name'], type=data['type'],
             year=data['year'], car_make=data['car_make']
-            )
+        )
