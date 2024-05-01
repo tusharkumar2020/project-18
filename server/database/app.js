@@ -18,6 +18,7 @@ const Reviews = require('./review');
 
 const Dealerships = require('./dealership');
 
+
 try {
   Reviews.deleteMany({}).then(()=>{
     Reviews.insertMany(reviews_data['reviews']);
@@ -59,16 +60,39 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
 // Express route to fetch all dealerships
 app.get('/fetchDealers', async (req, res) => {
 //Write your code here
+  try{
+    const documents = await Dealerships.find()
+    res.json(documents)
+
+  }catch(error){
+    res.status(500).json({error: 'Error fetching documents'})
+  }
 });
 
 // Express route to fetch Dealers by a particular state
 app.get('/fetchDealers/:state', async (req, res) => {
 //Write your code here
+  try {
+    const state = req.params.state
+    const documents = await Dealerships.find({state})
+    res.json(documents)
+  } catch (error) {
+    res.status(500).json({error: "Error fetching documents"})
+  }
 });
 
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
 //Write your code here
+
+  try {
+    const id = req.params.id
+    const document = await Dealerships.find({id})
+    res.json(document)
+
+  } catch (error) {
+    res.status(500).json({error: "Error fetching documents"})
+  }
 });
 
 //Express route to insert review
