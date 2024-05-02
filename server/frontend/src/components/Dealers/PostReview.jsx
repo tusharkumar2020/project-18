@@ -80,8 +80,9 @@ const PostReview = () => {
       method: "GET"
     });
     const retobj = await res.json();
+    console.log(retobj)
     
-    let carmodelsarr = Array.from(retobj.CarModels)
+    let carmodelsarr = retobj && Array.from(retobj.CarModel)
     setCarmodels(carmodelsarr)
   }
   useEffect(() => {
@@ -107,7 +108,7 @@ const PostReview = () => {
           <option value={carmodel.CarMake+" "+carmodel.CarModel}>{carmodel.CarMake} {carmodel.CarModel}</option>
       ))}
       </select>        
-      </div >
+      </div>
 
       <div className='input_field'>
       Car Year <input type="int" onChange={(e) => setYear(e.target.value)} max={2023} min={2015}/>
