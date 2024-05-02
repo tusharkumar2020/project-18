@@ -21,10 +21,10 @@ const Dealerships = require('./dealership');
 
 try {
   Reviews.deleteMany({}).then(() => {
-    Reviews.insertMany(reviews_data['reviews']);
+    Reviews.insertMany(reviews_data.reviews);
   });
   Dealerships.deleteMany({}).then(() => {
-    Dealerships.insertMany(dealerships_data['dealerships']);
+    Dealerships.insertMany(dealerships_data.dealerships);
   });
 } catch (error) {
   res.status(500).json({ error: 'Error fetching documents' });
@@ -95,10 +95,11 @@ app.get('/fetchDealer/:id', async (req, res) => {
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
   data = JSON.parse(req.body);
   const documents = await Reviews.find().sort({ id: -1 });
-  let new_id = documents[0]['id'] + 1;
+  let new_id = documents[0].id + 1;
 
   const review = new Reviews({
     id: new_id,
+    /* jshint ignore:start */
     name: data['name'],
     dealership: data['dealership'],
     review: data['review'],
@@ -107,6 +108,7 @@ app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
     car_make: data['car_make'],
     car_model: data['car_model'],
     car_year: data['car_year'],
+    /* jshint ignore:end */
   });
 
   try {
