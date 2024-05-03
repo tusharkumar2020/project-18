@@ -6,9 +6,33 @@
   <link rel="stylesheet" href="static/bootstrap.min.css">
 <script>
 
-const logout = async (e) => {
-//Include the code for logout here.
+const logout = async () => {
+    try {
+        const response = await fetch('/djangoapp/logout', {// 修改路径以匹配 Django 路由配置
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+        });
+        if (response.ok) {
+            let username = sessionStorage.getItem('username');  // 在移除前先读取用户名
+            sessionStorage.removeItem("username");
+            document.getElementById("loginlogout").innerHTML = 
+                '<a class="homepage_links" href="/login">Login</a>' +
+                '<a class="homepage_links" href="/register">Register</a>';
+            window.location.href = '/login/';  // 重定向到登录页面
+            alert("Logging out " + username + "...");
+        } else {
+            throw new Error('Logout failed');
+        }
+    } catch (error) {
+        console.error('Error logging out:', error);
+        alert('Error logging out. Please try again.');
+    }
 };
+//const logout = async (e) => {
+//Include the code for logout here.
+//};
 
 let checkSession = ()=>{
   let curr_user = sessionStorage.getItem("username");
