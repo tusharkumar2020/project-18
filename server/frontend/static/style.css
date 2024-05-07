@@ -124,3 +124,21 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+
+.parent {
+  display: grid;
+  place-items: center;
+  width: 100vh;
+}
+
+.card {
+  width: clamp(23ch, 60%, 46ch);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.visual {
+    height: 125px;
+    width: 100%;
+  }
