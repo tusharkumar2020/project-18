@@ -1,17 +1,86 @@
+/* Set global font family */
+body {
+    font-family: 'Poppins', 'Roboto', sans-serif;
+}
 img{
   width: 60%;
   align-self: center;
 }
 
-.card{
-  border: rgb(103, 102, 105) 3px solid;
-  display: flex;  
-  flex-direction: column;
-  margin-left:5%;
-  margin-right:5%;
-  margin-top: 1%;
-  margin-bottom: 1%;
-}
+.card {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.5); /* White with 50% transparency */
+    /*border: rgb(103, 102, 105) 3px solid;*/
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+
+  /**/
+  .main-card {
+    width: 80%;
+    margin: auto;
+    margin-top: 1%;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    padding: 20px;
+    padding-bottom: 5px;
+    border-radius: 8px;
+  }
+  
+  .about-header {
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent black background for the header */
+    padding: 20px;
+    margin-bottom: 40px;
+  }
+  
+  h1 {
+    color: #ffffff;
+  }
+  
+  .executive-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: auto;
+  }
+  
+  .card {
+    width: 60%;
+    background-color: transparent;
+    border: none;
+  }
+  
+  .card-img-top {
+    height: 240px;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black for readability */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .title, .subtitle {
+    font-weight: bold;
+    font-size: larger;
+  }
+  
+  .card-text {
+    font-size: smaller;
+    margin-top: 5px;
+  }
+  
+  /**/
+
+ 
 
 .row{
   display: flex;  
@@ -41,24 +110,60 @@ img{
   padding:5px;
 }
 
-.homepage_links{
-  color:  rgb(97, 64, 128);
-  padding: 25%;
-  font-size: larger;
+.homepage_links {
+    color: white !important; /* Makes text color white and ensures it has priority */
+    padding: 25%; /* You might want to adjust this if it's causing layout issues */
+    font-size: larger;
   }
-
+  
 .loginlink{
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
 
-.banner{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex:1
+.banner {
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.9); /* Transparent black background */
+    padding: 20px; /* Adds some padding inside the banner */
+    border-radius: 8px; /* Optional: adds rounded corners for a smoother look */
+}
+.banner2 {
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.7); /* Transparent black background */
+    padding: 20px; /* Adds some padding inside the banner */
+    border-radius: 8px; /* Optional: adds rounded corners for a smoother look */
+}
+
+
+.banner .btn {
+    color: white; /* White text color */
+    background-color: black !important ; /* Black background */
+    border: 2px solid white; /* 1px solid white border */
+    padding: 10px 20px; /* Padding inside the button, adjust to your liking */
+    text-decoration: none; /* Removes underline from the link */
+    font-size: 16px; /* Adjust font size as needed */
+    
+}
+.banner .btn:hover {
+    background-color: rgb(150, 150, 194); /* Lighter or different color on hover */
+    color: rgb(236, 234, 234); /* Optional: change text color on hover */
+    cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
+}
+
+.banner .btn:active {
+    background-color: darkgrey; /* Darker color when the button is clicked */
+    color: white; /* Text color when clicked */
 }
 
 .form_panel {
@@ -74,6 +179,18 @@ img{
   margin-top:3%;
   background-color: black;
 }
+/* Targeting navigation links in the navbar */
+.navbar-light .navbar-nav .nav-link {
+    color: white !important; /* Ensures this color styling takes priority over Bootstrap's defaults */
+}
+
+/* To ensure the active link is also white */
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+    color: white !important;
+    background-color: transparent; /* Optional: changes background on hover or when active */
+}
 
 .navitems{
   display: flex;
@@ -87,7 +204,7 @@ img{
 .nav_item{
   margin-left:15px;
   font-size: 20px;
-  color: black;
+  color: white;
   align-self: center;
 }
 
@@ -124,3 +241,70 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+/*added 080524------- STYLING PAGE */
+.home-background {
+    background-image: url('/static/car_dealership2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    min-height: 100vh; /* This ensures that the background stretches to at least the full height of the viewport */
+}
+.contact-background {
+    background-image: url('/static/dealership-backgroundv2-30opac.jpg'); /* Link to your background image */
+    background-size: cover; /* Cover the entire body */
+    background-position: center; /* Center the background image */
+    color: white; /* Ensuring text is readable on potentially dark backgrounds */
+  }
+.about-background {
+    background-image: url('/static/dealership-backgroundv2-30opac.jpg'); /* Link to your background image */
+    background-size: cover; /* Cover the entire body */
+    background-position: center; /* Center the background image */
+    color: white; /* Ensuring text is readable on potentially dark backgrounds */
+  }
+  
+  table {
+    background: rgba(0, 0, 0, 0.8); /* Add a semi-transparent black background to the table for readability */
+  }
+  
+  th, td {
+    color: white; /* Change text color to white for visibility */
+  }
+
+  /* Apply a max-width and auto margins to center the section and footer */
+ .section-centered {
+    max-width: 800px; /* or whatever maximum width you prefer */
+    margin: 0 auto; /* this centers the section in the middle of the page */
+    padding: 2% 5%; /* adjust padding as needed */
+    text-align: center;
+    margin-top: 10%;
+  }
+  
+  .footer-centered {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .footer-centered p{
+    font-weight: 700;
+
+  }
+/*making the text more readble with black transparency*/
+.section-centered h1,
+.section-centered h2,
+.section-centered p {
+  background-color: rgba(0, 0, 0, 0.6); /* Black with 60% opacity */
+  padding: 10px; /* Add some padding to give space around the text */
+  border-radius: 8px; /* Optional: adds rounded corners for a smoother look */
+}
+.content-wrapper {
+    margin-top: 25%;
+    flex: 1; /* Takes up all available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes the banner to the bottom */
+}
+
+  

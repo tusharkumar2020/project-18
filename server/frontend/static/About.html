@@ -1,11 +1,20 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <!-- Link the style sheet here -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <title>About Us - Best Cars</title>
 </head>
+
+<body class="about-background">
 <div>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkblue; height: 1in;">
     <div class="container-fluid">
-      <h2 style="padding-right: 5%;">Dealerships</h2>
+      <h2 style="padding-right: 5%; color:white;">Best Cars</h2>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -25,44 +34,45 @@
     </div>
   </nav>
   
-    <div class="card" style="width: 80%;margin: auto; margin-top:5%;">
-      <div class="banner" name="about-header">
-      <!-- Insert header information here -->
-      </div>
-      <div style="display: flex;flex-direction: row; margin:auto">
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
+  <div class="card main-card">
+    <div class="banner2 about-header">
+      <h1>About Us</h1>
+      <p>Welcome to Best Cars dealership, home to the finest cars in North America. We specialize in the sale of both domestic and imported cars at reasonable prices.</p>
+    </div>
+    <div class="executive-cards">
+      <div class="card">
+        <img class="card-img-top" src="/static/executive-1.jpg" alt="Executive 1">
         <div class="card-body">
-          <p class="title">Person1</p>
-          <p>Person1 Title</p>
-          <p class="card-text">Some text that explains the person1 in about 2 short sentences</p>
-          <p>person1@example.com</p>
+          <h5 class="title">John Doe</h5>
+          <p class="subtitle">CEO</p>
+          <p class="card-text">John leads our team with over 20 years of experience in the automotive industry, driving innovation and customer satisfaction.</p>
+          <p>john.doe@bestcars.com</p>
         </div>
       </div>
-
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
+  
+      <div class="card">
+        <img class="card-img-top" src="/static/executive-2.jpg" alt="Executive 2">
         <div class="card-body">
-          <p class="title">Person2</p>
-          <p>Person2 Title</p>
-          <p class="card-text">Some text that explains the person2 in about 2 short sentences</p>
-          <p>person2@example.com</p>
+          <h5 class="title">Jane Smith</h5>
+          <p class="subtitle">CFO</p>
+          <p class="card-text">Jane manages our financial strategy, ensuring sustainable growth and exceptional value to our stakeholders.</p>
+          <p>jane.smith@bestcars.com</p>
         </div>
       </div>
-
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
+  
+      <div class="card">
+        <img class="card-img-top" src="/static/executive-3.jpg" alt="Executive 3">
         <div class="card-body">
-          <p class="title">Person3</p>
-          <p>Person3 Title</p>
-          <p class="card-text">Some text that explains the person3 in about 2 short sentences</p>
-          <p>person3@example.com</p>
+          <h5 class="title">Colt Steele</h5>
+          <p class="subtitle">COO</p>
+          <p class="card-text">Colt oversees operations, with a keen focus on optimizing our supply chain and operational efficiency.</p>
+          <p>emily.white@bestcars.com</p>
         </div>
       </div>
     </div>
-    </div>
-    </div>
+  </div>
+  
     
 </div>
-
+</body>
 </html>
