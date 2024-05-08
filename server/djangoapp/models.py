@@ -51,4 +51,5 @@ class CarModel(models.Model):
     #                               ])
     
     def __str__(self):
-        return "Model: " + {self.name}
+        return "Model: " + self.name
+    
