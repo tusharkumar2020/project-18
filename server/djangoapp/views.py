@@ -15,7 +15,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
-from .restapis import get_request
+from .restapis import get_request, analyze_review_sentiments, post_review
 
 
 def get_cars(request):
@@ -100,13 +100,48 @@ def get_dealerships(request, state="All"):
     return JsonResponse({"status":200,"dealers":dealerships})
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
-# def get_dealer_reviews(request,dealer_id):
-# ...
+def get_dealer_reviews(request,dealer_id):
+    if (dealer_id):
+        endpoint = "/fetchReviews/dealer/" + str(dealer_id)
+        reviews = get_request(endpoint)
+        for review_detail in reviews:
+            response = analyze_review_sentiments(review_detail['review'])
+            print(response)
+            review_detail['sentiment'] = response['sentiment']
+        return JsonResponse({"status": 200,"reviews": reviews})
+    else:
+        return JsonResponse({"status": 400, "message" : "Enter a valid ID"})
+
+
+    
+
 
 # Create a `get_dealer_details` view to render the dealer details
-# def get_dealer_details(request, dealer_id):
-# ...
+def get_dealer_details(request, dealer_id):
+    if (dealer_id):
+        endpoint = "/fetchDealer/" + str(dealer_id)
+        dealership = get_request(endpoint)
+        return JsonResponse({"status": 200,"dealer":dealership})
+    else:
+        return JsonResponse({"status": 400, "message" : "Enter a valid ID"})
 
 # Create a `add_review` view to submit a review
-# def add_review(request):
-# ...
+# 定义 Django 视图函数 add_review，接受一个 HttpRequest 对象作为参数
+def add_review(request):
+    # 检查当前用户是否已经登录，使用 Django 内置的 user 对象的 is_anonymous 属性判断
+    if(request.user.is_anonymous == False):  # 如果用户已登录
+        # 从请求体中解析 JSON 数据
+        data = json.loads(request.body)
+        try:
+            # 尝试通过 post_review 函数将解析得到的数据发送到指定的后端服务
+            response = post_review(data)
+            # 如果调用成功，返回一个 JsonResponse 对象，状态码为 200，表示成功处理
+            return JsonResponse({"status": 200})
+        except:
+            # 如果在 post_review 过程中发生异常，返回一个 JsonResponse 对象，状态码为 401，带有错误信息
+            return JsonResponse({"status": 401, "message": "Error in posting review"})
+    else:
+        # 如果用户未登录，返回一个 JsonResponse 对象，状态码为 403，表示未授权访问
+        return JsonResponse({"status": 403, "message": "Unauthorized"})
+
+
