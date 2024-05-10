@@ -67,8 +67,10 @@ const Register = () => {
           <hr/>
         </div>
 
+        {/* 表单元素，调用 register 函数处理提交 */}
         <form onSubmit={register}>
         <div className="inputs">
+          {/* 每个输入框都有一个图标和一个对应的状态管理器 */}
           <div className="input">
             <img src={user_icon} className="img_icon" alt='Username'/>
             <input type="text"  name="username" placeholder="Username" className="input_field" onChange={(e) => setUserName(e.target.value)}/>
