@@ -100,6 +100,7 @@ app.get('/fetchDealer/:id', async (req, res) => {
   }
   try {
     const dealer = await Dealerships.findOne({ id: id });//id 字段不是 MongoDB 自动生成的 _id，则需要使用 findOne() 方法来进行查询
+    //const dealer = await Dealerships.findById(id);
     if (dealer){
       res.json(dealer);
     } else {
