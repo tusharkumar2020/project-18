@@ -17,8 +17,11 @@ from .populate import initiate
 from .models import CarMake, CarModel
 from .restapis import get_request, analyze_review_sentiments, post_review
 
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 def get_cars(request):
+    logger.info("Fetching all car models and makes.")
     count = CarMake.objects.filter().count()
     print(count)
     if(count == 0):
@@ -27,23 +30,17 @@ def get_cars(request):
     cars = []
     for car_model in car_models:
         cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
+    logger.debug(f"Car models fetched: {cars}")
     return JsonResponse({"CarModels":cars})
 
-
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
-
-
-# Create your views here.
-
-# Create a `login_request` view to handle sign in request
 @csrf_exempt
 def login_user(request):
+    logger.info("Handling user login.")
     # Get username and password from request.POST dictionary
     data = json.loads(request.body)
     username = data['userName']
     password = data['password']
-    # Try to check if provide credential can be authenticated
+    # Try to check if provided credential can be authenticated
     user = authenticate(username=username, password=password)
     response_data = {"userName": username}
     if user is not None:
@@ -51,24 +48,22 @@ def login_user(request):
         login(request, user)
         response_data['status'] = "Authenticated"
         response_data['message'] = "Login successful."
-        #logger.info(f"User{username} logged in successfully.")
-        #data = {"userName": username, "status": "Authenticated"}
+        logger.info(f"User {username} logged in successfully.")
     else:
         response_data['status'] = "Failed"
         response_data['message'] = "Login failed. Check username and password."
+        logger.warning(f"Failed login attempt for {username}.")
     return JsonResponse(response_data)
 
-
-
-# Create a `logout_request` view to handle sign out request
 def logout_request(request):
+    username = request.user.username  # Capture username before logout
     logout(request)
-    data = {"userName":""}
-    return JsonResponse(data)
+    logger.info(f"User {username} logged out.")
+    return JsonResponse({"userName": ""})
 
-# Create a `registration` view to handle sign up request
 @csrf_exempt
 def registration(request):
+    logger.info("Handling new user registration.")
     data = json.loads(request.body)
     username = data['userName']
     password = data['password']
@@ -77,71 +72,63 @@ def registration(request):
     email = data['email']
 
     if User.objects.filter(username=username).exists():
-        return JsonResponse({"userName": username, "error": "Username a already registered"},status=409)
+        logger.warning(f"Attempt to re-register existing username: {username}")
+        return JsonResponse({"userName": username, "error": "Username already registered"}, status=409)
     if User.objects.filter(email=email).exists():
-        return JsonResponse({"email":email,"error":"Email already registered"},status=409)
+        logger.warning(f"Attempt to register with existing email: {email}")
+        return JsonResponse({"email": email, "error": "Email already registered"}, status=409)
     
     user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
-    login(request,user)
+    login(request, user)
+    logger.info(f"User {username} registered and logged in.")
     return JsonResponse({"userName": username, "status": "Authenticated"}, status=201)
 
-
-# # Update the `get_dealerships` view to render the index page with
-# a list of dealerships
-# def get_dealerships(request):
-#Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
 def get_dealerships(request, state="All"):
+    logger.info(f"Fetching dealership data for state: {state}")
     if(state == "All"):
         endpoint = "/fetchDealers"
     else:
-        endpoint = "/fetchDealers/"+state
-    # endpoint = "/fetchDealers" if state == "All" else "/fetchDealers/" + state
+        endpoint = "/fetchDealers/" + state
     dealerships = get_request(endpoint)
     return JsonResponse({"status":200,"dealers":dealerships})
 
-# Create a `get_dealer_reviews` view to render the reviews of a dealer
-def get_dealer_reviews(request,dealer_id):
-    if (dealer_id):
+def get_dealer_reviews(request, dealer_id):
+    logger.info(f"Fetching reviews for dealer ID: {dealer_id}")
+    if dealer_id:
         endpoint = "/fetchReviews/dealer/" + str(dealer_id)
         reviews = get_request(endpoint)
         for review_detail in reviews:
             response = analyze_review_sentiments(review_detail['review'])
             print(response)
             review_detail['sentiment'] = response['sentiment']
-        return JsonResponse({"status": 200,"reviews": reviews})
+        return JsonResponse({"status": 200, "reviews": reviews})
     else:
-        return JsonResponse({"status": 400, "message" : "Enter a valid ID"})
+        logger.error("Invalid dealer ID provided for fetching reviews.")
+        return JsonResponse({"status": 400, "message": "Enter a valid ID"})
 
-
-    
-
-
-# Create a `get_dealer_details` view to render the dealer details
 def get_dealer_details(request, dealer_id):
-    if (dealer_id):
+    logger.info(f"Fetching details for dealer ID: {dealer_id}")
+    if dealer_id:
         endpoint = "/fetchDealer/" + str(dealer_id)
         dealership = get_request(endpoint)
-        return JsonResponse({"status": 200,"dealer":dealership})
+        return JsonResponse({"status": 200, "dealer": dealership})
     else:
-        return JsonResponse({"status": 400, "message" : "Enter a valid ID"})
+        logger.error("Invalid dealer ID provided for fetching details.")
+        return JsonResponse({"status": 400, "message": "Enter a valid ID"})
 
-# Create a `add_review` view to submit a review
-# 定义 Django 视图函数 add_review，接受一个 HttpRequest 对象作为参数
 def add_review(request):
-    # 检查当前用户是否已经登录，使用 Django 内置的 user 对象的 is_anonymous 属性判断
-    if(request.user.is_anonymous == False):  # 如果用户已登录
-        # 从请求体中解析 JSON 数据
+    if not request.user.is_anonymous:
         data = json.loads(request.body)
+        logger.info(f"Adding review by user: {request.user.username}")
         try:
-            # 尝试通过 post_review 函数将解析得到的数据发送到指定的后端服务
             response = post_review(data)
-            # 如果调用成功，返回一个 JsonResponse 对象，状态码为 200，表示成功处理
             return JsonResponse({"status": 200})
-        except:
-            # 如果在 post_review 过程中发生异常，返回一个 JsonResponse 对象，状态码为 401，带有错误信息
+        except Exception as e:
+            logger.error(f"Error posting review: {e}")
             return JsonResponse({"status": 401, "message": "Error in posting review"})
     else:
-        # 如果用户未登录，返回一个 JsonResponse 对象，状态码为 403，表示未授权访问
+        logger.warning("Unauthorized attempt to post review.")
         return JsonResponse({"status": 403, "message": "Unauthorized"})
+
 
 
