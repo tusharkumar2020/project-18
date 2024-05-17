@@ -38,5 +38,14 @@ request_url = sentiment_analyzer_url+"analyze/"+text
         print(f"Unexpected {err=}, {type(err)=}")
         print("Network exception occurred")
 
-# def post_review(data_dict):
+def post_review(data_dict):
+    def post_review(data_dict):
+    request_url = backend_url+"/insert_review"
+    try:
+        response = requests.post(request_url,json=data_dict)
+        print(response.json())
+        return response.json()
+    except:
+        print("Network exception occurred")
+        
 # Add code for posting review
