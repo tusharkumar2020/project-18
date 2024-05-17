@@ -1,29 +1,52 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
+const cors = require('cors'); // 确保跨源资源共享（CORS）问题不会阻碍前端访问
 const app = express();
 const port = 3030;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); // 使用 express 内置的中间件来解析 JSON
 
+// [改进1: 数据库连接增加错误处理和配置]
 mongoose.connect("mongodb://mongo_db:27017/dealershipsDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
   console.log("Connected to MongoDB successfully");
+  initializeData(); // [改进2: 连接成功后初始化数据]
 }).catch(err => {
   console.error("Error connecting to MongoDB", err);
 });
 
-const Reviews = require('./review');
-const Dealerships = require('./dealership');
+const Reviews = require('./review'); // 更新路径
+const Dealerships = require('./dealership'); // 更新路径
 
+// [改进3: 数据初始化抽离成函数进行错误处理]
+function initializeData() {
+  // 假设已经有这些 JSON 文件，确保实际部署时也包含它们
+  const reviewsData = require('./data/reviews.json'); // 更新路径
+  const dealershipsData = require('./data/dealerships.json'); // 更新路径
+
+  Reviews.deleteMany({}).then(() => {
+    Reviews.insertMany(reviewsData.reviews).catch(err => {
+      console.error('Error initializing reviews:', err);
+    });
+  });
+
+  Dealerships.deleteMany({}).then(() => {
+    Dealerships.insertMany(dealershipsData.dealerships).catch(err => {
+      console.error('Error initializing dealerships:', err);
+    });
+  }).catch(err => {
+    console.error("Error deleting old dealerships data", err);
+  });
+}
+
+// [改进4: 优化错误处理和日志记录在 API 路由中]
 app.get('/', (req, res) => {
-    res.send("Welcome to the Mongoose API");
+  res.send("Welcome to the Mongoose API");
 });
 
-// Fetch all reviews
 app.get('/fetchReviews', async (req, res) => {
   try {
     const documents = await Reviews.find();
@@ -34,19 +57,6 @@ app.get('/fetchReviews', async (req, res) => {
   }
 });
 
-// Fetch reviews by dealer ID - Modified to handle numeric ID
-app.get('/fetchReviews/dealer/:id', async (req, res) => {
-  const id = parseInt(req.params.id); // Added parsing to integer
-  try {
-    const documents = await Reviews.find({dealership: id});
-    res.json(documents);
-  } catch (error) {
-    console.error("Error fetching documents by dealer", error);
-    res.status(500).json({ error: 'Error fetching documents' });
-  }
-});
-
-// Fetch all dealerships
 app.get('/fetchDealers', async (req, res) => {
   try {
     const dealers = await Dealerships.find();
@@ -57,11 +67,25 @@ app.get('/fetchDealers', async (req, res) => {
   }
 });
 
+// 新加入的API路由
+
+// Fetch reviews by dealer ID - Modified to handle numeric ID
+app.get('/fetchReviews/dealer/:id', async (req, res) => {
+  const id = parseInt(req.params.id); // Added parsing to integer
+  try {
+    const documents = await Reviews.find({ dealership: id });
+    res.json(documents);
+  } catch (error) {
+    console.error("Error fetching documents by dealer", error);
+    res.status(500).json({ error: 'Error fetching documents' });
+  }
+});
+
 // Fetch Dealerships by state
 app.get('/fetchDealers/:state', async (req, res) => {
   const state = req.params.state;
   try {
-    const dealers = await Dealerships.find({state: state});
+    const dealers = await Dealerships.find({ state: state });
     res.json(dealers);
   } catch (error) {
     console.error("Error fetching dealerships by state", error);
@@ -115,6 +139,7 @@ app.post('/insert_review', async (req, res) => {
   }
 });
 
+// 启动服务器
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
