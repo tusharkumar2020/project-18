@@ -110,7 +110,9 @@ def get_dealer_details(request, dealer_id):
     logger.info(f"Fetching details for dealer ID: {dealer_id}")
     if dealer_id:
         endpoint = "/fetchDealer/" + str(dealer_id)
+        logger.info(f"Requesting endpoint: {endpoint}")# 增加日志记录
         dealership = get_request(endpoint)
+        logger.info(f"Received dealership data: {dealership}")  # 增加日志记录
         return JsonResponse({"status": 200, "dealer": dealership})
     else:
         logger.error("Invalid dealer ID provided for fetching details.")

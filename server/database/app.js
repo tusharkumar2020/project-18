@@ -96,6 +96,7 @@ app.get('/fetchDealers/:state', async (req, res) => {
 // Fetch dealer details by ID - Modified to match numeric ID
 app.get('/fetchDealer/:id', async (req, res) => {
   const id = parseInt(req.params.id); // Added parsing to integer
+  console.log(`Fetching dealer with ID: ${id}`);// Log dealer ID
   if (!id) {
     return res.status(400).json({ error: 'ID parameter is required and must be a number' });
   }

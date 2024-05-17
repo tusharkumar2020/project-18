@@ -17,16 +17,18 @@ def get_request(endpoint, **kwargs):
         for key,value in kwargs.items():
             params=params+key+"="+value+"&"
 
-    request_url = backend_url+endpoint+"?"+params
+    request_url = backend_url + endpoint + "?" + params
 
     print("GET from {} ".format(request_url))
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
+        response.raise_for_status()# 检查请求是否成功
         return response.json()
-    except:
+    except requests.exceptions.RequestException as e:
         # If any error occurs
-        print("Network exception occurred")
+        print(f"Network exception occurred: {e}")
+        return None
 # Add code for get requests to back end
 
 def analyze_review_sentiments(text):
@@ -34,6 +36,7 @@ def analyze_review_sentiments(text):
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
+        response.raise_for_status()# 检查请求是否成功
         return response.json()
     except Exception as err:
         print(f"Unexpected {err=}, {type(err)=}")
@@ -44,6 +47,7 @@ def post_review(data_dict):
     request_url = backend_url + "/insert_review"
     try:
         response = requests.post(request_url,json=data_dict)#data_dict作为载荷也就是需要推送的数据
+        response.raise_for_status()# 检查请求是否成功
         response_data = response.json()
         print(response_data)
         return response_data
