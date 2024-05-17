@@ -10,7 +10,6 @@ import Header from '../Header/Header';
 
 const Dealer = () => {
 
-
   const [dealer, setDealer] = useState({});
   const [reviews, setReviews] = useState([]);
   const [unreviewed, setUnreviewed] = useState(false);
@@ -76,7 +75,7 @@ return(
       </div>
       <div class="reviews_panel">
       {reviews.length === 0 && unreviewed === false ? (
-        <text>Loading Reviews....</text>
+        <text></text>
       ):  unreviewed === true? <div>No reviews yet! </div> :
       reviews.map(review => (
         <div className='review_panel'>
