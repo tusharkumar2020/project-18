@@ -32,7 +32,18 @@ const Dealers = () => {
     });
     const retobj = await res.json();
     if(retobj.status === 200) {
-      let all_dealers = Array.from(retobj.dealers)
+      //Array.from(retobj.dealers)
+      let all_dealers = [{"id": 5,
+                          "city": "Baltimore",
+                          "state": "Maryland",
+                          "st": "MD",
+                          "address": "93 Golf Course Pass",
+                          "zip": "21203",
+                          "lat": 39.2847,
+                          "long": -76.6205,
+                          "short_name": "Regrant",
+                          "full_name": "Regrant Car Dealership"
+                        }
       let states = [];
       all_dealers.forEach((dealer)=>{
         states.push(dealer.state)
