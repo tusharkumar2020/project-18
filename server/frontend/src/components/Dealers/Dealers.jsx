@@ -43,7 +43,7 @@ const Dealers = () => {
                           "long": -76.6205,
                           "short_name": "Regrant",
                           "full_name": "Regrant Car Dealership"
-                        }
+                        }];
       let states = [];
       all_dealers.forEach((dealer)=>{
         states.push(dealer.state)
