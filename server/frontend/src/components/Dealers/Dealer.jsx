@@ -15,11 +15,11 @@ const Dealer = () => {
   const [unreviewed, setUnreviewed] = useState(false);
   const [postReview, setPostReview] = useState(<></>)
 
-  let curr_url = window.location.href;
-  let root_url = curr_url.substring(0,curr_url.indexOf("dealer"));
-  let params = useParams();
-  let id =params.id;
-  let dealer_url = root_url+`djangoapp/dealer/${id}`;
+  let curr_url    = window.location.href;
+  let root_url    = curr_url.substring(0,curr_url.indexOf("dealer"));
+  let params      = useParams();
+  let id          = params.id;
+  let dealer_url  = root_url+`djangoapp/dealer/${id}`;
   let reviews_url = root_url+`djangoapp/reviews/dealer/${id}`;
   let post_review = root_url+`postreview/${id}`;
   
@@ -58,35 +58,39 @@ const Dealer = () => {
   useEffect(() => {
     get_dealer();
     get_reviews();
-    //if(sessionStorage.getItem("username")) {
+    if(sessionStorage.getItem("username")) {
       setPostReview(<a href={post_review}><img src={review_icon} style={{width:'10%',marginLeft:'10px',marginTop:'10px'}} alt='Post Review'/></a>)
+    }
+    
+    get_dealer();
+    get_reviews();
+    let icon = "positive";
+    setPostReview(<a href={post_review}><img src={review_icon} style={{width:'10%',marginLeft:'10px',marginTop:'10px'}} alt='Post Review'/></a>);
 
-      
-    //}
-  },[]);  
+
+
+
+},[]);  
 
 
 return(
   <div style={{margin:"20px"}}>
       <Header/>
       <div style={{marginTop:"10px"}}>
-      <h1 style={{color:"grey"}}>{'Fix San Car Dealership'}{postReview}</h1>
-      <h4  style={{color:"grey"}}>{"San Fancisco"},{dealer['']}, Zip - {'94110'}, {'California'} </h4>
+        <h1 style={{color:"grey"}}>{'Fix San Car Dealership'}{postReview}</h1>
+        <h4  style={{color:"grey"}}>{"San Fancisco"},{' 93 Golf Course Pass'}, Zip - {'94110'}, {'California'} </h4>
       </div>
       <div class="reviews_panel">
-      {reviews.length === 0 && unreviewed === false ? (
-        <text></text>
-      ):  unreviewed === true? <div>No reviews yet! </div> :
-      reviews.map(review => (
         <div className='review_panel'>
-          <img src={senti_icon(review.sentiment)} className="emotion_icon" alt='Sentiment'/>
-          <div className='review'>{review.review}</div>
-          <div className="reviewer">{review.name} {review.car_make} {review.car_model} {review.car_year}</div>
+            <img class='review_img' src={neutral_icon} className="emotion_icon" alt='Sentiment'/>
+            <div class='review_review'>Expanded global groupware</div>
+            <div class='review_reviewee'>Lion Reames Mazda MX-5 2003</div>
         </div>
-      ))}
+      
     </div>  
   </div>
 )
 }
 
 export default Dealer
+
