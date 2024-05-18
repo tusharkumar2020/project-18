@@ -23,6 +23,7 @@ const Dealer = () => {
 
   // 2. 异步获取经销商信息
   const get_dealer = async () => {
+    console.log(`Fetching dealer data from: ${dealer_url}`);
     try {
       const response = await fetch(dealer_url);
       const result = await response.json();
@@ -41,6 +42,7 @@ const Dealer = () => {
 
   // 4. 异步获取评论信息
   const get_reviews = async () => {
+    console.log(`Fetching reviews data from: ${reviews_url}`);
     try {
       const response = await fetch(reviews_url);
       const result = await response.json();

@@ -16,6 +16,7 @@ const Dealers = () => {
  
   const filterDealers = async (state) => {
     dealer_url_by_state = dealer_url_by_state+state;
+    console.log(`Filtering dealers by state from: ${dealer_url_by_state}`);
     const res = await fetch(dealer_url_by_state, {
       method: "GET"
     });
@@ -27,6 +28,7 @@ const Dealers = () => {
   }
 
   const get_dealers = async ()=>{
+    console.log(`Fetching all dealers from: ${dealer_url}`);
     const res = await fetch(dealer_url, {
       method: "GET"
     });
@@ -77,7 +79,11 @@ return(
      {dealersList.map(dealer => (
         <tr>
           <td>{dealer['id']}</td>
-          <td><a href={'/dealer/'+dealer['id']}>{dealer['full_name']}</a></td>
+          <td>
+            <a href={`/dealer/${dealer['id']}`} onClick={() => console.log(`Navigating to: /dealer/${dealer['id']}`)}>
+              {dealer['full_name']}
+            </a>
+          </td>
           <td>{dealer['city']}</td>
           <td>{dealer['address']}</td>
           <td>{dealer['zip']}</td>
