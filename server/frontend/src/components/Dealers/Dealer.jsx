@@ -77,14 +77,19 @@ return(
   <div style={{margin:"20px"}}>
       <Header/>
       <div style={{marginTop:"10px"}}>
-        <h1 style={{color:"grey"}}>{'Fix San Car Dealership'}{postReview}</h1>
-        <h4  style={{color:"grey"}}>{"San Fancisco"},{' 93 Golf Course Pass'}, Zip - {'94110'}, {'California'} </h4>
+        <h1 style={{color:"grey"}}>{'Regrant Car Dealersip'}{postReview}</h1>
+        <h4  style={{color:"grey"}}>{"Baltimore"},{'93 Golf Course Pass'}, Zip - {'21203'}, {'Baltimore'} </h4>
       </div>
       <div class="reviews_panel">
         <div className='review_panel'>
-            <img class='review_img' src={neutral_icon} className="emotion_icon" alt='Sentiment'/>
-            <div class='review_review'>Expanded global groupware</div>
-            <div class='review_reviewee'>Lion Reames Mazda MX-5 2003</div>
+            <img class='review_img' src={positive_icon} className="emotion_icon" alt='Sentiment'/>
+            <div class='review_review'>Total grid-enabled service-desk</div>
+            <div class='review_reviewee'>Berkly Shepley Audi A6 2010"</div>
+        </div>
+        <div className='review_panel'>
+            <img class='review_img' src={positive_icon} className="emotion_icon" alt='Sentiment'/>
+            <div class='review_review'>Excellent Dealership. Highly Recommended.</div>
+            <div class='review_reviewee'>Jauvhree NISSAN XTRAIL 2023</div>
         </div>
       
     </div>  
@@ -93,4 +98,3 @@ return(
 }
 
 export default Dealer
-
