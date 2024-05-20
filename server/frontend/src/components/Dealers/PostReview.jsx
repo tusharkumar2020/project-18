@@ -27,7 +27,7 @@ const PostReview = () => {
     if(name.includes("null")) {
       name = sessionStorage.getItem("username");
     }
-    if(!model || review === "" || date === "" || year === "" || model === "") {
+    if(!model || review === "" || date === "" || year === "" ) {
       alert("All details are mandatory")
       return;
     }
@@ -69,9 +69,10 @@ const PostReview = () => {
     const retobj = await res.json();
     
     if(retobj.status === 200) {
-      let dealerobjs = Array.from(retobj.dealer)
-      if(dealerobjs.length > 0)
-        setDealer(dealerobjs[0])
+      setDealer(retobj.dealer);
+      //let dealerobjs = Array.from(retobj.dealer)
+      //if(dealerobjs.length > 0)
+        //setDealer(dealerobjs[0])
     }
   }
 
@@ -94,29 +95,28 @@ const PostReview = () => {
     <div>
       <Header/>
       <div  style={{margin:"5%"}}>
-      <h1 style={{color:"darkblue"}}>{dealer.full_name}</h1>
-      <textarea id='review' cols='50' rows='7' onChange={(e) => setReview(e.target.value)}></textarea>
-      <div className='input_field'>
-      Purchase Date <input type="date" onChange={(e) => setDate(e.target.value)}/>
-      </div>
-      <div className='input_field'>
-      Car Make 
-      <select name="cars" id="cars" onChange={(e) => setModel(e.target.value)}>
-      <option value="" selected disabled hidden>Choose Car Make and Model</option>
-      {carmodels.map(carmodel => (
-          <option value={carmodel.CarMake+" "+carmodel.CarModel}>{carmodel.CarMake} {carmodel.CarModel}</option>
-      ))}
-      </select>        
-      </div >
+        <h1 style={{color:"darkblue"}}>{dealer.full_name}</h1>
+        <textarea id='review' cols='50' rows='7' onChange={(e) => setReview(e.target.value)}></textarea>
+        <div className='input_field'>
+          Purchase Date <input type="date" onChange={(e) => setDate(e.target.value)}/>
+        </div>
+        <div className='input_field'>
+          Car Make 
+          <select name="cars" id="cars" onChange={(e) => setModel(e.target.value)}>
+            <option value="" selected disabled hidden>Choose Car Make and Model</option>
+            {carmodels.map(carmodel => (
+              <option key={carmodel.CarModel} value={carmodel.CarMake + " " + carmodel.CarModel}>{carmodel.CarMake} {carmodel.CarModel}</option>
+            ))}
+          </select>        
+        </div>
+        <div className='input_field'>
+          Car Year <input type="number" onChange={(e) => setYear(e.target.value)} max={2023} min={2015}/>
+        </div>
 
-      <div className='input_field'>
-      Car Year <input type="int" onChange={(e) => setYear(e.target.value)} max={2023} min={2015}/>
+        <div>
+          <button className='postreview' onClick={postreview}>Post Review</button>
+        </div>
       </div>
-
-      <div>
-      <button className='postreview' onClick={postreview}>Post Review</button>
-      </div>
-    </div>
     </div>
   )
 }

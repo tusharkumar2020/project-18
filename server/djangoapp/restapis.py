@@ -51,7 +51,8 @@ def post_review(data_dict):
         response_data = response.json()
         print(response_data)
         return response_data
-    except:
-        print("Network exception occurred")
+    except requests.exceptions.RequestException as e:  # 修改点：添加异常处理
+        print(f"Network exception occurred: {e}")
+        return None  # 修改点：在异常情况下返回 None
 
 # Add code for posting review

@@ -1,5 +1,4 @@
 # Uncomment the required imports before adding the code
-
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
@@ -20,18 +19,23 @@ from .restapis import get_request, analyze_review_sentiments, post_review
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
+@csrf_exempt
 def get_cars(request):
     logger.info("Fetching all car models and makes.")
-    count = CarMake.objects.filter().count()
-    print(count)
-    if(count == 0):
-        initiate()
-    car_models = CarModel.objects.select_related('car_make')
-    cars = []
-    for car_model in car_models:
-        cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
-    logger.debug(f"Car models fetched: {cars}")
-    return JsonResponse({"CarModels":cars})
+    try:
+        count = CarMake.objects.filter().count()
+        print(count)
+        if(count == 0):
+            initiate()
+        car_models = CarModel.objects.select_related('car_make')
+        cars = []
+        for car_model in car_models:
+            cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
+        logger.debug(f"Car models fetched: {cars}")
+        return JsonResponse({"CarModels":cars})
+    except Exception as e:
+        logger.error(f"Error fetching car models: {e}")
+        return JsonResponse({"CarModels": [], "error": "Failed to fetch car models"}, status=500)
 
 @csrf_exempt
 def login_user(request):
@@ -118,19 +122,24 @@ def get_dealer_details(request, dealer_id):
         logger.error("Invalid dealer ID provided for fetching details.")
         return JsonResponse({"status": 400, "message": "Enter a valid ID"})
 
+@csrf_exempt  # 修改点：添加 csrf_exempt 修饰器
 def add_review(request):
-    if not request.user.is_anonymous:
-        data = json.loads(request.body)
-        logger.info(f"Adding review by user: {request.user.username}")
-        try:
-            response = post_review(data)
-            return JsonResponse({"status": 200})
-        except Exception as e:
-            logger.error(f"Error posting review: {e}")
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+    if request.method == "POST":  # 修改点：添加请求方法检查
+        if not request.user.is_anonymous:
+            data = json.loads(request.body)
+            logger.info(f"Adding review by user: {request.user.username}")
+            try:
+                response = post_review(data)
+                return JsonResponse({"status": 200})
+            except Exception as e:
+                logger.error(f"Error posting review: {e}")
+                return JsonResponse({"status": 401, "message": "Error in posting review"})
+        else:
+            logger.warning("Unauthorized attempt to post review.")
+            return JsonResponse({"status": 403, "message": "Unauthorized"})
     else:
-        logger.warning("Unauthorized attempt to post review.")
-        return JsonResponse({"status": 403, "message": "Unauthorized"})
+        logger.error("Invalid request method for add_review.")  # 修改点：添加错误日志
+        return JsonResponse({"status": 405, "message": "Method Not Allowed"})  # 修改点：返回405状态码
 
 
 
