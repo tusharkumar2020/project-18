@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Dealers.css";
 import "../assets/style.css";
-import Header from '../Header/Header';
+import Header from '../Header/Header';// <--- 添加导入
 import review_icon from "../assets/reviewicon.png"
 
 const Dealers = () => {
@@ -84,9 +84,7 @@ return (
               ))}
             </select>
           </th>
-          {isLoggedIn && (
-            <th>Review Dealer</th>
-          )}
+          {isLoggedIn && (<th>Review Dealer</th>)}{/* <--- 修改行 */}
         </tr>
       </thead>
       <tbody>
