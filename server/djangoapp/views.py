@@ -21,17 +21,25 @@ from .restapis import get_request, analyze_review_sentiments, post_review
 logger = logging.getLogger(__name__)
 
 def get_cars(request):
-    logger.info("Fetching all car models and makes.")
-    count = CarMake.objects.filter().count()
-    print(count)
-    if(count == 0):
-        initiate()
-    car_models = CarModel.objects.select_related('car_make')
-    cars = []
-    for car_model in car_models:
-        cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
-    logger.debug(f"Car models fetched: {cars}")
-    return JsonResponse({"CarModels":cars})
+    try:
+        count = CarMake.objects.filter().count()
+        print(count)
+        if(count == 0):
+            logger.info("No CarMake records found, initiating data.")
+            initiate()
+
+        car_models = CarModel.objects.select_related('car_make')
+        cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} for car_model in car_models]
+        #for car_model in car_models:
+            #cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
+        logger.debug(f"Car models fetched: {cars}")
+        return JsonResponse({"CarModels":cars})
+    except Exception as e:
+        # 记录错误信息
+        logger.error(f"Error fetching car models: {e}", exc_info=True)
+        
+        # 返回错误响应
+        return JsonResponse({"CarModels": [], "error": "Failed to fetch car models"}, status=500)
 
 @csrf_exempt
 def login_user(request):

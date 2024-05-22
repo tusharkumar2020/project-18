@@ -1,6 +1,7 @@
 import React from 'react';
 import "../assets/style.css";
 import "../assets/bootstrap.min.css";
+import { Link } from 'react-router-dom'; // <--- 新增导入
 
 const Header = () => {
     const logout = async (e) => {
@@ -58,7 +59,7 @@ if ( curr_user !== null &&  curr_user !== "") {
                 </ul>
                 <span class="navbar-text">
                   <div class="loginlink" id="loginlogout">
-                  {home_page_items}
+                    {home_page_items} {/* <--- 修改了这一行 */}
                   </div>
                   </span>
               </div>
