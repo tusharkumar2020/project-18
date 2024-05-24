@@ -9,17 +9,11 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "eslint": "^9.3.0"
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "extends": "eslint:recommended",
-    "rules": {
-      "no-console": "off"
-    }
+  "dependencies": {
+    "eslint": "^9.3.0",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0"
   }
 }
