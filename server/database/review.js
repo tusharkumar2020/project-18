@@ -1,11 +1,13 @@
-var mongoose = require('mongoose');
+/* eslint-env es6 */
 
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-var reviews = new Schema({
+const Schema = mongoose.Schema;
+
+const reviews = new Schema({
   id: {
     type: Number,
-    required: true
+    required: true,
   },
   name: {
     type: String,
@@ -13,7 +15,7 @@ var reviews = new Schema({
   },
   dealership: {
     type: Number,
-    required: true
+    required: true,
   },
   review: {
     type: String,
@@ -38,8 +40,7 @@ var reviews = new Schema({
   car_year: {
     type: Number,
     required: true
-  }
+  },
 });
 
 module.exports = mongoose.model('reviews', reviews);
-
