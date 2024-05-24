@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^7.32.0",
+    "eslint": "^9.3.0",  
     "eslint-plugin-node": "^11.1.0"
   },
   "eslintConfig": {
@@ -23,7 +23,7 @@
       "plugin:node/recommended"
     ],
     "parserOptions": {
-      "ecmaVersion": 2018
+      "ecmaVersion": 2020  
     },
     "rules": {
       "no-console": "off",
