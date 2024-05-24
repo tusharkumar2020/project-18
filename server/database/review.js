@@ -1,9 +1,10 @@
 /* eslint-env es6 */
-const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
 
-const reviews = new Schema({
+var Schema = mongoose.Schema;
+
+var reviews = new Schema({
   id: {
     type: Number,
     required: true

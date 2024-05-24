@@ -4,35 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-plugin-node": "^11.1.0"
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:node/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2018
-    },
-    "rules": {
-      "no-console": "off",
-      "node/no-unsupported-features/es-syntax": [
-        "error",
-        {
-          "ignores": ["modules"]
-        }
-      ]
-    }
-  }
+  "license": "ISC"
 }
