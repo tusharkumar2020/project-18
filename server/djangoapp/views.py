@@ -1,15 +1,9 @@
 # Uncomment the required imports before adding the code
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import JsonResponse  # 修改导入
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth import logout
-from django.contrib import messages
-from datetime import datetime
-
-from django.http import JsonResponse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import logout, login, authenticate
 import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -24,20 +18,19 @@ def get_cars(request):
     try:
         count = CarMake.objects.filter().count()
         print(count)
-        if(count == 0):
+        if count == 0:
             logger.info("No CarMake records found, initiating data.")
             initiate()
 
         car_models = CarModel.objects.select_related('car_make')
         cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} for car_model in car_models]
-        #for car_model in car_models:
-            #cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
+        # for car_model in car_models:
+        # cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
         logger.debug(f"Car models fetched: {cars}")
-        return JsonResponse({"CarModels":cars})
+        return JsonResponse({"CarModels": cars})
     except Exception as e:
         # 记录错误信息
         logger.error(f"Error fetching car models: {e}", exc_info=True)
-        
         # 返回错误响应
         return JsonResponse({"CarModels": [], "error": "Failed to fetch car models"}, status=500)
 
@@ -93,12 +86,12 @@ def registration(request):
 
 def get_dealerships(request, state="All"):
     logger.info(f"Fetching dealership data for state: {state}")
-    if(state == "All"):
+    if state == "All":
         endpoint = "/fetchDealers"
     else:
         endpoint = "/fetchDealers/" + state
     dealerships = get_request(endpoint)
-    return JsonResponse({"status":200,"dealers":dealerships})
+    return JsonResponse({"status": 200, "dealers": dealerships})
 
 def get_dealer_reviews(request, dealer_id):
     logger.info(f"Fetching reviews for dealer ID: {dealer_id}")
@@ -118,7 +111,7 @@ def get_dealer_details(request, dealer_id):
     logger.info(f"Fetching details for dealer ID: {dealer_id}")
     if dealer_id:
         endpoint = "/fetchDealer/" + str(dealer_id)
-        logger.info(f"Requesting endpoint: {endpoint}")# 增加日志记录
+        logger.info(f"Requesting endpoint: {endpoint}")  # 增加日志记录
         dealership = get_request(endpoint)
         logger.info(f"Received dealership data: {dealership}")  # 增加日志记录
         return JsonResponse({"status": 200, "dealer": dealership})
@@ -139,6 +132,3 @@ def add_review(request):
     else:
         logger.warning("Unauthorized attempt to post review.")
         return JsonResponse({"status": 403, "message": "Unauthorized"})
-
-
-
