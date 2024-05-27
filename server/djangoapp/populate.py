@@ -1,37 +1,138 @@
-from .models import CarMake, CarModel  # <--- 修改行
+from .models import CarMake, CarModel
 
-def initiate():  # <--- 修改行
+
+def initiate():
     car_make_data = [
-        {"name": "NISSAN", "description": "Great cars. Japanese technology"},  # <--- 修改行
-        {"name": "Mercedes", "description": "Great cars. German technology"},  # <--- 修改行
-        {"name": "Audi", "description": "Great cars. German technology"},  # <--- 修改行
-        {"name": "Kia", "description": "Great cars. Korean technology"},  # <--- 修改行
-        {"name": "Toyota", "description": "Great cars. Japanese technology"},  # <--- 修改行
+        {
+            "name": "NISSAN",
+            "description": "Great cars. Japanese technology"
+        },
+        {
+            "name": "Mercedes",
+            "description": "Great cars. German technology"
+        },
+        {
+            "name": "Audi",
+            "description": "Great cars. German technology"
+        },
+        {
+            "name": "Kia",
+            "description": "Great cars. Korean technology"
+        },
+        {
+            "name": "Toyota",
+            "description": "Great cars. Japanese technology"
+        },
     ]
 
     car_make_instances = []
     for data in car_make_data:
-        car_make_instances.append(CarMake.objects.create(name=data['name'], description=data['description']))  # <--- 修改行
+        car_make_instances.append(
+            CarMake.objects.create(
+                name=data['name'],
+                description=data['description']
+            )
+        )
 
     # Create CarModel instances with the corresponding CarMake instances
     car_model_data = [
-        {"name": "Pathfinder", "type": "SUV", "year": 2023, "car_make": car_make_instances[0]},  # <--- 修改行
-        {"name": "Qashqai", "type": "SUV", "year": 2023, "car_make": car_make_instances[0]},  # <--- 修改行
-        {"name": "XTRAIL", "type": "SUV", "year": 2023, "car_make": car_make_instances[0]},  # <--- 修改行
-        {"name": "A-Class", "type": "SUV", "year": 2023, "car_make": car_make_instances[1]},  # <--- 修改行
-        {"name": "C-Class", "type": "SUV", "year": 2023, "car_make": car_make_instances[1]},  # <--- 修改行
-        {"name": "E-Class", "type": "SUV", "year": 2023, "car_make": car_make_instances[1]},  # <--- 修改行
-        {"name": "A4", "type": "SUV", "year": 2023, "car_make": car_make_instances[2]},  # <--- 修改行
-        {"name": "A5", "type": "SUV", "year": 2023, "car_make": car_make_instances[2]},  # <--- 修改行
-        {"name": "A6", "type": "SUV", "year": 2023, "car_make": car_make_instances[2]},  # <--- 修改行
-        {"name": "Sorrento", "type": "SUV", "year": 2023, "car_make": car_make_instances[3]},  # <--- 修改行
-        {"name": "Carnival", "type": "SUV", "year": 2023, "car_make": car_make_instances[3]},  # <--- 修改行
-        {"name": "Cerato", "type": "Sedan", "year": 2023, "car_make": car_make_instances[3]},  # <--- 修改行
-        {"name": "Corolla", "type": "Sedan", "year": 2023, "car_make": car_make_instances[4]},  # <--- 修改行
-        {"name": "Camry", "type": "Sedan", "year": 2023, "car_make": car_make_instances[4]},  # <--- 修改行
-        {"name": "Kluger", "type": "SUV", "year": 2023, "car_make": car_make_instances[4]},  # <--- 修改行
+        {
+            "name": "Pathfinder",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[0]
+        },
+        {
+            "name": "Qashqai",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[0]
+        },
+        {
+            "name": "XTRAIL",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[0]
+        },
+        {
+            "name": "A-Class",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[1]
+        },
+        {
+            "name": "C-Class",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[1]
+        },
+        {
+            "name": "E-Class",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[1]
+        },
+        {
+            "name": "A4",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[2]
+        },
+        {
+            "name": "A5",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[2]
+        },
+        {
+            "name": "A6",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[2]
+        },
+        {
+            "name": "Sorrento",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[3]
+        },
+        {
+            "name": "Carnival",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[3]
+        },
+        {
+            "name": "Cerato",
+            "type": "Sedan",
+            "year": 2023,
+            "car_make": car_make_instances[3]
+        },
+        {
+            "name": "Corolla",
+            "type": "Sedan",
+            "year": 2023,
+            "car_make": car_make_instances[4]
+        },
+        {
+            "name": "Camry",
+            "type": "Sedan",
+            "year": 2023,
+            "car_make": car_make_instances[4]
+        },
+        {
+            "name": "Kluger",
+            "type": "SUV",
+            "year": 2023,
+            "car_make": car_make_instances[4]
+        },
         # Add more CarModel instances as needed
     ]
 
     for data in car_model_data:
-        CarModel.objects.create(name=data['name'], car_make=data['car_make'], type=data['type'], year=data['year'])  # <--- 修改行
+        CarModel.objects.create(
+            name=data['name'],
+            car_make=data['car_make'],
+            type=data['type'],
+            year=data['year']
+        )
