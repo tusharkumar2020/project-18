@@ -1,21 +1,25 @@
+<<<<<<< HEAD
 /* eslint-env es6 */
 
 var mongoose = require('mongoose');
+=======
+const mongoose = require('mongoose');
+>>>>>>> parent of ce4893f (Update review.js)
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var reviews = new Schema({
-  id: {
+const reviews = new Schema({
+	id: {
     type: Number,
-    required: true
-  },
-  name: {
+    required: true,
+	},
+	name: {
     type: String,
     required: true
   },
   dealership: {
     type: Number,
-    required: true
+    required: true,
   },
   review: {
     type: String,
@@ -40,7 +44,7 @@ var reviews = new Schema({
   car_year: {
     type: Number,
     required: true
-  }
+  },
 });
 
 module.exports = mongoose.model('reviews', reviews);
