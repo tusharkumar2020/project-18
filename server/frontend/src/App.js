@@ -19,11 +19,11 @@ function App() {
       <Route path="/postreview/:id" element={<PostReview />} />
       <Route 
         path="/about" 
-        element={<iframe src="/static/About.html" style={{ width: '100%', height: '100vh', border: 'none' }} />} 
+        element={<iframe src='/static/About.html' style={{ width: '100%', height: '100vh', border: 'none' }} />} 
       />
       <Route 
         path="/contact" 
-        element={<iframe src="/static/Contact.html" style={{ width: '100%', height: '100vh', border: 'none' }} />} 
+        element={<iframe src='/static/Contact.html' style={{ width: '100%', height: '100vh', border: 'none' }} />} 
       />
     </Routes>
   );
