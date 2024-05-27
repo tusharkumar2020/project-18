@@ -1,6 +1,5 @@
 # Uncomment the required imports before adding the code
 
-from django.shortcuts import render
 from django.http import JsonResponse  # 修改导入
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
@@ -14,6 +13,7 @@ from .restapis import get_request, analyze_review_sentiments, post_review
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
+
 def get_cars(request):
     try:
         count = CarMake.objects.filter().count()
@@ -23,29 +23,29 @@ def get_cars(request):
             initiate()
 
         car_models = CarModel.objects.select_related('car_make')
-        cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} for car_model in car_models]
-        # for car_model in car_models:
-        # cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
+        cars = [
+            {"CarModel": car_model.name, "CarMake": car_model.car_make.name}
+            for car_model in car_models
+        ]
         logger.debug(f"Car models fetched: {cars}")
         return JsonResponse({"CarModels": cars})
     except Exception as e:
-        # 记录错误信息
         logger.error(f"Error fetching car models: {e}", exc_info=True)
-        # 返回错误响应
-        return JsonResponse({"CarModels": [], "error": "Failed to fetch car models"}, status=500)
+        return JsonResponse(
+            {"CarModels": [], "error": "Failed to fetch car models"},
+            status=500
+        )
+
 
 @csrf_exempt
 def login_user(request):
     logger.info("Handling user login.")
-    # Get username and password from request.POST dictionary
     data = json.loads(request.body)
     username = data['userName']
     password = data['password']
-    # Try to check if provided credential can be authenticated
     user = authenticate(username=username, password=password)
     response_data = {"userName": username}
     if user is not None:
-        # If user is valid, call login method to login current user
         login(request, user)
         response_data['status'] = "Authenticated"
         response_data['message'] = "Login successful."
@@ -56,11 +56,13 @@ def login_user(request):
         logger.warning(f"Failed login attempt for {username}.")
     return JsonResponse(response_data)
 
+
 def logout_request(request):
-    username = request.user.username  # Capture username before logout
+    username = request.user.username
     logout(request)
     logger.info(f"User {username} logged out.")
     return JsonResponse({"userName": ""})
+
 
 @csrf_exempt
 def registration(request):
@@ -74,15 +76,28 @@ def registration(request):
 
     if User.objects.filter(username=username).exists():
         logger.warning(f"Attempt to re-register existing username: {username}")
-        return JsonResponse({"userName": username, "error": "Username already registered"}, status=409)
+        return JsonResponse(
+            {"userName": username, "error": "Username already registered"},
+            status=409
+        )
     if User.objects.filter(email=email).exists():
         logger.warning(f"Attempt to register with existing email: {email}")
-        return JsonResponse({"email": email, "error": "Email already registered"}, status=409)
-    
-    user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
+        return JsonResponse(
+            {"email": email, "error": "Email already registered"},
+            status=409
+        )
+
+    user = User.objects.create_user(
+        username=username, email=email, password=password,
+        first_name=first_name, last_name=last_name
+    )
     login(request, user)
     logger.info(f"User {username} registered and logged in.")
-    return JsonResponse({"userName": username, "status": "Authenticated"}, status=201)
+    return JsonResponse(
+        {"userName": username, "status": "Authenticated"},
+        status=201
+    )
+
 
 def get_dealerships(request, state="All"):
     logger.info(f"Fetching dealership data for state: {state}")
@@ -93,6 +108,7 @@ def get_dealerships(request, state="All"):
     dealerships = get_request(endpoint)
     return JsonResponse({"status": 200, "dealers": dealerships})
 
+
 def get_dealer_reviews(request, dealer_id):
     logger.info(f"Fetching reviews for dealer ID: {dealer_id}")
     if dealer_id:
@@ -100,24 +116,25 @@ def get_dealer_reviews(request, dealer_id):
         reviews = get_request(endpoint)
         for review_detail in reviews:
             response = analyze_review_sentiments(review_detail['review'])
-            print(response)
             review_detail['sentiment'] = response['sentiment']
         return JsonResponse({"status": 200, "reviews": reviews})
     else:
         logger.error("Invalid dealer ID provided for fetching reviews.")
         return JsonResponse({"status": 400, "message": "Enter a valid ID"})
 
+
 def get_dealer_details(request, dealer_id):
     logger.info(f"Fetching details for dealer ID: {dealer_id}")
     if dealer_id:
         endpoint = "/fetchDealer/" + str(dealer_id)
-        logger.info(f"Requesting endpoint: {endpoint}")  # 增加日志记录
+        logger.info(f"Requesting endpoint: {endpoint}")
         dealership = get_request(endpoint)
-        logger.info(f"Received dealership data: {dealership}")  # 增加日志记录
+        logger.info(f"Received dealership data: {dealership}")
         return JsonResponse({"status": 200, "dealer": dealership})
     else:
         logger.error("Invalid dealer ID provided for fetching details.")
         return JsonResponse({"status": 400, "message": "Enter a valid ID"})
+
 
 def add_review(request):
     if not request.user.is_anonymous:
