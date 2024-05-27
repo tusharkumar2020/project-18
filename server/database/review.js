@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-/* eslint-env es6 */
-
-var mongoose = require('mongoose');
-=======
 const mongoose = require('mongoose');
->>>>>>> parent of ce4893f (Update review.js)
 
 const Schema = mongoose.Schema;
 
