@@ -141,11 +141,13 @@ def add_review(request):
         data = json.loads(request.body)
         logger.info(f"Adding review by user: {request.user.username}")
         try:
-            response = post_review(data)
+            post_review(data)
             return JsonResponse({"status": 200})
         except Exception as e:
             logger.error(f"Error posting review: {e}")
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+            return JsonResponse(
+                {"status": 401, "message": "Error in posting review"}
+            )
     else:
         logger.warning("Unauthorized attempt to post review.")
         return JsonResponse({"status": 403, "message": "Unauthorized"})
