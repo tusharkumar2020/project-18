@@ -1,0 +1,43 @@
+/* Home.css */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .navbar {
+    background-color: darkturquoise;
+    height: 1in;
+  }
+  
+  .navbar h2 {
+    padding-right: 5%;
+  }
+  
+  .navbar .navbar-nav .nav-link {
+    font-size: larger;
+  }
+  
+  .home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .card {
+    width: 50%;
+    margin-top: 50px;
+    align-self: center;
+  }
+  
+  .card img {
+    width: 100%;
+  }
+  
+  .card-body {
+    text-align: center;
+  }
+  
+  .btn {
+    background-color: aqua;
+    margin: 10px;
+  }

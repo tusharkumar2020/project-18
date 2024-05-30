@@ -1,0 +1,40 @@
+/* About.css */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .navbar {
+    background-color: darkturquoise;
+    height: 1in;
+  }
+  
+  .navbar h2 {
+    padding-right: 5%;
+  }
+  
+  .navbar .navbar-nav .nav-link {
+    font-size: larger;
+  }
+  
+  .card {
+    width: 80%;
+    margin: auto;
+    margin-top: 5%;
+  }
+  
+  .card .card-img-top {
+    width: 100%;
+  }
+  
+  .card .card-body {
+    text-align: center;
+  }
+  
+  .card .title {
+    font-weight: bold;
+    font-size: larger;
+  }
+  
+  .card .card-text {
+    text-align: left;
+  }
