@@ -1,5 +1,6 @@
 import React from 'react'; // 引入 React 库
 import Header from '../Header/Header'; // 引入 Header 组件
+import '../assets/style.css'; // 确保引用 style.css
 import './About.css'; // 引入 About 组件的 CSS 文件
 import ceoImage from '../assets/CEO.png'; // 引入 CEO 图片资源
 import cfoImage from '../assets/CFO.png'; // 引入 CFO 图片资源

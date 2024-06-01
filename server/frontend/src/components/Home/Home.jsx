@@ -1,6 +1,7 @@
 import React from 'react'; // 引入 React 库
 import { Link } from 'react-router-dom'; // 引入 Link 组件，用于导航
 import Header from '../Header/Header'; // 引入 Header 组件
+import '../assets/style.css'; // 确保引用 style.css
 import './Home.css'; // 引入 Home 组件的 CSS 文件
 import carDealershipImg from '../assets/car_dealership.jpg'; // 引入图片资源
 

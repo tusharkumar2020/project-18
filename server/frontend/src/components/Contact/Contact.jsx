@@ -1,5 +1,6 @@
 import React from 'react'; // 引入 React 库
 import Header from '../Header/Header'; // 引入 Header 组件
+import '../assets/style.css'; // 确保引用 style.css
 import './Contact.css'; // 引入 Contact 组件的 CSS 文件
 import carDealershipImage from '../assets/car_dealership.jpg'; // 引入 car_dealership 图片资源
 import contactUsImage from '../assets/contactus.png'; // 引入 contactus 图片资源
