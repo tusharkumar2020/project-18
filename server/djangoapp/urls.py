@@ -14,23 +14,10 @@ urlpatterns = [
     path(route='get_dealers', view=views.get_dealerships, name='get_dealers'),
     path(route='get_dealers/<str:state>', view=views.get_dealerships, name='get_dealers_by_state'),
     path(route='get_cars', view=views.get_cars, name ='getcars'),
-    
     path(route='register', view=views.register, name='register'),
-
     path(route='logout', view=views.logout_request, name='logout'),
-
-   
     path(route='login', view=views.login_user, name='login'),
-
-    # Serve favicon.ico
     re_path(r'^favicon\.ico$', RedirectView.as_view(url=staticfiles_storage.url('favicon.ico'), permanent=True)),
-
-    # Serve manifest.json
     re_path(r'^manifest\.json$', RedirectView.as_view(url=staticfiles_storage.url('manifest.json'), permanent=True)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-    # path for dealer reviews view
-
-    # path for add a review view
