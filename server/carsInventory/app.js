@@ -2,13 +2,13 @@ const express = require('express'); // 引入Express框架
 const mongoose = require('mongoose'); // 引入Mongoose库，用于连接和操作MongoDB
 const cors = require('cors'); // 引入CORS库，允许跨域资源共享
 const app = express(); // 创建Express应用
-const port = 3050; // 设置服务器端口
+const port = process.env.PORT || 3050; // 设置服务器端口
 
 app.use(cors()); // 使用CORS中间件，允许跨域请求
 app.use(express.json()); // 使用Express内置的JSON解析中间件，解析请求中的JSON数据
 
-// 连接到MongoDB数据库，指定数据库名称为'carsInventoryDB'
-mongoose.connect('mongodb://mongo_db:27017/carsInventoryDB', {
+// 连接到MongoDB，使用环境变量来设置连接字符串
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {

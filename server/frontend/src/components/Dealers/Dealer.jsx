@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom'; // 引入 Link 组件
 import "./Dealers.css";
 import "../assets/style.css";
 import positive_icon from "../assets/positive.png";
@@ -84,6 +84,9 @@ const Dealer = () => {
           <>
             <h1 style={{ color: "grey" }}>{dealer.full_name}{postReview}</h1>
             <h4 style={{ color: "grey" }}>{dealer.city}, {dealer.address}, Zip - {dealer.zip}, {dealer.state}</h4>
+            <Link to={`/inventory/${id}`} style={{ display: "block", marginTop: "20px", fontSize: "18px", color: "blue" }}>
+              Search Cars
+            </Link> {/* 添加 Search Cars 链接 */}
           </>
         ) : (
           <h1>Loading dealer information...</h1>

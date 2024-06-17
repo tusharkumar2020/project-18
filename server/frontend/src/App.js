@@ -7,6 +7,7 @@ import PostReview from "./components/Dealers/PostReview";
 import Home from './components/Home/Home';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
+import SearchCars from './components/Dealers/SearchCars'; // 引入 SearchCars 组件
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/postreview/:id" element={<PostReview />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/inventory/:dealer_id" element={<SearchCars />} /> {/* 添加 SearchCars 路径 */}
     </Routes>
   );
 }
