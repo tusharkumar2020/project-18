@@ -54,17 +54,17 @@ def get_inventory(request):
     try:
         # 构建不同的endpoint和参数
         if make:
-            endpoint = f"carsbymake/{dealer_id}/{make}"
+            endpoint = f"/carsbymake/{dealer_id}/{make}"
         elif model:
-            endpoint = f"carsbymodel/{dealer_id}/{model}"
+            endpoint = f"/carsbymodel/{dealer_id}/{model}"
         elif max_mileage:
-            endpoint = f"carsbymaxmileage/{dealer_id}/{max_mileage}"
+            endpoint = f"/carsbymaxmileage/{dealer_id}/{max_mileage}"
         elif price:
-            endpoint = f"carsbyprice/{dealer_id}/{price}"
+            endpoint = f"/carsbyprice/{dealer_id}/{price}"
         elif year:
-            endpoint = f"carsbyyear/{dealer_id}/{year}"
+            endpoint = f"/carsbyyear/{dealer_id}/{year}"
         else:
-            endpoint = f"cars/{dealer_id}"
+            endpoint = f"/cars/{dealer_id}"
 
         # 调用 searchcars_request 函数从 API 获取库存数据
         cars_inventory = searchcars_request(endpoint)

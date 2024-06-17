@@ -11,7 +11,6 @@ const SearchCars = () => {
 
   // 定义获取车辆库存的异步函数
   const fetchCars = async () => {
-    const root_url = window.location.href.substring(0, window.location.href.indexOf("dealer"));
     const inventory_url = `${root_url}djangoapp/inventory/?dealer_id=${dealer_id}`; // 构建 API 请求 URL
 
     console.log(`Fetching cars inventory from: ${inventory_url}`);
