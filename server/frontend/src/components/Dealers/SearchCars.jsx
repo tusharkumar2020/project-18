@@ -17,7 +17,7 @@ const SearchCars = () => {
   const [year, setYear] = useState("");
 
   // 定义获取车辆库存的异步函数,添加 filters 参数用于构建 URL
-  const fetchCars = async () => {
+  const fetchCars = async (filters = {}) => {
     const inventory_url = `/djangoapp/inventory/?dealer_id=${dealer_id}`; // 构建 API 请求 URL
 
     // 根据过滤条件构建 URL--需要解释一下
