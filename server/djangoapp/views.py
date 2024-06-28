@@ -53,8 +53,9 @@ def logout_request(request):
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
-# def get_dealerships(request):
-# ...
+def get_dealerships(request):
+    dealership = get_request(endpoint)
+    return JsonResponse({"status":200,"dealer":dealership})
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 # def get_dealer_reviews(request,dealer_id):
@@ -87,6 +88,7 @@ def get_dealer_details(request, dealer_id):
         return JsonResponse({"status":200,"dealer":dealership})
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
+
 
 
 
