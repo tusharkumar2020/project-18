@@ -1,6 +1,6 @@
 # Uncomment the required imports before adding the code
 
-from django.shortcuts import render
+# from django.shortcuts import render
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 # from django.shortcuts import get_object_or_404, render, redirect
@@ -66,7 +66,10 @@ def registration(request):
         username_exist = True
     except Exception as err:
         # If not, simply log this is a new user
-        logger.debug("{} is new user".format(username))
+        logger.debug(
+            "{} is new user".format(username)
+            + f" {err=}, {type(err)=}"
+        )
 
     # If it is a new user
     if not username_exist:
@@ -143,16 +146,17 @@ def get_dealer_details(request, dealer_id):
 # Create a `add_review` view to submit a review
 def add_review(request):
     if (request.user.is_anonymous is False):
-        data = json.loads(request.body)
+        # data = json.loads(request.body)
+        json.loads(request.body)
         try:
-            #response = post_review(data)
+            # response = post_review(data)
             post_review
             return JsonResponse({"status": 200})
         except Exception as err:
             return JsonResponse(
                 {
                     "status": 401,
-                    "message": "Error in posting review"
+                    "message": f"Error in posting review: {err=}, {type(err)=}"
                 }
             )
     else:
