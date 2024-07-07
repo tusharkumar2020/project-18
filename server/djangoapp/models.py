@@ -46,3 +46,7 @@ class CarModel(models.Model):
         ])
 def __str__(self):
     return self.name
+
+class Review(models.Model):
+    dealer_id = models.IntegerField()
+    review_text = models.TextField()
