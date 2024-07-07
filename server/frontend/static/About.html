@@ -1,68 +1,143 @@
 <html>
-<head>
-  <!-- Link the style sheet here -->
-</head>
-<div>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
-    <div class="container-fluid">
-      <h2 style="padding-right: 5%;">Dealerships</h2>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" style="font-size: larger;" href="/about">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" href="/contact">Contact Us</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
-    <div class="card" style="width: 80%;margin: auto; margin-top:5%;">
-      <div class="banner" name="about-header">
-      <!-- Insert header information here -->
-      </div>
-      <div style="display: flex;flex-direction: row; margin:auto">
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person1</p>
-          <p>Person1 Title</p>
-          <p class="card-text">Some text that explains the person1 in about 2 short sentences</p>
-          <p>person1@example.com</p>
+  <head>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="/static/bootstrap.min.css" />
+    <script>
+      const logout = async (e) => {
+        //Include the code for logout here.
+      };
+
+      let checkSession = () => {
+        let curr_user = sessionStorage.getItem("username");
+
+        if (curr_user && curr_user !== "") {
+          document.getElementById("loginlogout").innerHTML =
+            '<span class="homepage_links">' +
+            curr_user +
+            "</span>" +
+            '<a class="homepage_links" onclick="logout()" href="/">Logout</a>';
+        } else {
+          document.getElementById("loginlogout").innerHTML =
+            '<a class="homepage_links" href="/login">Login</a>' +
+            '<a class="homepage_links"  href="/register">Register</a>';
+        }
+      };
+    </script>
+  </head>
+  <body onload="checkSession()">
+    <nav
+      class="navbar navbar-expand-lg navbar-light"
+      style="background-color: darkturquoise; height: 1in"
+    >
+      <div class="container-fluid">
+        <h2 style="padding-right: 5%">
+          <a href="/" class="text-decoration-none text-dark">
+          Dealerships
+
+        </a>
+        </h2>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                style="font-size: larger"
+                aria-current="page"
+                href="/"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" style="font-size: larger" href="/about"
+                >About Us</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="font-size: larger" href="/contact"
+                >Contact Us</a
+              >
+            </li>
+          </ul>
+          <span class="navbar-text">
+            <div class="loginlink" id="loginlogout"></div>
+          </span>
         </div>
       </div>
+    </nav>
 
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person2</p>
-          <p>Person2 Title</p>
-          <p class="card-text">Some text that explains the person2 in about 2 short sentences</p>
-          <p>person2@example.com</p>
+      <div class="card py-4" style="width: 80%; margin: auto; margin-top: 5%">
+        <div class="banner" name="about-header">
+          <h1>About Us</h1>
+          <p>
+            Welcome to Best Cars dealership, home to the best cars in North
+            America. We deal in sale of domestic and imported cars at reasonable
+            prices.
+          </p>
+        </div>
+        <div class="container">
+        <div class="row">
+          <div class="card col-md shadow-lg w-100">
+            <img
+              class="card-img-top pt-2"
+              src="/static/PHarvy.png"
+              alt="Card image"
+            />
+            <div class="card-body">
+              <p class="text-center fw-bold fs-3">Harvy</p>
+              <p class="title">Car Salesman</p>
+              <p class="card-text p-2 text-justify">
+                As a seasoned car salesman, I excel at understanding customers' needs and guiding them to the ideal vehicle. My commitment to transparency and integrity has helped me build strong, trusting relationships with clients, leading to high levels of satisfaction and repeat business.
+              </p>
+              <p class="px-2">email: harvy@cardealer.com</p>
+            </div>
+          </div>
+
+          <div class="card col-md shadow-lg w-100">
+            <img
+              class="card-img-top pt-2"
+              src="/static/PSarah.png"
+              alt="Card image"
+            />
+            <div class="card-body">
+              <p class="text-center fw-bold fs-3">Sarah</p>
+              <p class="title">Car Saleswoman</p>
+              <p class="card-text p-2 text-justify">
+                I am a dedicated car saleswoman who thrives on connecting with customers and providing personalized service. My extensive knowledge of car models and features, combined with my genuine passion for helping people, allows me to make the car buying experience enjoyable and stress-free.
+              </p>
+              <p class="px-2">email: sarah@cardealer.com</p>
+            </div>
+          </div>
+
+          <div class="card col-md shadow-lg w-100">
+            <img
+              class="card-img-top pt-2"
+              src="/static/PTyler.png"
+              alt="Card image"
+            />
+            <div class="card-body">
+              <p class="text-center fw-bold fs-3">Tyler</p>
+              <p class="title">Car Salesman</p>
+              <p class="card-text p-2 text-justify">
+                With years of experience as a car salesman, I have honed my skills in negotiation and customer relations. I pride myself on my ability to listen carefully to what my clients want and need, ensuring they leave the dealership confident and happy with their purchase.
+              </p>
+              <p class="px-2">email: tyler@cardealer.com</p>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person3</p>
-          <p>Person3 Title</p>
-          <p class="card-text">Some text that explains the person3 in about 2 short sentences</p>
-          <p>person3@example.com</p>
-        </div>
       </div>
     </div>
-    </div>
-    </div>
-    
-</div>
-
+  </body>
+  <footer></footer>
 </html>
