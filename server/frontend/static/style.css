@@ -124,3 +124,8 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+
+card-img, .card-img-bottom, .card-img-top {
+    width: 100%;
+    max-height: 44%;
+}
