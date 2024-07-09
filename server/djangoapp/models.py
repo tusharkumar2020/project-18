@@ -44,9 +44,5 @@ class CarModel(models.Model):
             MaxValueValidator(2024),
             MinValueValidator(2015)
         ])
-def __str__(self):
-    return self.name
-
-class Review(models.Model):
-    dealer_id = models.IntegerField()
-    review_text = models.TextField()
+    def __str__(self):
+        return self.name
