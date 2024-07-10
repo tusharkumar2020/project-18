@@ -2,7 +2,7 @@
 
 from django.contrib.auth.models import User
 
-from .restapis import get_request, analyze_review_sentiments, post_review
+from .restapis import get_request, analyze_review_sentiments
 
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
@@ -95,7 +95,7 @@ def registration(request):
 
 
 def get_dealerships(request, state="All"):
-    if (state== "All" ):
+    if (state == "All"):
         endpoint = "/fetchDealers"
     else:
         endpoint = "/fetchDealers/"+state
@@ -132,7 +132,6 @@ def get_dealer_details(request, dealer_id):
 
 def add_review(request):
     if (request.user.is_anonymous is False):
-        data = json.loads(request.body)
         try:
             return JsonResponse({"status": 200})
         except Exception:
