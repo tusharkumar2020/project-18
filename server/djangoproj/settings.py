@@ -51,7 +51,7 @@ CSRF_TRUSTED_ORIGINS = [
     """,
     """
     https://jbmacaraig14-8000.
-    theiadockernext-1-labs-prod-theiak8s-4-tor01.
+    theiadockernext-0-labs-prod-theiak8s-4-tor01.
     proxy.cognitiveclass.ai
     """,
     """https://jbmacaraig14-8000.

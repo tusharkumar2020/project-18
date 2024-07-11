@@ -8,6 +8,7 @@ def initiate():
         {"name": "Audi", "description": "Great cars. German technology"},
         {"name": "Kia", "description": "Great cars. Korean technology"},
         {"name": "Toyota", "description": "Great cars. Japanese technology"},
+        {"name": "Honda", "description": "Great cars. Japanese technology"},
     ]
 
     car_make_instances = []
@@ -109,6 +110,18 @@ def initiate():
             "type": "SUV",
             "year": 2023,
             "car_make": car_make_instances[4],
+        },
+        {
+            "name": "Civic",
+            "type": "Sedan",
+            "year": 2023,
+            "car_make": car_make_instances[5],
+        },
+        {
+            "name": "Accord",
+            "type": "Hybrid",
+            "year": 2023,
+            "car_make": car_make_instances[5],
         },
     ]
 
