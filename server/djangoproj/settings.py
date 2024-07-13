@@ -28,16 +28,15 @@ SECRET_KEY =\
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-<<<<<<< Updated upstream
+
 ALLOWED_HOSTS = ['localhost','https://chijiokeobik-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/']
 CSRF_TRUSTED_ORIGINS = ['https://chijiokeobik-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/']
-=======
+
 ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = [
-    'https://chijiokeobik-8000.theianext-1-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai',
+    'https://chijiokeobik-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai',
 
 ]
->>>>>>> Stashed changes
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
@@ -70,15 +69,11 @@ ROOT_URLCONF = 'djangoproj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-<<<<<<< Updated upstream
-            os.path.join(BASE_DIR,'frontend/static')
-=======
+        'DIRS': [ 
             os.path.join(BASE_DIR, 'frontend/static'),
             os.path.join(BASE_DIR, 'frontend/build'),
             os.path.join(BASE_DIR, 'frontend/build/static'),
-      
->>>>>>> Stashed changes
+       
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -152,14 +147,10 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [
-<<<<<<< Updated upstream
-     os.path.join(BASE_DIR,'frontend/static')
-=======
+STATICFILES_DIRS = [ 
     os.path.join(BASE_DIR, 'frontend/static'),
     os.path.join(BASE_DIR, 'frontend/build'),
     os.path.join(BASE_DIR, 'frontend/build/static'),
 
->>>>>>> Stashed changes
 ]
 
