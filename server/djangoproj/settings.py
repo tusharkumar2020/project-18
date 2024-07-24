@@ -35,7 +35,6 @@ CSRF_TRUSTED_ORIGINS = ['https://chijiokeobik-8000.theiadockernext-1-labs-prod-t
 ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = [
     'https://chijiokeobik-8000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai',
-
 ]
 
 REST_FRAMEWORK = {
@@ -43,7 +42,6 @@ REST_FRAMEWORK = {
 }
 
 # Application definition
-
 INSTALLED_APPS = [
     'djangoapp.apps.DjangoappConfig',
     'django.contrib.admin',
@@ -73,7 +71,6 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'frontend/static'),
             os.path.join(BASE_DIR, 'frontend/build'),
             os.path.join(BASE_DIR, 'frontend/build/static'),
-       
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -89,10 +86,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'djangoproj.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -151,6 +146,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend/static'),
     os.path.join(BASE_DIR, 'frontend/build'),
     os.path.join(BASE_DIR, 'frontend/build/static'),
-
 ]
 
