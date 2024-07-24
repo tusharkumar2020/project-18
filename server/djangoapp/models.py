@@ -37,6 +37,37 @@ class CarModel(models.Model):
         return self.name  # Return the name as the string representation
 
 
+class Dealership(models.Model):
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    st = models.CharField(max_length=2)
+    address = models.CharField(max_length=255)
+    zip_code = models.CharField(max_length=10)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    short_name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.full_name
+
+class Review(models.Model):
+    id = models.AutoField(primary_key=True)  # Assuming the id is the primary key
+    name = models.CharField(max_length=255)
+    dealership = models.IntegerField()  # Reference to the dealership id
+    review = models.TextField()
+    purchase = models.BooleanField()
+    purchase_date = models.DateField()
+    car_make = models.CharField(max_length=255)
+    car_model = models.CharField(max_length=255)
+    car_year = models.IntegerField()
+
+    def __str__(self):
+        return self.name 
+
+
+
+
 
 
 
