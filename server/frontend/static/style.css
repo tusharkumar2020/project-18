@@ -124,3 +124,70 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+
+.contactbody {
+  font-family: Arial, sans-serif;
+  margin: auto;
+  margin-top: 10px;
+  background-color: #f4f4f4;
+  justify-content: center;  /* Center horizontally */
+  align-items: center;  /* Center vertically */
+  height: 100vh;  /* Full viewport height */
+  display: table;
+  vertical-align: middle;
+}
+
+.contactcard {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 1000px;
+  text-align: center;
+}
+
+.contactcard img {
+  width: 100%;
+  height: auto;
+}
+
+.contactcard .content {
+  padding: 20px;
+}
+
+.contactcard .contact-info {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.contactcard .contact-info h3 {
+  margin-top: 0;
+}
+
+.contactcard .contact-info p {
+  margin: 5px 0;
+}
+
+.contacticon img {
+  width: 300px; /* Adjust icon size as needed */
+  height: auto;
+  margin-bottom: 20px; /* Add margin for spacing */
+}
+
+/* Add media query for larger screens */
+@media (min-width: 768px) {
+  .contactcard .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .contactcard .contacticon {
+    margin-bottom: 0;  /* Remove bottom margin when side by side */
+    margin-right: 20px;  /* Add space between icon and info */
+  }
+
+  .contactcard .contact-info {
+    margin-top: 0;  /* Align content side by side */
+  }
+}
