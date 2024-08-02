@@ -30,8 +30,10 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['localhost','127.0.0.1:8000']
 # CSRF_TRUSTED_ORIGINS = ['127.0.0.1:8000']
-ALLOWED_HOSTS = []
-CSRF_TRUSTED_ORIGINS = []
+# ALLOWED_HOSTS = []
+# CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = ['localhost','https://rosaspace-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
+CSRF_TRUSTED_ORIGINS = ['https://rosaspace-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
