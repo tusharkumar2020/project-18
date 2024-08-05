@@ -54,7 +54,7 @@ const Register = () => {
           <span className="text" style={{flexGrow:"1"}}>SignUp</span> 
           <div style={{display: "flex",flexDirection: "row", justifySelf: "end", alignSelf: "start" }}>
           <a href="/" onClick={()=>{gohome()}} style={{justifyContent: "space-between", alignItems:"flex-end"}}>
-            <img style={{width:"1cm"}} src={close_icon} alt="X"/>
+            <img style={{backgroundColor:"#F59F8A",width:"1cm"}} src={close_icon} alt="X"/>
           </a>
           </div>
           <hr/>
