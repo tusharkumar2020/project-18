@@ -63,43 +63,42 @@ def logout_request(request):
 # Create a `registration` view to handle sign up request
 @csrf_exempt
 def registration(request):
-    # context = {}
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            username = data['userName']
+            password = data['password']
+            first_name = data['firstName']
+            last_name = data['lastName']
+            email = data['email']
 
-    data = json.loads(request.body)
-    username = data['userName']
-    password = data['password']
-    first_name = data['firstName']
-    last_name = data['lastName']
-    email = data['email']
-    # username_exist = False
-    # email_exist = False
-    try:
-        # Check if user already exists
-        User.objects.get(username=username)
-        username_exist = True
-    except Exception as e:
-        print(f"Error: {e}")
-        logger.debug("{} is new user".format(username))
+            # Check if user already exists
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({"userName": username, "error": "Already Registered"}, status=400)
 
-    # If it is a new user
-    if not username_exist:
-        # Create user in auth_user table
-        user = User.objects.create_user(
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            password=password,
-            email=email
-        )
-        # Login the user and redirect to list page
-        login(request, user)
-        data = {"userName": username, "status": "Authenticated"}
-        return JsonResponse(data)
+            # Create user
+            user = User.objects.create_user(
+                username=username,
+                first_name=first_name,
+                last_name=last_name,
+                password=password,
+                email=email
+            )
+
+            # Login the user
+            login(request, user)
+            return JsonResponse({"userName": username, "status": "Authenticated"})
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+        except KeyError as e:
+            return JsonResponse({"error": f"Missing required field: {str(e)}"}, status=400)
+        except Exception as e:
+            logger.error(f"Registration error: {str(e)}")
+            return JsonResponse({"error": "An error occurred during registration"}, status=500)
     else:
-        data = {"userName": username, "error": "Already Registered"}
-        return JsonResponse(data)
-
-
+        return JsonResponse({"error": "This endpoint only accepts POST requests"}, status=405)
+        
 def get_dealerships(request, state="All"):
     if (state == "All"):
         endpoint = "/fetchDealers"
