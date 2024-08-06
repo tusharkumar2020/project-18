@@ -86,13 +86,13 @@ img{
 .nav_item{
   margin-left:15px;
   font-size: 20px;
-  color: black;
+  color: #F5D48A;
   align-self: center;
 }
 
 .username{
-  font: 30px sans-serif;
-  color:black;
+  font: 20px sans-serif;
+  color:#F5D48A;
   justify-content: 'flex-end';
   align-self:flex-end;
   vertical-align: middle;
