@@ -25,7 +25,7 @@ def get_request(endpoint, **kwargs):
     try:
         # Call get method of requests library with URL and parameters
         # this one ignores *all* errors on the line
-        response = requests.get(request_url) # noqa: F821
+        response = requests.get(request_url)  # noqa: F821
         return response.json()
     except Exception:
         # If any error occurs
@@ -40,7 +40,7 @@ def analyze_review_sentiments(text):
     try:
         # Call get method of requests library with URL and parameters
         # this one ignores *all* errors on the line
-        response = requests.get(request_url) # noqa: F821
+        response = requests.get(request_url)  # noqa: F821
         return response.json()
     except Exception as err:
         print(f"Unexpected {err=}, {type(err)=}")
@@ -53,7 +53,7 @@ def post_review(data_dict):
     request_url = backend_url + "/insert_review"
     try:
         # this one ignores *all* errors on the line
-        response = requests.post(request_url, json=data_dict) # noqa: F821
+        response = requests.post(request_url, json=data_dict)  # noqa: F821
         print(response.json())
         return response.json()
     except Exception:

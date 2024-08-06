@@ -131,12 +131,12 @@ def get_dealer_details(request, dealer_id):
 # Create a `add_review` view to submit a review
 # def add_review(request):
 def add_review(request):
-    # this one ignores *all* errors on the line
-    if request.user.is_anonymous == False: # noqa: F712
+    
+    if request.user.is_anonymous is False:
         data = json.loads(request.body)
         try:
             # this one ignores *all* errors on the line
-            response = post_review(data) # noqa: F841
+            response = post_review(data)  # noqa: F841
             return JsonResponse({"status": 200})
         except Exception:
             return JsonResponse({"status": 401,
