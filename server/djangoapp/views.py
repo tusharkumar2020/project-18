@@ -137,11 +137,10 @@ def add_review(request):
             response = post_review(data)
             return JsonResponse({"status": 200})
         except Exception:
-            return JsonResponse({"status": 401, 
+            return JsonResponse({"status": 401,
                                  "message": "Error in posting review"})
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
-
 # def get_cars(request):
 def get_cars(request):
     count = CarMake.objects.filter().count()
