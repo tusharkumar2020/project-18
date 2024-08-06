@@ -69,6 +69,8 @@ def registration(request):
     except Exception:
         # If not, simply log this is a new user
         logger.debug("{} is new user".format(username))
+    finally:
+        print("registration request successful")
 
     # If it is a new user
     if not username_exist:
@@ -134,12 +136,13 @@ def add_review(request):
     if request.user.is_anonymous is False:
         data = json.loads(request.body)
         try:
-            # this one ignores *all* errors on the line
-            response = post_review(data)  # noqa: F841
+            post_review(data)
             return JsonResponse({"status": 200})
         except Exception:
             return JsonResponse({"status": 401,
                                  "message": "Error in posting review"})
+        finally:
+            print("add_review request successful!")
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
 
