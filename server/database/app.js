@@ -96,6 +96,31 @@ app.get('/fetchDealers/:state', async (req, res) => {
     });
 
 //Express route to insert review
+// app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
+//     data = JSON.parse(req.body);
+//     const documents = await Reviews.find().sort({ id: -1 });
+//     let new_id = documents[0].id + 1;
+  
+//     const review = new Reviews({
+//       id: new_id,
+//       name: data.name,
+//       dealership: data.dealership,
+//       review: data.review,
+//       purchase: data.purchase,
+//       purchase_date: data.purchase_date,
+//       car_make: data.car_make,
+//       car_model: data.car_model,
+//       car_year: data.car_year,
+//     });
+  
+//     try {
+//       const savedReview = await review.save();
+//       res.json(savedReview);
+//     } catch (error) {
+//       console.log(error);
+//       res.status(500).json({ error: 'Error inserting review' });
+//     }
+//   });
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
   data = JSON.parse(req.body);
   const documents = await Reviews.find().sort( { id: -1 } )
@@ -121,6 +146,29 @@ app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
     res.status(500).json({ error: 'Error inserting review' });
   }
 });
+
+//****/
+// Express route to fetch reviews carmake
+app.get('/fetchReviews/car/:carmake', async (req, res) => {
+    try {
+      const documents = await Reviews.find({car_make: req.params.carmake});
+      res.json(documents);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching documents' });
+    }
+  });
+
+// Express route to fetch reviews :carmake/:model
+app.get('/fetchReviews/car/:carmake/:model', async (req, res) => {
+    try {
+      const documents = await Reviews.find();
+      res.json(documents);
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching documents' });
+    }
+  });
+// */
+
 
 // Start the Express server
 app.listen(port, () => {
