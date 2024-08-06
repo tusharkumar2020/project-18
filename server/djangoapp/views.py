@@ -122,23 +122,34 @@ def get_dealer_reviews(request, dealer_id):
     if (dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
         reviews = get_request(endpoint)
+        print(endpoint)
+
+         # Verifica que reviews no esté vacío y tenga la estructura esperada
+        if not isinstance(reviews, list):
+           return JsonResponse({"status": 500, "message": "Error fetching reviews."})
+
         for review_detail in reviews:
-            response = analyze_review_sentiments(review_detail['review'])
-            print(response)
-            # review_detail['sentiment'] = response['sentiment']
+            if 'review' in review_detail:
+               response = analyze_review_sentiments(review_detail['review'])
+               print(response)  
+               review_detail['sentiment'] = response['sentiment']
+            else:
+               # return JsonResponse({"status": 400, "message": "Bad Request"})
+               # Manejo de caso donde 'review' no está presente
+               review_detail['sentiment'] = 'No sentiment available'  # O cualquier valor por defecto
         return JsonResponse({"status": 200, "reviews": reviews})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
 
 
+#adding a review
 def add_review(request):
-    if not request.user.is_anonymous:
-        # data = json.loads(request.body)
+    if(request.user.is_anonymous == False):
+        data = json.loads(request.body)
         try:
-            # response = post_review(data)
-            return JsonResponse({"status": 200})
-        except Exception as e:
-            return JsonResponse({"status": 401, "message": e})
-
+            response = post_review(data)
+            return JsonResponse({"status":200})
+        except:
+            return JsonResponse({"status":401, "message":"Error in posting review"})
     else:
-        return JsonResponse({"status": 403, "message": "Unauthorized"})
+        return JsonResponse({"status":403, "message":"Unauthorized"})
