@@ -12,7 +12,8 @@ const Dealer = () => {
     const [dealer, setDealer] = useState({});
     const [reviews, setReviews] = useState([]);
     const [unreviewed, setUnreviewed] = useState(false);
-    const [postReview, setPostReview] = useState(<></>)
+    const [postReview, setPostReview] = useState(<></>);
+    const [sentimentAnalyzerUrl, setSentimentAnalyzerUrl] = useState("");
 
     let curr_url = window.location.href;
     let root_url = curr_url.substring(0, curr_url.indexOf("dealer"));
@@ -36,7 +37,14 @@ const Dealer = () => {
         const retobj = await res.json();
         if (retobj.status === 200) {
             if (retobj.reviews.length > 0) {
-                setReviews(retobj.reviews)
+                setReviews(retobj.reviews);
+
+                // Suponiendo que las reseñas tienen un campo de texto para analizar
+                const firstReviewText = retobj.reviews[0].review;
+                const sentimentAnalyzerBaseUrl = "https://sentianalyzer.1k2705074i7y.us-south.codeengine.appdomain.cloud/analyze/";
+                const constructedUrl = sentimentAnalyzerBaseUrl + encodeURIComponent(firstReviewText);
+
+                setSentimentAnalyzerUrl(constructedUrl); // Guarda la URL construida
             } else {
                 setUnreviewed(true);
             }
@@ -74,6 +82,13 @@ const Dealer = () => {
                     </div>
                 ))}
             </div>
+
+            {/* Muestra la URL de análisis de sentimientos */}
+            {sentimentAnalyzerUrl && (
+                <div style={{ marginTop: "20px", color: "grey" }}>
+                    <strong>Sentiment Analyzer URL:</strong> {sentimentAnalyzerUrl}
+                </div>
+            )}
         </div>
     )
 }

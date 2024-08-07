@@ -33,10 +33,10 @@ def get_request(endpoint, **kwargs):
     finally:
         print("GET request call complete!")
 # def analyze_review_sentiments(text):
-# request_url = sentiment_analyzer_url+"analyze/"+text
 # Add code for retrieving sentiments
 def analyze_review_sentiments(text):
     request_url = sentiment_analyzer_url+"analyze/"+text
+    print(f"Request URL: {request_url}") 
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)

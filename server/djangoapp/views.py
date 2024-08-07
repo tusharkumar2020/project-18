@@ -117,30 +117,53 @@ def get_dealer_details(request, dealer_id):
         return JsonResponse({"status": 400, "message": "Bad Request"})
 
 
+# def get_dealer_reviews(request, dealer_id):
+#     # if dealer id has been provided
+#     if (dealer_id):
+#         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
+#         reviews = get_request(endpoint)
+#         print(endpoint)
+
+#          # Verifica que reviews no esté vacío y tenga la estructura esperada
+#         if not isinstance(reviews, list):
+#            return JsonResponse({"status": 500, "message": "Error fetching reviews."})
+
+#         for review_detail in reviews:
+#             if 'review' in review_detail:
+#                response = analyze_review_sentiments(review_detail['review'])
+#                print(response)  
+#                review_detail['sentiment'] = response['sentiment']
+#             else:
+#                # return JsonResponse({"status": 400, "message": "Bad Request"})
+#                # Manejo de caso donde 'review' no está presente
+#                review_detail['sentiment'] = 'No sentiment available'  # O cualquier valor por defecto
+#         return JsonResponse({"status": 200, "reviews": reviews})
+#     else:
+#         return JsonResponse({"status": 400, "message": "Bad Request"})
 def get_dealer_reviews(request, dealer_id):
-    # if dealer id has been provided
-    if (dealer_id):
-        endpoint = "/fetchReviews/dealer/"+str(dealer_id)
-        reviews = get_request(endpoint)
-        print(endpoint)
+    if dealer_id:
+        endpoint = f"/fetchReviews/dealer/{dealer_id}"
+        try:
+            reviews = get_request(endpoint)
+            print(endpoint)
 
-         # Verifica que reviews no esté vacío y tenga la estructura esperada
-        if not isinstance(reviews, list):
-           return JsonResponse({"status": 500, "message": "Error fetching reviews."})
+            # Verifica que reviews no esté vacío y tenga la estructura esperada
+            if not isinstance(reviews, list):
+                return JsonResponse({"status": 500, "message": "Error fetching reviews."})
 
-        for review_detail in reviews:
-            if 'review' in review_detail:
-               response = analyze_review_sentiments(review_detail['review'])
-               print(response)  
-               review_detail['sentiment'] = response['sentiment']
-            else:
-               # return JsonResponse({"status": 400, "message": "Bad Request"})
-               # Manejo de caso donde 'review' no está presente
-               review_detail['sentiment'] = 'No sentiment available'  # O cualquier valor por defecto
-        return JsonResponse({"status": 200, "reviews": reviews})
+            for review_detail in reviews:
+                if 'review' in review_detail:
+                    response = analyze_review_sentiments(review_detail['review'])
+                    print(response)  
+                    review_detail['sentiment'] = response['sentiment']
+                else:
+                    review_detail['sentiment'] = 'No sentiment available'
+
+            return JsonResponse({"status": 200, "reviews": reviews})
+        except Exception as e:
+            return JsonResponse({"status": 500, "message": str(e)})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
-
 
 #adding a review
 def add_review(request):
