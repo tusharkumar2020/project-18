@@ -8,15 +8,15 @@ const port = 3030;
 
 app.use(cors())
 app.use(require('body-parser').urlencoded({ extended: false }));
-
+/*jshint esversion: 8 */
 const reviews_data = JSON.parse(fs.readFileSync("reviews.json", 'utf8'));
 const dealerships_data = JSON.parse(fs.readFileSync("dealerships.json", 'utf8'));
 
 mongoose.connect("mongodb://mongo_db:27017/",{'dbName':'dealershipsDB'});
 
-
+/*jshint esversion: 8 */
 const Reviews = require('./review');
-
+/*jshint esversion: 8 */
 const Dealerships = require('./dealership');
 
 try {
