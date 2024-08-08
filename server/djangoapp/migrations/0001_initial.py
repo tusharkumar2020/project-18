@@ -42,8 +42,9 @@ class Migration(migrations.Migration):
                     default='SUV', max_length=10)),
                 ('year', models.IntegerField(
                     default=2023,
-                    validators=[django.core.validators.MaxValueValidator(2023),
-                                django.core.validators.MinValueValidator(2015)])),
+                    validators=[
+                        django.core.validators.MaxValueValidator(2023),
+                        django.core.validators.MinValueValidator(2015)])),
                 ('car_make',
                  models.ForeignKey(
                      on_delete=django.db.models.deletion.CASCADE,
