@@ -1,8 +1,8 @@
-/*jshint esversion: 8 */
+/*jshint esversion: 6 */
 const mongoose = require('mongoose');
-/*jshint esversion: 8 */
+/*jshint esversion: 6 */
 const Schema = mongoose.Schema;
-/*jshint esversion: 8 */
+/*jshint esversion: 6 */
 const reviews = new Schema({
 	id: {
     type: Number,
