@@ -44,7 +44,7 @@ def login_user(request):
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
     logout(request)
-    data = {"userName":""}
+    data = {"userName": ""}
     return JsonResponse(data)
 
 
@@ -73,10 +73,10 @@ def registration(request):
     if not username_exist:
         # create user in auth_user table
         user = User.objects.create_user(
-            username=username, 
-            first_name=first_name, 
-            last_name=last_name, 
-            password=password, 
+            username=username,
+            first_name=first_name,
+            last_name=last_name,
+            password=password,
             email=email)
         # login the user and redirect to list page
         login(request, user)
