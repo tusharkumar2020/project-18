@@ -92,4 +92,3 @@ def initiate():
             year=data['year']
         )
 
-# Ensure the last line is blank.

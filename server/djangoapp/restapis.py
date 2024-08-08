@@ -58,4 +58,3 @@ def post_review(data_dict):
     except Exception as e:
         print(f"Network exception occurred: {e}")
 
-# Ensure the last line is blank.
