@@ -33,10 +33,10 @@ CSRF_TRUSTED_ORIGINS = []
 # ALLOWED_HOSTS = ['localhost','https://127.0.0.1:8000']
 # CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1:8000']
 # ALLOWED_HOSTS = ['localhost',
-#                  'https://rosaspace-8000.theiadockernext-1-labs-prod-' +
-#                     'theiak8s-4-tor01.proxy.cognitiveclass.ai/']
-# CSRF_TRUSTED_ORIGINS = ['https://rosaspace-8000.theiadockernext-1-labs-prod-' +
-#                         'theiak8s-4-tor01.proxy.cognitiveclass.ai/']
+#                  'https://rosaspace-8000.theiadockernext-1-labs-' +
+#                     'prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/']
+# CSRF_TRUSTED_ORIGINS = ['https://rosaspace-8000.theiadockernext-1-labs-' +
+#                         'prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/']
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [],
@@ -101,19 +101,19 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth" +
-            ".password_validation.UserAttributeSimilarityValidator",
+        ".password_validation.UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib.auth" +
-            ".password_validation.MinimumLengthValidator",
+        ".password_validation.MinimumLengthValidator",
     },
     {
         "NAME": "django.contrib.auth" +
-            ".password_validation.CommonPasswordValidator",
+        ".password_validation.CommonPasswordValidator",
     },
     {
         "NAME": "django.contrib.auth" +
-            ".password_validation.NumericPasswordValidator",
+        ".password_validation.NumericPasswordValidator",
     },
 ]
 
