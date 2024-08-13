@@ -111,7 +111,8 @@ def get_dealerships(request, state="All"):
 def get_dealer_reviews(request, dealer_id):
     # If dealer id has been provided
     if dealer_id:
-        endpoint = f"/fetchReviews/dealer/{dealer_id}"
+        # endpoint = f"/fetchReviews/dealer/{dealer_id}"
+        endpoint = "/fetchDealer/"+str(dealer_id)
         reviews = get_request(endpoint)
         for review_detail in reviews:
             sentiment = analyze_review_sentiments(review_detail['review'])
