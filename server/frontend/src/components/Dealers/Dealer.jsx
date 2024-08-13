@@ -32,24 +32,20 @@ const Dealer = () => {
         }
     }
 
-    const get_reviews = async () => {
-        const res = await fetch(reviews_url, { method: "GET" });
+    const get_reviews = async ()=>{
+        const res = await fetch(reviews_url, {
+          method: "GET"
+        });
         const retobj = await res.json();
-        if (retobj.status === 200) {
-            if (retobj.reviews.length > 0) {
-                setReviews(retobj.reviews);
-
-                // Suponiendo que las reseñas tienen un campo de texto para analizar
-                const firstReviewText = retobj.reviews[0].review;
-                const sentimentAnalyzerBaseUrl = "https://sentianalyzer.1k2705074i7y.us-south.codeengine.appdomain.cloud/analyze/";
-                const constructedUrl = sentimentAnalyzerBaseUrl + encodeURIComponent(firstReviewText);
-
-                setSentimentAnalyzerUrl(constructedUrl); // Guarda la URL construida
-            } else {
-                setUnreviewed(true);
-            }
+        
+        if(retobj.status === 200) {
+          if(retobj.reviews.length > 0){
+            setReviews(retobj.reviews)
+          } else {
+            setUnreviewed(true);
+          }
         }
-    }
+      }
 
     const senti_icon = (sentiment) => {
         let icon = sentiment === "positive" ? positive_icon : sentiment === "negative" ? negative_icon : neutral_icon;
