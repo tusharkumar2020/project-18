@@ -117,7 +117,7 @@ def get_dealer_reviews(request, dealer_id):
             ):
                 sentiment = analyze_review_sentiments(review_detail['review'])
                 print(sentiment)
-                review_detail['sentiment'] = sentiment.get('sentiment', 
+                review_detail['sentiment'] = sentiment.get('sentiment',
                                                            'unknown')
             else:
                 review_detail['sentiment'] = 'unknown'
