@@ -30,12 +30,14 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'https://germa-8000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai'
+    'https://germa-8000.theiadockernext-1-labs-prod-theiak8s-4-tor01'
+    '.proxy.cognitiveclass.ai'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
-    'https://germa-8000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai'
+    'https://germa-8000.theiadockernext-1-labs-prod-theiak8s-4-tor01'
+    '.proxy.cognitiveclass.ai'
 ]
 
 REST_FRAMEWORK = {
