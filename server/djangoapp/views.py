@@ -1,13 +1,5 @@
-# Uncomment the required imports before adding the code
-
-# from django.shortcuts import render
-# from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-# from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth import logout
-# from django.contrib import messages
-# from datetime import datetime
-
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 import logging
@@ -111,16 +103,24 @@ def get_dealerships(request, state="All"):
 def get_dealer_reviews(request, dealer_id):
     # If dealer id has been provided
     if dealer_id:
-        # endpoint = f"/fetchReviews/dealer/{dealer_id}"
-        endpoint = "/fetchDealer/"+str(dealer_id)
+        endpoint = "/fetchReviews/dealer/" + str(dealer_id)
         reviews = get_request(endpoint)
+        
+        if reviews is None:  # Verificar si la respuesta es None
+            return JsonResponse({"status": 500, "message": "Error fetching reviews"})
+        
         for review_detail in reviews:
-            sentiment = analyze_review_sentiments(review_detail['review'])
-            print(sentiment)
-            review_detail['sentiment'] = sentiment['sentiment']
+            if 'review' in review_detail and review_detail['review'] is not None:
+                sentiment = analyze_review_sentiments(review_detail['review'])
+                print(sentiment)
+                review_detail['sentiment'] = sentiment.get('sentiment', 'unknown')  # Manejo seguro
+            else:
+                review_detail['sentiment'] = 'unknown'
+        
         return JsonResponse({"status": 200, "reviews": reviews})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
+
 
 
 # Create a `get_dealer_details` view to render the dealer details
@@ -135,6 +135,7 @@ def get_dealer_details(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 def add_review(request):
+    print(request)
     if not request.user.is_anonymous:
         data = json.loads(request.body)
         try:
