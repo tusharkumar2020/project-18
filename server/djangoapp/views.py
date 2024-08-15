@@ -100,6 +100,7 @@ def get_dealerships(request, state="All"):
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 def get_dealer_reviews(request, dealer_id):
+
     # If dealer id has been provided
     if dealer_id:
         endpoint = "/fetchReviews/dealer/" + str(dealer_id)
@@ -109,10 +110,13 @@ def get_dealer_reviews(request, dealer_id):
             return JsonResponse({"status": 500, "message": "Error on reviews"})
 
         for review_detail in reviews:
-            if 'review' in review_detail and review_detail['review'] is not None:
+            if (
+                'review' in review_detail and
+                review_detail['review'] is not None
+                ):
                 sentiment = analyze_review_sentiments(review_detail['review'])
                 print(sentiment)
-                review_detail['sentiment'] = sentiment.get('sentiment', 'unknown')  # Manejo seguro
+                review_detail['sentiment'] = sentiment.get('sentiment', 'unknown')
             else:
                 review_detail['sentiment'] = 'unknown'
 
