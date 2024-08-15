@@ -98,17 +98,16 @@ def get_dealerships(request, state="All"):
     dealerships = get_request(endpoint)
     return JsonResponse({"status": 200, "dealers": dealerships})
 
-
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 def get_dealer_reviews(request, dealer_id):
     # If dealer id has been provided
     if dealer_id:
         endpoint = "/fetchReviews/dealer/" + str(dealer_id)
         reviews = get_request(endpoint)
-        
+
         if reviews is None:  # Verificar si la respuesta es None
-            return JsonResponse({"status": 500, "message": "Error fetching reviews"})
-        
+            return JsonResponse({"status": 500, "message": "Error on reviews"})
+
         for review_detail in reviews:
             if 'review' in review_detail and review_detail['review'] is not None:
                 sentiment = analyze_review_sentiments(review_detail['review'])
@@ -116,12 +115,10 @@ def get_dealer_reviews(request, dealer_id):
                 review_detail['sentiment'] = sentiment.get('sentiment', 'unknown')  # Manejo seguro
             else:
                 review_detail['sentiment'] = 'unknown'
-        
+
         return JsonResponse({"status": 200, "reviews": reviews})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
-
-
 
 # Create a `get_dealer_details` view to render the dealer details
 def get_dealer_details(request, dealer_id):
@@ -131,7 +128,6 @@ def get_dealer_details(request, dealer_id):
         return JsonResponse({"status": 200, "dealer": dealership})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
-
 
 # Create a `add_review` view to submit a review
 def add_review(request):
