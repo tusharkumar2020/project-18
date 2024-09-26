@@ -124,3 +124,62 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+/* General styles for the whole page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Navigation styles */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a.active {
+    font-weight: bold;
+    color: yellow;
+}
+
+/* Main content styles */
+main {
+    margin: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    font-size: 18px;
+}
+
+/* Contact list styles */
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+ul li {
+    font-size: 16px;
+    margin: 5px 0;
+}
