@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <title>Contact Us - Best Cars Dealership</title>
+</head>
+<body>
+
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: darkturquoise; height: 1in;">
+      <div class="container-fluid">
+        <h2 style="padding-right: 5%;">Best Cars Dealership</h2>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="font-size: larger;" href="/about">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" style="font-size: larger;" href="/contact">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container contact-container">
+      <div class="row">
+        <div class="col-md-6 contact-info">
+          <h2>Contact Information</h2>
+          <p>We are always here to help you. If you have any questions or need support, feel free to reach out to us using any of the following methods:</p>
+          <ul class="contact-details">
+            <li><strong>Address:</strong> 123 Car Lane, Auto City, CA 90210</li>
+            <li><strong>Email:</strong> contact@bestcars.com</li>
+            <li><strong>Phone:</strong> +1 (555) 123-4567</li>
+            <li><strong>Working Hours:</strong> Mon - Fri, 9:00 AM - 6:00 PM</li>
+          </ul>
+        </div>
+        <div class="col-md-6 contact-form">
+          <h2>Send Us a Message</h2>
+          <form action="/submit_contact" method="POST">
+            <div class="form-group">
+              <label for="name">Your Name:</label>
+              <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Your Email:</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Your Message:</label>
+              <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <img src="/static/DALL·E 2024-10-02 14.07.45 - A stylish contact banner showing a modern car dealership with a sleek building and a row of premium cars. The environment is well-lit with clear skies.webp" alt="Contact Us Banner" class="img-fluid contact-banner">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/static/bootstrap.min.js"></script>
+</body>
+</html>
