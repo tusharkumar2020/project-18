@@ -20,6 +20,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+   
+    path('djangoapp/', include('djangoapp.urls')),  # Including djangoapp URLs
+    # Path for React login page
+    path('register/', TemplateView.as_view(template_name="index.html")),
+    path('login/', TemplateView.as_view(template_name="index.html"), name='login_page'),
     path('contact/', TemplateView.as_view(template_name="Contact.html")),
     path('admin/', admin.site.urls),
     path('about/', TemplateView.as_view(template_name="About.html")),

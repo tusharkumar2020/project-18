@@ -252,7 +252,7 @@ img {
 @media (max-width: 768px) {
     .contact-info {
       border: none;
-      padding-right: -100;
+      padding-right: 0;
     }
     .contact-container {
       padding: 30px;
