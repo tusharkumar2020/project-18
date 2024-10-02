@@ -6,17 +6,14 @@ from . import views
 
 app_name = 'djangoapp'
 urlpatterns = [
-    # # path for registration
+    # Path for login view
+    path('login/', views.login_user, name='login'),
 
-    # path for login
-    path(route='login', view=views.login_user, name='login'),
-
+    # Path for logout view
     path('logout/', views.logout_request, name='logout'),
 
+    # Path for registration view
     path('register/', views.registration, name='register'),
 
-    # path for dealer reviews view
-
-    # path for add a review view
-
+    # Paths for dealer reviews and other views can go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
