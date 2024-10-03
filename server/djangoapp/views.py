@@ -9,7 +9,7 @@ from django.contrib import messages
 from datetime import datetime
 from .models import CarMake, CarModel
 from .populate import initiate
-
+from .restapis import get_request, analyze_review_sentiments, post_review
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 import logging
@@ -111,16 +111,62 @@ def get_cars(request):
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
 # def get_dealerships(request):
-# ...
+#Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+def get_dealerships(request, state="All"):
+    if(state == "All"):
+        endpoint = "/fetchDealers"
+    else:
+        endpoint = "/fetchDealers/"+state
+    dealerships = get_request(endpoint)
+    return JsonResponse({"status":200,"dealers":dealerships})
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 # def get_dealer_reviews(request,dealer_id):
-# ...
+# Create a view to get dealer details by dealer_id
+def get_dealer_details(request, dealer_id):
+    if dealer_id:
+        endpoint = f"/fetchDealer/{dealer_id}"
+        dealership = get_request(endpoint)
+        return JsonResponse({"status": 200, "dealer": dealership})
+    else:
+        return JsonResponse({"status": 400, "message": "Bad Request"})
+
 
 # Create a `get_dealer_details` view to render the dealer details
 # def get_dealer_details(request, dealer_id):
-# ...
+from .restapis import analyze_review_sentiments
+
+# Create a view to get dealer reviews by dealer_id
+def get_dealer_reviews(request, dealer_id):
+    if dealer_id:
+        endpoint = f"/fetchReviews/dealer/{dealer_id}"
+        reviews = get_request(endpoint)
+
+        # Analyze the sentiment of each review
+        for review in reviews:
+            review["sentiment"] = analyze_review_sentiments(review["review"])
+        
+        return JsonResponse({"status": 200, "reviews": reviews})
+    else:
+        return JsonResponse({"status": 400, "message": "Bad Request"})
+
 
 # Create a `add_review` view to submit a review
 # def add_review(request):
-# ...
+@login_required
+def add_review(request):
+    if request.method == "POST":
+        try:
+            # Parse the review data from the request body
+            data = json.loads(request.body)
+
+            # Call post_review method to send the review to the backend
+            response = post_review(data)
+
+            # Return success message
+            return JsonResponse({"status": 200, "message": "Review posted successfully", "response": response})
+        except Exception as e:
+            print(f"Error in posting review: {e}")
+            return JsonResponse({"status": 400, "message": "Error in posting review"})
+    else:
+        return JsonResponse({"status": 405, "message": "Method not allowed"})
