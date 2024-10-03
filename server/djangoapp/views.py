@@ -7,6 +7,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from datetime import datetime
+from .models import CarMake, CarModel
+from .populate import initiate
 
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
@@ -18,7 +20,7 @@ from django.contrib.auth import login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-
+from django.http import JsonResponse
 # from .populate import initiate
 
 
@@ -81,6 +83,30 @@ def registration(request):
     else :
         data = {"userName":username,"error":"Already Registered"}
         return JsonResponse(data)
+
+def get_cars(request):
+    count = CarMake.objects.count()
+    if count == 0:
+        print("Calling initiate() to populate the database...")
+        initiate()
+
+    # Fetch car models and related car makes
+    car_models = CarModel.objects.select_related('make')  # 'make' is the ForeignKey field
+
+    cars = []
+    for car_model in car_models:
+        cars.append({
+            "CarModel": car_model.name,
+            "CarMake": car_model.make.name,  # Access the CarMake instance via ForeignKey
+            "CarType": car_model.car_type,
+            "Year": car_model.year.year,
+        })
+
+    print(f"Cars retrieved: {cars}")  # Debugging print
+    return JsonResponse({"CarModels": cars})
+
+
+
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships

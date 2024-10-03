@@ -15,5 +15,8 @@ urlpatterns = [
     # Path for registration view
     path('register/', views.registration, name='register'),
 
+
+    path('get_cars/', views.get_cars, name ='getcars'),
+
     # Paths for dealer reviews and other views can go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
