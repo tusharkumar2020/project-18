@@ -85,20 +85,45 @@ def registration(request):
             return JsonResponse({"error": "Invalid JSON format"}, status=400)
 
     return JsonResponse({"error": "Invalid request method"}, status=405)
-
+    
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
-# def get_dealerships(request):
-# ...
+def get_dealerships(request):
+    dealerships = [
+        {'id': 1, 'name': 'Dealer One', 'location': 'City A'},
+        {'id': 2, 'name': 'Dealer Two', 'location': 'City B'},
+        # Add more dealership data or fetch from API/DB
+    ]
+
+    return render(request, 'index.html', {'dealerships': dealerships})
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
-# def get_dealer_reviews(request,dealer_id):
-# ...
+def get_dealer_reviews(request, dealer_id):
+    # Simulate dealer reviews or fetch from API/DB
+    reviews = [
+        {'review': 'Great service!', 'rating': 5, 'dealer_id': dealer_id},
+        {'review': 'Not bad', 'rating': 3, 'dealer_id': dealer_id},
+    ]
 
+    return render(request, 'dealer_reviews.html', {'reviews': reviews, 'dealer_id': dealer_id})
 # Create a `get_dealer_details` view to render the dealer details
-# def get_dealer_details(request, dealer_id):
-# ...
+def get_dealer_details(request, dealer_id):
+    # Simulate dealer details or fetch from API/DB
+    dealer = {'id': dealer_id, 'name': 'Dealer One', 'location': 'City A'}
+    
+    return render(request, 'dealer_details.html', {'dealer': dealer})
 
 # Create a `add_review` view to submit a review
-# def add_review(request):
-# ...
+def add_review(request):
+    if request.method == 'POST':
+        dealer_id = request.POST.get('dealer_id')
+        review = request.POST.get('review')
+        rating = request.POST.get('rating')
+
+        # Simulate saving the review (normally save it in DB or call an API)
+        print(f'Review: {review}, Rating: {rating}, Dealer ID: {dealer_id}')
+        
+        return redirect('get_dealer_reviews', dealer_id=dealer_id)  # Redirect to reviews page
+
+    # Render the review form if it's a GET request
+    return render(request, 'add_review.html')
