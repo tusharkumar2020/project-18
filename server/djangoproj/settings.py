@@ -65,13 +65,21 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'djangoproj.urls'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'frontend/static')
+    os.path.join(BASE_DIR, 'frontend/static'),
+    os.path.join(BASE_DIR, 'frontend/build'),
+    os.path.join(BASE_DIR, 'frontend/build/static'),
 ]
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'frontend/static'),
+            os.path.join(BASE_DIR, 'frontend/build'),
+            os.path.join(BASE_DIR, 'frontend/build/static'),
+
+            ],
 
         'APP_DIRS': True,
         'OPTIONS': {
