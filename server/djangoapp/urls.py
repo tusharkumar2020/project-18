@@ -20,4 +20,5 @@ urlpatterns = [
     
     path('logout/', views.logout_request, name='logout'), 
     path('dealer/<int:dealer_id>/', views.get_dealer_details, name='get_dealer_details'),  
+    path(route='get_cars', view=views.get_cars, name ='getcars'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
