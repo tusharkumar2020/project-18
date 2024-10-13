@@ -53,7 +53,7 @@ jobs:
         run: npm install jshint --global
 
       - name: Run Linter
-  run: |
-    # Этот параметр указывает JSHint использовать ES8 (или ES6, если необходимо)
-    find ./server/database -name "*.js" -exec jshint --esversion 8 {} +
-    echo "Linted all the js files successfully"
+        run: |
+          # This command finds all JavaScript files recursively and runs JSHint on them
+          find ./server/database -name "*.js" -exec jshint {} +
+          echo "Linted all the js files successfully"
