@@ -1,6 +1,17 @@
 <html>
 <head>
-  <!-- Link the style sheet here -->
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <style>
+        .card-img-top {
+            width: 100%; /* Ensures the image fills the width of the card */
+            height: 500px; /* Set a fixed height */
+            object-fit: cover; /* Ensures the image covers the space without distortion */
+        }
+        .card-body {
+            text-align: center; /* Centers the text horizontally */
+        }
+    </style>
 </head>
 <div>
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
@@ -27,38 +38,69 @@
   
     <div class="card" style="width: 80%;margin: auto; margin-top:5%;">
       <div class="banner" name="about-header">
-      <!-- Insert header information here -->
+        <h1>About Us</h1>
+        Welcome to Best Cars dealership, home to the best cars in the Greater Philadelphia region. We deal in sale of domestic and imported cars at suspiciously reasonable prices.
       </div>
-      <div style="display: flex;flex-direction: row; margin:auto">
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person1</p>
-          <p>Person1 Title</p>
-          <p class="card-text">Some text that explains the person1 in about 2 short sentences</p>
-          <p>person1@example.com</p>
+      <div class="row" style="margin: auto;">
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="https://m.media-amazon.com/images/M/MV5BZDZjMjA0NzktNWFiOS00NzUzLWJlMGEtODA0MWViY2U1MzM5XkEyXkFqcGc@._V1_.jpg" alt="Card image">
+            <div class="card-body">
+              <p class="title">Dennis Reynolds</p>
+              <p><strong>Head of Sales</strong></p>
+              <p class="card-text">When Dennis takes you out on one of our boats, far out from shore, and attempts to sell you one of our top-of-the-line vehicles, we know you'll say yes. You know--because of the implication.</p>
+              <p>dreynolds@gamil.com</p>
+            </div>
+          </div>
         </div>
-      </div>
+        
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="https://i.insider.com/66631a6dd0b8e1c832cd014f?width=700" alt="Card image">
+            <div class="card-body">
+              <p class="title">Ronald "Mac" McDonald</p>
+              <p><strong>Head of Security</strong></p>
+              <p class="card-text">Drinks 10 gallons of Fight Milk a day, and is fully prepared to perform an ocular pat-down at a moments notice.</p>
+              <p>macdaddy@gamil.com</p>
+            </div>
+          </div>
+        </div>
 
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person2</p>
-          <p>Person2 Title</p>
-          <p class="card-text">Some text that explains the person2 in about 2 short sentences</p>
-          <p>person2@example.com</p>
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="https://www.hollywoodreporter.com/wp-content/uploads/2024/06/kaitlinfinal1-credit-Ryan-Pfluger-H-2024.jpg?w=1296&h=730&crop=1&resize=1000%2C563" alt="Card image">
+            <div class="card-body">
+              <p class="title">Deandra "Sweet Dee" Reynolds</p>
+              <p><strong>Head of Customer Service</strong></p>
+              <p class="card-text">It would honestly just be best if you never need customer service. You don't want to cross this woman.</p>
+              <p>sweetdee@gamil.com</p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person3</p>
-          <p>Person3 Title</p>
-          <p class="card-text">Some text that explains the person3 in about 2 short sentences</p>
-          <p>person3@example.com</p>
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="https://ntvb.tmsimg.com/assets/assets/200419_v9_bd.jpg?w=360&h=480" alt="Card image">
+            <div class="card-body">
+              <p class="title">Charlie Kelly</p>
+              <p><strong>Wildcard</strong></p>
+              <p class="card-text">We're not really sure what he does here, but we are sure he doesn't know either.</p>
+              <p>iojferjkfd@gamil.com</p>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="https://ntvb.tmsimg.com/assets/assets/426_v9_bd.jpg?w=360&h=480" alt="Card image">
+            <div class="card-body">
+              <p class="title">Frank Reynolds</p>
+              <p><strong>CEO</strong></p>
+              <p class="card-text">The genius behind the Rum Ham. Lives under a bridge.</p>
+              <p>frankr69@gamil.com</p>
+            </div>
+          </div>
+        </div>
     </div>
     </div>
     </div>
