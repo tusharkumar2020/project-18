@@ -154,6 +154,6 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# This is a Django setting that specifies additional 
+# This is a Django setting that specifies additional
 # directories where Django will look for static files
 # in addition to the default static directory in each app.
