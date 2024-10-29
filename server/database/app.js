@@ -84,13 +84,17 @@ app.get('/fetchDealers/:state', async (req, res) => {
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
   try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(400).json({ error: 'Invalid dealer ID format' });
+    }
+
     const dealer = await Dealerships.findById(req.params.id);
     if (!dealer) {
       return res.status(404).json({ error: 'Dealer not found' });
     }
     res.json(dealer);
   } catch (error) {
-    console.error(error); // Logs the error for server-side debugging
+    console.error('Error fetching dealer:', error); // Logs the error details
     res.status(500).json({ error: 'Error fetching dealer' });
   }
 });
