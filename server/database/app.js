@@ -70,23 +70,29 @@ app.get('/fetchDealers', async (req, res) => {
 // Express route to fetch Dealers by a particular state
 app.get('/fetchDealers/:state', async (req, res) => {
   try {
-    const documents = await Dealerships.find({dealership: req.params.state});
-    res.json(documents);
+    const dealers = await Dealerships.find({ state: req.params.state }); // Correct field name
+    if (dealers.length === 0) {
+      return res.status(404).json({ error: 'No dealers found in this state' });
+    }
+    res.json(dealers);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching documents' });
+    console.error(error); // Logs error for debugging
+    res.status(500).json({ error: 'Error fetching dealers' });
   }
-
 });
 
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
-  try{
-    const documents = await Dealerships.findById(req.params.id);
-    res.json(documents);
+  try {
+    const dealer = await Dealerships.findById(req.params.id);
+    if (!dealer) {
+      return res.status(404).json({ error: 'Dealer not found' });
+    }
+    res.json(dealer);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching documents' });
+    console.error(error); // Logs the error for server-side debugging
+    res.status(500).json({ error: 'Error fetching dealer' });
   }
-
 });
 
 //Express route to insert review
