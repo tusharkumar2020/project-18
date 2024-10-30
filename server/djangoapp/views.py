@@ -49,7 +49,7 @@ def registration(request):
         # Check if the user already exists
         User.objects.get(username=username)
         return JsonResponse({"userName": username,
-               "error": "Already Registered"})
+                             "error": "Already Registered"})
     except User.DoesNotExist:
         logger.debug(f"{username} is a new user")
 
