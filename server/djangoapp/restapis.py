@@ -1,7 +1,7 @@
 # Uncomment the imports below before you add the function code
 import requests
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 
 load_dotenv()
 
