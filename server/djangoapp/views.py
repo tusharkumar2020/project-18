@@ -1,4 +1,3 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
 from django.http import JsonResponse
@@ -11,6 +10,7 @@ import json
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
 
 # Create a `login_request` view to handle sign-in request
 @csrf_exempt
@@ -54,8 +54,11 @@ def registration(request):
 
     # Create a new user and log them in
     user = User.objects.create_user(
-        username=username, first_name=first_name,
-        last_name=last_name, password=password, email=email
+        username=username,
+        first_name=first_name,
+        last_name=last_name,
+        password=password,
+        email=email
     )
     login(request, user)
     return JsonResponse({"userName": username, "status": "Authenticated"})
