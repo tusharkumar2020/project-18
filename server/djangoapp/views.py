@@ -48,7 +48,8 @@ def registration(request):
     try:
         # Check if the user already exists
         User.objects.get(username=username)
-        return JsonResponse({"userName": username, "error": "Already Registered"})
+        return JsonResponse({"userName": username,
+               "error": "Already Registered"})
     except User.DoesNotExist:
         logger.debug(f"{username} is a new user")
 
@@ -102,7 +103,8 @@ def add_review(request):
             post_review(data)
             return JsonResponse({"status": 200})
         except Exception:
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+            return JsonResponse({"status": 401, "message":
+                                 "Error in posting review"})
     return JsonResponse({"status": 403, "message": "Unauthorized"})
 
 
