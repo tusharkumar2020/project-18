@@ -1,5 +1,6 @@
 from .models import CarMake, CarModel
 
+
 # Add two blank lines before function definition
 def initiate():
     car_make_data = [
@@ -41,3 +42,6 @@ def initiate():
             type=data["type"],
             year=data["year"],
         )
+
+
+# Ensure a newline at the end of the file
