@@ -2,6 +2,7 @@ from .models import CarMake, CarModel
 
 
 # Add two blank lines before function definition
+
 def initiate():
     car_make_data = [
         {"name": "NISSAN", "description": "Great cars. Japanese technology"},
@@ -44,4 +45,4 @@ def initiate():
         )
 
 
-# Ensure a newline at the end of the file
+# Ensure there's a newline at the end of the file.
