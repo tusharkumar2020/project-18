@@ -1,9 +1,12 @@
 from .models import CarMake, CarModel
 
 
-# Add two blank lines before function definition
+"""This module populates the database with car makes and models."""
+
 
 def initiate():
+    """Initialize the database with car make and model data."""
+    
     car_make_data = [
         {"name": "NISSAN", "description": "Great cars. Japanese technology"},
         {"name": "Mercedes", "description": "Great cars. German technology"},
