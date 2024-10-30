@@ -27,7 +27,9 @@ class CarModel(models.Model):
             MinValueValidator(2015)
         ]
     )
-    
 
     def __str__(self):
         return self.name
+
+
+# Ensure there's a newline at the end of the file.
