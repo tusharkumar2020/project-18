@@ -39,10 +39,18 @@ app.get('/', async (req, res) => {
 // Express route to fetch all reviews
 app.get('/fetchReviews', async (req, res) => {
   try {
-    const documents = await Reviews.find();
-    res.json(documents);
+      const documents = await Reviews.find();
+
+      // Check if documents is null or an empty array
+      if (!documents || documents.length === 0) {
+          return res.status(404).json({ message: 'No reviews found' });
+      }
+
+      // Send the fetched documents as the response
+      res.json(documents);
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching documents' });
+      console.error('Error fetching reviews:', error); // Log the error for debugging
+      res.status(500).json({ error: 'Error fetching documents' });
   }
 });
 
@@ -84,10 +92,6 @@ app.get('/fetchDealers/:state', async (req, res) => {
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) {
-      return res.status(400).json({ error: 'Invalid dealer ID format' });
-    }
-
     const dealer = await Dealerships.findById(req.params.id);
     if (!dealer) {
       return res.status(404).json({ error: 'Dealer not found' });
