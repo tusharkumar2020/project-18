@@ -1,3 +1,7 @@
+.as_body{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 img{
   width: 60%;
   align-self: center;
@@ -123,4 +127,67 @@ img{
     border-radius:50px;
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
+}
+
+.contact_body {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.contact_container {
+  max-width: 500px;
+  max-height: 300px;
+  margin: auto;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+  color: #2c3e50;
+}
+.contact-info, .social-media {
+  text-align: center;
+  margin: 20px 0;
+}
+.contact-info p {
+  margin: 5px 0;
+}
+.contact-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.contact-form label {
+  display: block;
+  margin-top: 10px;
+}
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.contact-form button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.contact-form button:hover {
+  background-color: #0056b3;
+}
+.social-media a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #007bff;
+  font-size: 20px;
+}
+.social-media a:hover {
+  color: #0056b3;
 }

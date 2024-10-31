@@ -1,0 +1,72 @@
+<html>
+<head>
+    <!-- Link the style sheet here -->
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+</head>
+<body>
+    <div class="contact_body">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+          <div class="container-fluid">
+            <h2 style="padding-right: 5%;">Dealerships</h2>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" style="font-size: larger;" href="/about">About Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" style="font-size: larger;" href="/contact">Contact Us</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+          
+    </div>
+
+    <div class="contact_container">
+        <h1>Contact Us</h1>
+        
+        <div class="contact-info">
+            <p>📞 Phone: (555) 123-4567</p>
+            <p>📧 Email: support@nationalcardealership.com</p>
+            <p>🏢 Address: 1234 Car St., Auto City, CA, USA</p>
+        </div>
+        
+        <div class="contact-form">
+            <form action="/submit-contact" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject">
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+        
+        <div class="social-media">
+            <h3>Follow Us</h3>
+            <a href="#" aria-label="Facebook">🌐 Facebook</a>
+            <a href="#" aria-label="Twitter">🌐 Twitter</a>
+            <a href="#" aria-label="Instagram">🌐 Instagram</a>
+        </div>
+    </div>
+
+</body>
+</html>
