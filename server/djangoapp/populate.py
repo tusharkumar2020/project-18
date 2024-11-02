@@ -1,6 +1,6 @@
-import os 
-import json 
-import django 
+import os
+import json
+import django
 
 django.setup()
 from .models import CarMake, CarModel
