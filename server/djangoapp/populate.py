@@ -1,3 +1,8 @@
+import os 
+import json 
+import django 
+
+django.setup()
 from .models import CarMake, CarModel
 
 def initiate():
