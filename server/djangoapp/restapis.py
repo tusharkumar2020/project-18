@@ -1,7 +1,7 @@
 # Uncomment the imports below before you add the function code
 import requests
 import os
-from dotenv import load_dotenv # type: ignore
+from dotenv import load_dotenv # type : ignore
 
 load_dotenv()
 
@@ -38,6 +38,7 @@ def analyze_review_sentiments(text):
     except Exception as err:
         print(f"Unexpected {err=}, {type(err)=}")
         print("Network exception occurred")
+
 
 def post_review(data_dict):
    request_url = backend_url + "/insert_review"
