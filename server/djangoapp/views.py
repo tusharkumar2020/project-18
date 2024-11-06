@@ -14,6 +14,7 @@ import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import CarMake, CarModel
+from .models import CarMake, CarModel
 
 
 # Get an instance of a logger
