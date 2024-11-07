@@ -36,3 +36,4 @@ def initiate():
 
     for data in car_model_data:
             CarModel.objects.create(name=data['name'], car_make=data['car_make'], type=data['type'], year=data['year'])
+    print("Populate not implemented. Add data manually")

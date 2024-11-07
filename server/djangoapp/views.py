@@ -13,7 +13,7 @@ from django.contrib.auth import login, authenticate
 import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
-from .populate import CarMake, CarModel
+from .populate import initiate
 from .models import CarMake, CarModel
 from .restapis import get_request, analyze_review_sentiments, post_review
 
@@ -87,7 +87,7 @@ def registration(request):
         return JsonResponse(data)
     else :
         data = {"userName":username,"error":"Already Registered"}
-        return JsonResponse(data)
+    return JsonResponse(data)
 
 # # Update the `get_dealerships` view to render the index page with
 #Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
