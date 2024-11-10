@@ -3,17 +3,15 @@ FROM python:3.12.0-slim-bookworm
 ENV PYTHONBUFFERED 1
 ENV PYTHONWRITEBYTECODE 1
 
-ENV APP=/server
+ENV APP=/app
 
 # Change the workdir.
-WORKDIR APP
+WORKDIR $APP
 
 # Install the requirements
 COPY requirements.txt $APP
 
 RUN pip3 install -r requirements.txt
-RUN npm install
-RUN npm build
 
 # Copy the rest of the files
 COPY . $APP
