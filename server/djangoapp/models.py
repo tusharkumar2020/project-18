@@ -39,7 +39,6 @@ class CarModel(models.Model):
     car_make = models.ForeignKey('CarMake', on_delete=models.CASCADE, related_name='car_models', help_text="The car make this model belongs to.")
     
     # Fields
-    dealer_id = models.IntegerField(help_text="The dealer ID associated with this car model.")
     name = models.CharField(max_length=100, help_text="The name of the car model.")
     TYPE_CHOICES = [
         ('Sedan', 'Sedan'),
@@ -47,7 +46,7 @@ class CarModel(models.Model):
         ('Wagon', 'Wagon'),
     ]
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, help_text="The type of car model.")
-    year = models.DateField(help_text="The year this car model was manufactured.")
+    year = models.IntegerField(default=2023,help_text="The year this car model was manufactured.")
     color = models.CharField(max_length=50, blank=True, help_text="The color of the car model.")  # Optional field
 
     def __str__(self):

@@ -98,7 +98,7 @@ def registration(request):
 
 #View for seeing registered cars
 def get_cars(request):
-    count = CarMake.objects.filter().count()
+    count = CarModel.objects.filter().count()
     print(count)
     if(count == 0):
         initiate()
@@ -106,5 +106,4 @@ def get_cars(request):
     cars = []
     for car_model in car_models:
         cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
-    print({"CarModels":cars})
     return JsonResponse({"CarModels":cars})

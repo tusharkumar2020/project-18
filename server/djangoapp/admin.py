@@ -7,11 +7,11 @@ from .models import CarMake,CarModel
 class CarModelInline(admin.StackedInline):
     model = CarModel
     extra = 1  # Number of empty forms to display for adding new related objects
-    fields = ('name', 'type', 'year', 'dealer_id')
+    fields = ('name', 'type', 'year')
 
 # CarModelAdmin class
 class CarModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'type', 'year', 'dealer_id', 'car_make')
+    list_display = ('name', 'type', 'year', 'car_make')
 
 # CarMakeAdmin class with CarModelInline
 class CarMakeAdmin(admin.ModelAdmin):
