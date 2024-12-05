@@ -1,21 +1,22 @@
 # Corrected version of views.py
 
-from django.shortcuts import render, redirect, get_object_or_404
+#from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-from datetime import datetime
+#from datetime import datetime
 import logging
 import json
 from .populate import initiate
-from .models import CarMake, CarModel
+from .models import CarModel # ,CarMake
 from .restapis import get_request, analyze_review_sentiments, post_review
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 # Create your views here.
+
 
 @csrf_exempt
 def login_user(request):
@@ -55,7 +56,10 @@ def registration(request):
 
     try:
         User.objects.get(username=username)
-        return JsonResponse({"userName": username, "error": "Already Registered"})
+        return JsonResponse({
+            "userName": username,
+            "error": "Already Registered"
+        })
     except User.DoesNotExist:
         user = User.objects.create_user(
             username=username,
@@ -86,7 +90,9 @@ def get_dealer_reviews(request, dealer_id):
         endpoint = f"/fetchReviews/dealer/{dealer_id}"
         reviews = get_request(endpoint)
         for review_detail in reviews:
-            sentiment_response = analyze_review_sentiments(review_detail['review'])
+            sentiment_response = analyze_review_sentiments(
+                review_detail['review']
+            )
             review_detail['sentiment'] = sentiment_response.get('sentiment')
         return JsonResponse({"status": 200, "reviews": reviews})
     return JsonResponse({"status": 400, "message": "Bad Request"})
@@ -114,7 +120,10 @@ def add_review(request):
             return JsonResponse({"status": 200})
         except Exception as e:
             logger.error(f"Error in posting review: {str(e)}")
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+            return JsonResponse(
+                {"status": 401,
+                 "message": "Error in posting review"}
+            )
     return JsonResponse({"status": 403, "message": "Unauthorized"})
 
 
@@ -125,5 +134,8 @@ def get_cars(request):
     if not CarModel.objects.exists():
         initiate()
     car_models = CarModel.objects.select_related('car_make')
-    cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} for car_model in car_models]
+    cars = [{
+        "CarModel": car_model.name,
+        "CarMake": car_model.car_make.name
+    } for car_model in car_models]
     return JsonResponse({"CarModels": cars})
