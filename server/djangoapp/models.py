@@ -57,19 +57,19 @@ class CarModel(models.Model):
         related_name='car_models',
         help_text="The car make this model belongs to."
     )
-    
+
     # Fields
     name = models.CharField(
         max_length=100,
         help_text="The name of the car model."
         )
-    
+
     TYPE_CHOICES = [
         ('Sedan', 'Sedan'),
         ('SUV', 'SUV'),
         ('Wagon', 'Wagon'),
     ]
-    
+
     type = models.CharField(
         max_length=10,
         choices=TYPE_CHOICES,
@@ -85,5 +85,5 @@ class CarModel(models.Model):
         )
 
     def __str__(self):
-        return f"{self.car_make.name} {self.name}"  # Combines car make and model name
-
+        return f"{self.car_make.name} {self.name}"  
+        # Combines car make and model name
