@@ -14,21 +14,25 @@ from django.db import models
 # - __str__ method to print a car make object
 
 class CarMake(models.Model):
-    name = models.CharField(max_length=100,
-                            unique=True,
-                            help_text="The name of the car make."
-                           )
-    description = models.TextField(blank=True,
-                                   help_text="A brief description of the car make."
-                                  )
-    country_of_origin = models.CharField(max_length=100,
-                                         blank=True,
-                                         help_text="The country where the car make originates."
-                                        )
-    established_year = models.PositiveIntegerField(null=True,
-                                                   blank=True,
-                                                   help_text="The year the car make was established."
-                                                  )
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        help_text="The name of the car make."
+        )
+    description = models.TextField(
+        blank=True,
+        help_text="A brief description of the car make."
+        )
+    country_of_origin = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="The country where the car make originates."
+    )
+    established_year = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="The year the car make was established."
+        )
 
     def __str__(self):
         return self.name
