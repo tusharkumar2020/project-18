@@ -30,12 +30,12 @@ class Migration(migrations.Migration):
                     blank=True,
                     help_text='A brief description of the car make.'
                 )),
-                ('country_of_origin',models.CharField(
+                ('country_of_origin', models.CharField(
                     blank=True,
                     help_text='The country where the car make originates.',
                     max_length=100
                 )),
-                ('established_year',models.PositiveIntegerField(
+                ('established_year', models.PositiveIntegerField(
                     blank=True,
                     help_text='The year the car make was established.',
                     null=True)),
@@ -50,29 +50,29 @@ class Migration(migrations.Migration):
                      serialize=False,
                      verbose_name='ID'
                 )),
-                ('dealer_id',models.IntegerField(
+                ('dealer_id', models.IntegerField(
                     help_text='The dealer ID associated with this car model.'
                 )),
-                ('name',models.CharField(
+                ('name', models.CharField(
                     help_text='The name of the car model.',
                     max_length=100
                 )),
-                ('type',models.CharField(
+                ('type', models.CharField(
                     choices=[('Sedan', 'Sedan'),
                              ('SUV', 'SUV'),
                              ('Wagon', 'Wagon')
                             ],
                     help_text='The type of car model.', max_length=10
                 )),
-                ('year',models.DateField(
+                ('year', models.DateField(
                     help_text='The year this car model was manufactured.'
                 )),
-                ('color',models.CharField(
+                ('color', models.CharField(
                     blank=True,
                     help_text='The color of the car model.',
                     max_length=50
                 )),
-                ('car_make',models.ForeignKey(
+                ('car_make', models.ForeignKey(
                     help_text='The car make this model belongs to.',
                     on_delete=django.db.models.deletion.CASCADE,
                     related_name='car_models',
