@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CarModel',
             fields=[
-                ('id',models.BigAutoField(
+                ('id', models.BigAutoField(
                      auto_created=True,
                      primary_key=True,
                      serialize=False,
@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
                     choices=[('Sedan', 'Sedan'),
                              ('SUV', 'SUV'),
                              ('Wagon', 'Wagon')
-                            ],
+                    ],
                     help_text='The type of car model.', max_length=10
                 )),
                 ('year', models.DateField(
