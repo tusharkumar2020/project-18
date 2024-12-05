@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Best Cars Dealership</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #20b2aa;
+            padding: 1rem;
+        }
+        .navbar h2 {
+            color: white;
+            font-size: 1.5rem;
+        }
+        .navbar .nav-link {
+            color: white;
+            font-size: 1.2rem;
+            padding: 0.5rem 1rem;
+        }
+        .navbar .nav-link.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .contact-container {
+            width: 80%;
+            margin: auto;
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .contact-container h1 {
+            color: #20b2aa;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .contact-details {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+        }
+        .contact-details p {
+            margin: 0.5rem 0;
+        }
+        .contact-details span {
+            font-weight: bold;
+            color: #333;
+        }
+        .map {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .map iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <h2>Best Cars Dealership</h2>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contact">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <img src="contactus.png" alt="contact us">
+        <div class="contact-details">
+            <p><span>Phone:</span> +1 (800) 555-1234</p>
+            <p><span>Email:</span> support@bestcars.com</p>
+            <p><span>Address:</span> 123 Auto Lane, Drive City, North America</p>
+            <p><span>Business Hours:</span> Mon-Fri: 9:00 AM - 7:00 PM | Sat-Sun: 10:00 AM - 5:00 PM</p>
+        </div>
+
+        <div class="map">
+            <h3>Find Us Here:</h3>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.8354345093687!2d144.96305791561713!3d-37.814217979751554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43fbaef3af%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1618975421711!5m2!1sen!2sus" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+</body>
+</html>
