@@ -6,7 +6,7 @@ from .models import CarMake, CarModel
 # CarModelInline class
 class CarModelInline(admin.StackedInline):
     model = CarModel
-    extra = 1  #Number of empty forms to display for add new related objects
+    extra = 1  # Number of empty forms to display for add new related objects
     fields = ('name', 'type', 'year')
 
 
