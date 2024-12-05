@@ -17,6 +17,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='carmodel',
             name='year',
-            field=models.IntegerField(default=2023, help_text='The year this car model was manufactured.'),
+            field=models.IntegerField(
+                default=2023,
+                help_text='The year this car model was manufactured.'
+            ),
         ),
     ]
