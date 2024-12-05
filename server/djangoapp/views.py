@@ -1,15 +1,15 @@
 # Corrected version of views.py
 
-#from django.shortcuts import render, redirect, get_object_or_404
+# from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-#from datetime import datetime
+# from datetime import datetime
 import logging
 import json
 from .populate import initiate
-from .models import CarModel # ,CarMake
+from .models import CarModel  # ,CarMake
 from .restapis import get_request, analyze_review_sentiments, post_review
 
 # Get an instance of a logger
