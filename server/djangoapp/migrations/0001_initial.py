@@ -21,9 +21,10 @@ class Migration(migrations.Migration):
                                            verbose_name='ID')),
                 ('name', models.CharField(help_text='The name of the car make.',
                                           max_length=100, unique=True)),
-                ('description', models.TextField(blank=True,
-                                                 help_text=/
-                                                 'A brief description of the car make.')),
+                ('description', models.TextField(
+                    blank=True,
+                    help_text='A brief description of the car make.'
+                )),
                 ('country_of_origin',
                  models.CharField(blank=True,
                                   help_text='The country where the car make originates.',
