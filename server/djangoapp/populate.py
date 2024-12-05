@@ -5,15 +5,15 @@ from .models import CarMake, CarModel
 
 def initiate():
     car_make_data = [
-        {"name":"NISSAN",
+        {"name": "NISSAN",
          "description": "Great cars. Japanese technology"},
         {"name": "Mercedes",
          "description": "Great cars. German technology"},
-        {"name":"Audi",
+        {"name": "Audi",
          "description": "Great cars. German technology"},
-        {"name":"Kia",
+        {"name": "Kia",
          "description": "Great cars. Korean technology"},
-        {"name":"Toyota",
+        {"name": "Toyota",
          "description": "Great cars. Japanese technology"},
     ]
 
