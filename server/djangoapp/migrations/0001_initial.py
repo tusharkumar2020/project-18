@@ -58,9 +58,10 @@ class Migration(migrations.Migration):
                     max_length=100
                 )),
                 ('type', models.CharField(
-                    choices=[('Sedan', 'Sedan'),
-                             ('SUV', 'SUV'),
-                             ('Wagon', 'Wagon')
+                    choices=[
+                        ('Sedan', 'Sedan'),
+                        ('SUV', 'SUV'),
+                        ('Wagon', 'Wagon')
                     ],
                     help_text='The type of car model.', max_length=10
                 )),
