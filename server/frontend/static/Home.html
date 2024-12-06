@@ -1,435 +1,64 @@
-<div class="flex justify-center items-start self-stretch flex-grow px-40 py-5">
-  <div class="flex flex-col justify-start items-start flex-grow overflow-hidden">
-    <div class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0">
-      <div class="flex flex-col justify-start items-start self-stretch flex-grow relative p-4">
-        <div
-          class="self-stretch flex-grow-0 flex-shrink-0 h-[480px] relative overflow-hidden rounded-lg bg-gradient-to-r from-black/10 to-black/40"
-        >
-          <div
-            class="flex flex-col justify-start items-start w-[896px] absolute left-48 top-[235px] gap-2"
-          >
-            <div
-              class="flex flex-col justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-[60px] relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[896px] text-5xl font-bold text-center text-white"
-              >
-                Welcome to Luxury Cars
-              </p>
-            </div>
-            <div
-              class="flex flex-col justify-start items-center self-stretch flex-grow-0 flex-shrink-0 relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[896px] text-base text-center text-white"
-              >
-                We offer a wide selection of luxury and exotic vehicles. Our inventory includes the
-                most sought-after models from the world's top brands.
-              </p>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start w-[480px] h-16 absolute left-[400px] top-[383px]"
-          >
-            <div class="flex justify-start items-start self-stretch flex-grow rounded-lg">
-              <div
-                class="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative pl-[15px] rounded-tl-lg rounded-bl-lg bg-[#f7fafc] border-t border-r-0 border-b border-l border-[#cfdbe8]"
-              >
-                <div class="flex-grow h-5 relative overflow-hidden">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="absolute left-[-1px] top-[-1px]"
-                    preserveAspectRatio="none"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M16.9422 16.0578L13.0305 12.1469C15.3858 9.3192 15.1004 5.13911 12.3826 2.65779C9.66485 0.176469 5.47612 0.271665 2.87389 2.87389C0.271665 5.47612 0.176469 9.66485 2.65779 12.3826C5.13911 15.1004 9.3192 15.3858 12.1469 13.0305L16.0578 16.9422C16.302 17.1864 16.698 17.1864 16.9422 16.9422C17.1864 16.698 17.1864 16.302 16.9422 16.0578V16.0578ZM2.125 7.75C2.125 4.6434 4.6434 2.125 7.75 2.125C10.8566 2.125 13.375 4.6434 13.375 7.75C13.375 10.8566 10.8566 13.375 7.75 13.375C4.64483 13.3716 2.12844 10.8552 2.125 7.75V7.75Z"
-                      fill="#4A709C"
-                    ></path>
-                  </svg>
-                  <div
-                    class="flex flex-col justify-start items-start w-4 h-4 absolute left-0 top-0"
-                  ></div>
-                </div>
-              </div>
-              <div
-                class="flex justify-start items-center self-stretch flex-grow relative overflow-hidden p-2 bg-[#f7fafc] border border-[#cfdbe8]"
-              >
-                <p class="flex-grow-0 flex-shrink-0 w-[265px] text-base text-left text-[#4a709c]">
-                  Find your dream car
-                </p>
-              </div>
-              <div
-                class="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 pr-[7px] rounded-tr-lg rounded-br-lg bg-[#f7fafc] border-t border-r border-b border-l-0 border-[#cfdbe8]"
-              >
-                <div
-                  class="flex justify-center items-center flex-grow h-12 overflow-hidden px-5 rounded-lg bg-[#0d7df2]"
-                >
-                  <div
-                    class="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 relative overflow-hidden"
-                  >
-                    <p
-                      class="self-stretch flex-grow-0 flex-shrink-0 text-base font-bold text-center text-[#f7fafc]"
-                    >
-                      Search
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="static/style.css">
+  <link rel="stylesheet" href="static/bootstrap.min.css">
+<script>
+
+const logout = async (e) => {
+//Include the code for logout here.
+};
+
+let checkSession = ()=>{
+  let curr_user = sessionStorage.getItem("username");
+
+  if (curr_user && curr_user !== "") {
+    document.getElementById("loginlogout").innerHTML = 
+    '<span class="homepage_links">' + curr_user +'</span>' +
+    '<a class="homepage_links" onclick="logout()" href="/">Logout</a>'
+  } else {
+    document.getElementById("loginlogout").innerHTML = 
+    '<a class="homepage_links" href="/login">Login</a>'+
+    '<a class="homepage_links"  href="/register">Register</a>'
+  }
+ }
+</script>
+</head>
+<body onload="checkSession()">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+  <div class="container-fluid">
+    <h2 style="padding-right: 5%;">Dealerships</h2>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" style="font-size: larger;" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: larger;" href="/about">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: larger;" href="/contact">Contact Us</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        <div class="loginlink" id="loginlogout">
         </div>
-      </div>
-    </div>
-    <div
-      class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-10 px-4 py-10"
-    >
-      <div
-        class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-4"
-      >
-        <div
-          class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[720px] relative"
-        >
-          <p
-            class="self-stretch flex-grow-0 flex-shrink-0 w-[720px] text-4xl font-bold text-left text-[#0d141c]"
-          >
-            Our Inventory
-          </p>
-        </div>
-        <div
-          class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[720px] relative"
-        >
-          <p
-            class="self-stretch flex-grow-0 flex-shrink-0 w-[720px] text-base text-left text-[#0d141c]"
-          >
-            Explore our extensive collection of luxury and exotic cars. We carry the latest models
-            from the world's top brands.
-          </p>
-        </div>
-      </div>
-      <div
-        class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-3"
-      >
-        <div class="flex justify-start items-start self-stretch flex-grow gap-3">
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0-3.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0"
-            >
-              <div
-                class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-              >
-                <p
-                  class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-                >
-                  New Inventory
-                </p>
-              </div>
-              <div
-                class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-              >
-                <p
-                  class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-sm text-left text-[#4a709c]"
-                >
-                  Discover the latest models from the world's top luxury and exotic car brands.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0"
-            >
-              <div
-                class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-              >
-                <p
-                  class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-                >
-                  Pre-owned Inventory
-                </p>
-              </div>
-              <div
-                class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-              >
-                <p
-                  class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-sm text-left text-[#4a709c]"
-                >
-                  Find pre-owned luxury and exotic vehicles in excellent condition at competitive
-                  prices.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0-2.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0"
-            >
-              <div
-                class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-              >
-                <p
-                  class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-                >
-                  Featured Inventory
-                </p>
-              </div>
-              <div
-                class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-              >
-                <p
-                  class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-sm text-left text-[#4a709c]"
-                >
-                  Explore our hand-picked selection of featured luxury and exotic cars.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0-10.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0"
-            >
-              <div
-                class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-              >
-                <p
-                  class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-                >
-                  Car Finder
-                </p>
-              </div>
-              <div
-                class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-              >
-                <p
-                  class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-sm text-left text-[#4a709c]"
-                >
-                  Let us know what you're looking for, and we'll help you find it.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-10 px-4 py-10"
-    >
-      <div
-        class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-4"
-      >
-        <div
-          class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[720px] relative"
-        >
-          <p
-            class="self-stretch flex-grow-0 flex-shrink-0 w-[720px] text-4xl font-bold text-left text-[#0d141c]"
-          >
-            Brands We Carry
-          </p>
-        </div>
-        <div
-          class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[720px] relative"
-        >
-          <p
-            class="self-stretch flex-grow-0 flex-shrink-0 w-[720px] text-base text-left text-[#0d141c]"
-          >
-            We are proud to offer a wide range of luxury and exotic car brands, including the most
-            prestigious names in the industry.
-          </p>
-        </div>
-      </div>
-      <div
-        class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-3"
-      >
-        <div class="flex justify-start items-start self-stretch flex-grow gap-3">
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0-6.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-              >
-                Aston Martin
-              </p>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0-7.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-              >
-                Bentley
-              </p>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0-8.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-              >
-                Ferrari
-              </p>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0-9.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-              >
-                Lamborghini
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-10 px-4 py-10"
-    >
-      <div
-        class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-4"
-      >
-        <div
-          class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[720px] relative"
-        >
-          <p
-            class="self-stretch flex-grow-0 flex-shrink-0 w-[720px] text-4xl font-bold text-left text-[#0d141c]"
-          >
-            Our Locations
-          </p>
-        </div>
-        <div
-          class="flex flex-col justify-start items-start flex-grow-0 flex-shrink-0 w-[720px] relative"
-        >
-          <p
-            class="self-stretch flex-grow-0 flex-shrink-0 w-[720px] text-base text-left text-[#0d141c]"
-          >
-            We have dealership locations in major cities across the United States, making it easy
-            for you to find and purchase your dream car. Visit us today to experience luxury and
-            performance like never before.
-          </p>
-        </div>
-      </div>
-      <div
-        class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-3"
-      >
-        <div class="flex justify-start items-start self-stretch flex-grow gap-3">
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] gap-3 pb-3"
-          >
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] overflow-hidden rounded-lg"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-              >
-                Los Angeles
-              </p>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0-4.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-              >
-                New York City
-              </p>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] relative gap-3 pb-3"
-          >
-            <div
-              class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] relative overflow-hidden rounded-lg bg-[url(&#x27;depth-8,-frame-0-5.png&#x27;)] bg-cover bg-no-repeat bg-center"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-              >
-                Miami
-              </p>
-            </div>
-          </div>
-          <div
-            class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] gap-3 pb-3"
-          >
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 w-[223px] h-[125px] overflow-hidden rounded-lg"
-            ></div>
-            <div
-              class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative"
-            >
-              <p
-                class="self-stretch flex-grow-0 flex-shrink-0 w-[223px] text-base font-medium text-left text-[#0d141c]"
-              >
-                San Francisco
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+        </span>
     </div>
   </div>
+</nav>
+<div style="display: flex;flex-direction: column;">
+<div class="card" style="width: 50%;margin-top: 50px;align-self: center;">
+  <img src="static/car_dealership.jpg" class="card-img-top" alt="...">
+  <div class="banner">
+    <h5>Welcome to our Dealerships!</h5>
+    <a href="/dealers" class="btn" style="background-color: aqua;margin:10px">View Dealerships</a>
+  </div>
 </div>
+</div>
+</body>
+</html>
