@@ -11,6 +11,7 @@
 ![about_us](https://github.com/user-attachments/assets/1b03d496-48b2-432a-9348-a10f6c7848b4)
 
 **Contact_us**
-![about_us](https://github.com/user-attachments/assets/04d12e98-f446-4a52-bd86-d645d56fa0d5)
+![contact_us](https://github.com/user-attachments/assets/cbbc8458-fe12-44df-b48e-64784a4a89db)
+
 
 (Images from freepik.com)
