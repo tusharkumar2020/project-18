@@ -1,7 +1,7 @@
 # Capstone Project For Israel Arendse
 
 
-##  Static Pages
+## Module-1: Static Pages
 
 **Home_page**
 ![homepage](https://github.com/user-attachments/assets/06315162-1cd5-40a4-ae09-ffc3a11cb226)
@@ -15,3 +15,9 @@
 
 
 (Images from freepik.com)
+
+
+## Module-2: User Management
+
+**Login**
+![Login](https://github.com/user-attachments/assets/e7d64ced-e780-4fa7-a2ea-78249bba1047)
