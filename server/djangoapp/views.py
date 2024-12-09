@@ -40,7 +40,10 @@ def login_user(request):
 
 # Create a `logout_request` view to handle sign out request
   def logout_request(request):
+        # Log out the user
+        logout(request)
         data = {"userName":""}
+        # Return the response
         return JsonResponse(data)
 
 # ...
