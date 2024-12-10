@@ -36,6 +36,8 @@ def login_user(request):
         # If user is valid, call login method to login current user
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
+        # Set session storage for username in the response
+        request.session['username'] = username
     return JsonResponse(data)
 
 
