@@ -58,8 +58,8 @@ def registration(request):
     data = json.loads(request.body)
     username = data['userName']
     password = data['password']
-    first_name = data['first name']
-    last_name = data['lastname']
+    first_name = data['firstName']
+    last_name = data['lastName']
     email = data['email']
     username_exist = False
     email_exist = False
