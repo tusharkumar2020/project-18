@@ -79,7 +79,7 @@ def registration(request):
         return JsonResponse(data)
     else :
         data = {"userName":username,"error":"Already Registered"}
-        return JsonResponse(data)# def registration(request):
+        return JsonResponse(data)
 # ...
 
 # # Update the `get_dealerships` view to render the index page with
