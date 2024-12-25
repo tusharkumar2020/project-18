@@ -1,29 +1,49 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    run: dealership
-  name: dealership
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      run: dealership
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        run: dealership
-    spec:
-      containers:
-      - image: us.icr.io/sn-labs-ali1998akbar/dealership:latest
-        imagePullPolicy: Always
-        name: dealership
-        ports:
-        - containerPort: 8000
-          protocol: TCP
-      restartPolicy: Always
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - restapi
+      - sentiment
+
+  restapi:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - "3030:3030"
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  sentiment:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+
+volumes:
+  mongo_data:
