@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const cars = new Schema({
 dealer_id: {
     type: Number,
-    required: true
+    required: false
 },
 make: {
     type: String,
