@@ -100,7 +100,7 @@ def get_dealer_reviews(request,dealer_id):
 
 
 # Create a `get_dealer_details` view to render the dealer details
-def get_dealer_reviews(request, dealer_id):
+def get_dealer_details(request, dealer_id):
     # if dealer id has been provided
     if(dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
