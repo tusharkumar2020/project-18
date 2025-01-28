@@ -53,7 +53,10 @@ def registration(request):
 
     username_exist = User.objects.filter(username=username).exists()
     if username_exist:
-        return JsonResponse({"userName": username, "error": "Already Registered"})
+        return JsonResponse(
+            {
+                "userName": username, "error": "Already Registered"
+            })
 
     # If not, create a new user
     user = User.objects.create_user(
