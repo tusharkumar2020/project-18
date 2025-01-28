@@ -7,8 +7,8 @@ import json
 
 from .models import CarMake, CarModel
 from .restapis import (
-    get_request, 
-    analyze_review_sentiments, 
+    get_request,
+    analyze_review_sentiments,
     post_review
 )
 
