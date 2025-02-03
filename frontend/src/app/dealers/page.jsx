@@ -1,6 +1,6 @@
 'use client';
 import React, {useEffect, useState} from "react";
-import useAxios from "@/app/hooks/useAxois";
+import useAxios from "../hooks/useAxois";
 import {AllCommunityModule, ModuleRegistry, colorSchemeDarkWarm, themeQuartz} from "ag-grid-community";
 import {AgGridReact} from "ag-grid-react";
 import Link from "next/link";

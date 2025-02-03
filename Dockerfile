@@ -1,25 +1,26 @@
-FROM python:3.12.0-slim-bookworm
+# Base image
+FROM python:3.9-slim
 
-ENV PYTHONBUFFERED 1
-ENV PYTHONWRITEBYTECODE 1
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-ENV APP=/app
+# Set working directory
+WORKDIR /app
 
-# Change the workdir.
-WORKDIR $APP
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Install the requirements
-COPY requirements.txt $APP
+# Copy project files
+COPY . /app/
 
-RUN pip3 install -r requirements.txt
-
-# Copy the rest of the files
-COPY . $APP
-
+# Expose the port for the Django app
 EXPOSE 8000
 
+# Copy entrypoint script
+COPY entrypoint.sh /app/
 RUN chmod +x /app/entrypoint.sh
 
-ENTRYPOINT ["/bin/bash","/app/entrypoint.sh"]
-
-CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "djangoproj.wsgi"]
+# Default command
+CMD ["/app/entrypoint.sh"]

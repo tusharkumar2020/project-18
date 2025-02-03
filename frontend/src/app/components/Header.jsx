@@ -2,9 +2,9 @@
 import {useEffect, useState} from "react";
 import Link from 'next/link';
 import {usePathname} from "next/navigation";
-import useAxios from "@/app/hooks/useAxois";
+import useAxios from "../hooks/useAxois";
 import toast from "react-hot-toast";
-import {useAuth} from "@/app/context/AuthContext";
+import {useAuth} from "../context/AuthContext";
 
 export default function Header() {
     const {pathname} = usePathname();
@@ -60,7 +60,7 @@ export default function Header() {
         <>
             <header className={`text-white w-full z-50 ${pathname === '/' ? 'absolute pt-10' : 'py-2 bg-black'}`}>
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                    <Link href={'/'}>
+                    <Link href={'/frontend/public'}>
                         <h1 className="xl:text-xl text-md font-bold">DEALERSHIP</h1>
                     </Link>
                     {/*<nav className="space-x-8">*/}

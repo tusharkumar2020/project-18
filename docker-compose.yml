@@ -1,5 +1,40 @@
 version: '3.8'
 services:
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+
+  api:
+      build:
+        context: ./database
+        dockerfile: Dockerfile
+      ports:
+        - "3030:3030"
+      depends_on:
+        - mongo_db
+  sentiment:
+    build:
+      context: ./djangoapp/microservices
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: gunicorn djangoproj.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - api
+      - sentiment
+
   frontend:
     build:
       context: ./frontend
@@ -10,40 +45,6 @@ services:
       - NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
     depends_on:
       - backend
-
-  backend:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    depends_on:
-      - restapi
-      - sentiment
-
-  restapi:
-    build:
-      context: ./database
-      dockerfile: Dockerfile
-    ports:
-      - "3030:3030"
-    depends_on:
-      - mongodb
-
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-
-  sentiment:
-    build:
-      context: ./database
-      dockerfile: Dockerfile
-    ports:
-      - "5001:5001"
 
 volumes:
   mongo_data:

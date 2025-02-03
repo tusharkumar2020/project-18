@@ -5,6 +5,7 @@ const fs = require("fs");
 const cors = require("cors");
 const app = express();
 const port = 3030;
+const host='0.0.0.0'
 
 app.use(cors());
 app.use(require("body-parser").urlencoded({ extended: false }));
@@ -112,6 +113,6 @@ app.post("/insert_review", express.raw({ type: "*/*" }), async (req, res) => {
 });
 
 // Start the Express server
-app.listen(port, () => {
+app.listen(port,host, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

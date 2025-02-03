@@ -1,8 +1,8 @@
 'use client';
 import React, {useEffect, useState} from "react";
-import useAxios from "@/app/hooks/useAxois";
+import useAxios from "../../hooks/useAxois";
 import {useParams} from "next/navigation";
-import {useAuth} from "@/app/context/AuthContext";
+import {useAuth} from "../../context/AuthContext";
 import toast from "react-hot-toast";
 
 export default function Dealer() {

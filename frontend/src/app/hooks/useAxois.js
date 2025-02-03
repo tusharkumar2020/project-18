@@ -1,6 +1,6 @@
 // hooks/useAxios.js
 import { useState } from 'react';
-import axiosInstance from '@/app/utils/axoisInstance';
+import axiosInstance from '../utils/axoisInstance';
 
 const useAxios = () => {
     const [data, setData] = useState(null);
