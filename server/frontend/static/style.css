@@ -154,24 +154,38 @@ html, body{
     justify-content: center;
 }
 
-.box:first-child {
-    background-color: lightblue; /* Different color for visibility */
+.box:last-child {
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between;*/ /* Space between the sub-boxes */
+    align-items: center;
+    /*width: 100%;*/
+    /*padding:10px;*/
+}
+/* Sub-boxes inside the last box */
+.sub-box{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.box:last-child {
-    background-color: lightcoral; /* Different color for visibility */
-}
-.contact-section h2{
+.sub-box h2{
     text-align: center;
 }
-.contact-section ul {
+.sub-box ul {
     list-style: none;
     padding: 0;
+    text-align: left; /* Aligns the text to the left */
 }
-.contact-section li {
-    margin-bottom: 10px
+.sub-box li {
+    margin-bottom: 10px;
+    text-align: left; /* Ensures text within list items is aligned left */
 }
-.contact-section li strong{
+.sub-box li strong{
     display: inline-block;
     width: 80px;
+    text-align: left; /* Aligns the text to the left */
 }
