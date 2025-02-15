@@ -142,9 +142,24 @@ html, body{
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;   /* stack items vertically */
-    justify-content: center;
+    /*justify-content: center;*/  /* center items vertically */
+    align-items: center;      /* center items horizontally */
+    text-align: center;       /* center text inside the items */
+}
+.box {
+    width: 100%;  /* Full width */
+    height: 50%;  /* Each box takes 50% of the parent's height */
+    display: flex;
     align-items: center;
-    text-align: center;
+    justify-content: center;
+}
+
+.box:first-child {
+    background-color: lightblue; /* Different color for visibility */
+}
+
+.box:last-child {
+    background-color: lightcoral; /* Different color for visibility */
 }
 .contact-section h2{
     text-align: center;
