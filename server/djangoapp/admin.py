@@ -11,10 +11,10 @@ class CarModelInline(admin.TabularInline): # Use TabularInline to sgow related m
 # CarModelAdmin class
 @admin.register(CarModel)
 class CarModelAdmin(admin.ModelAdmin):
-    list_display = ("name", "carmake", "type", "year", "dealer_id") #Field to display
-    search_fields = ("name", "carmake__name") # Enable search
-    list_filter = ("type", "year", "carmake") # Filters for easy access
-    ordering = ("carmake", "name") # Order by brand then model name
+    list_display = ("name", "car_make", "type", "year", "dealer_id") #Field to display
+    search_fields = ("name", "car_make") # Enable search
+    list_filter = ("type", "year", "car_make") # Filters for easy access
+    ordering = ("car_make", "name") # Order by brand then model name
 
 # CarMakeAdmin class with CarModelInline
 @admin.register(CarMake)

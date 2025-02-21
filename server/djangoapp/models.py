@@ -36,7 +36,7 @@ class CarMake(models.Model):
         return self.name
 
 class CarModel(models.Model):
-    carmake = models.ForeignKey(CarMake, on_delete = models.CASCADE) # Many to one relationship
+    car_make = models.ForeignKey(CarMake, on_delete = models.CASCADE) # Many to one relationship
     dealer_id = models.IntegerField()
     # Name should not be unique globally, but unique within a specific carmake
     name = models.CharField(max_length = 150)
@@ -56,7 +56,7 @@ class CarModel(models.Model):
     )
 
     class Meta:
-        unique_together = ('carmake','name') # Ensures uniqueness within each car brand
+        unique_together = ('car_make','name') # Ensures uniqueness within each car brand
     
     def __str__(self):
         return self.name
