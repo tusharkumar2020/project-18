@@ -13,7 +13,7 @@ from django.contrib.auth import login, authenticate
 import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
-from .populate import initiate
+from .populate import initiate, initiate_car_models, initiate_car_makes
 from .models import CarMake, CarModel
 
 # Get an instance of a logger
@@ -91,6 +91,8 @@ def get_cars(request):
     if (count == 0):
         # Create a list of car makers and car models and save it automatically stored in databased by the create()
         initiate()
+    if CarModel.objects.filter().count() == 0:
+        initiate_car_models()
     car_models = CarModel.objects.select_related('car_make')
     cars = []
     for car_model in car_models:
