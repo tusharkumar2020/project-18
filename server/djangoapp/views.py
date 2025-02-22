@@ -93,6 +93,7 @@ def get_cars(request):
         initiate()
     if CarModel.objects.filter().count() == 0:
         initiate_car_models()
+        print("Car Model were created.")
     car_models = CarModel.objects.select_related('car_make')
     cars = []
     for car_model in car_models:
