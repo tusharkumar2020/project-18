@@ -113,6 +113,8 @@ def get_dealerships(request, state="All"):
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 def get_dealer_reviews(request, dealer_id):
+    if not dealer_id:
+        return JsonResponse({"status": 400,"message: Bad Request"})
     end_point = f"/fetchReviews/dealer/{dealer_id}"
     try:
         get_reviews = get_request(end_point)
@@ -121,19 +123,23 @@ def get_dealer_reviews(request, dealer_id):
             get_reviews = []
     except Exception as err:
         print(f"Error getting review from dealers {dealer_id} with error {err}" )
-        get_reviews = []
-    return get_reviews
+        return JsonResponse({"status":500, "message": "Error fetching dealer details"})
+    return JsonResponse({"status":200, "reviews":get_reviews})
+
 
 # Create a `get_dealer_details` view to render the dealer details
 # Fetches dealer details for a given dealer ID.
 def get_dealer_details(request, dealer_id):
+    if not dealer_id:
+        return JsonResponse({"status": 400,"message: Bad Request"})
+    
     end_point = f"/fetchDealers/{dealer_id}"
     try:
         dealer_details = get_request(end_point)
     except Exception as err:
         print(f"Error getting dealers {dealer_id} with error {err}" )
-        dealer_details = None
-    return dealer_details
+        return JsonResponse({"status": 500, "message": "Error fetching dealer details"})
+    return JsonResponse({"status":200, "dealer":dealer_details})
 
         
         
