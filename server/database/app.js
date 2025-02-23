@@ -27,7 +27,6 @@ Dealerships.deleteMany({})
   .catch((error) => console.error("Error initializing Dealerships:", error));
 
 
-
 // Express route to home
 app.get('/', async (req, res) => {
     res.send("Welcome to the Mongoose API")

@@ -107,17 +107,37 @@ def get_dealerships(request, state="All"):
     if (state == "All"):
         endpoint = "/fetchDealers"
     else:
-        endpoint = "/fetchDealers"+state
+        endpoint = "/fetchDealers/"+state
     dealerships = get_request(endpoint)
     return JsonResponse({"status":200, "dealers":dealerships})
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
-# def get_dealer_reviews(request,dealer_id):
-# ...
+def get_dealer_reviews(request, dealer_id):
+    end_point = f"/fetchReviews/dealer/{dealer_id}"
+    try:
+        get_reviews = get_request(end_point)
+        if get_reviews is None:
+            print("There are no review for this dealer.")
+            get_reviews = []
+    except Exception as err:
+        print(f"Error getting review from dealers {dealer_id} with error {err}" )
+        get_reviews = []
+    return get_reviews
 
 # Create a `get_dealer_details` view to render the dealer details
-# def get_dealer_details(request, dealer_id):
-# ...
+# Fetches dealer details for a given dealer ID.
+def get_dealer_details(request, dealer_id):
+    end_point = f"/fetchDealers/{dealer_id}"
+    try:
+        dealer_details = get_request(end_point)
+    except Exception as err:
+        print(f"Error getting dealers {dealer_id} with error {err}" )
+        dealer_details = None
+    return dealer_details
+
+        
+        
+         
 
 # Create a `add_review` view to submit a review
 # def add_review(request):
