@@ -46,5 +46,17 @@ def analyze_review_sentiments(text):
         print("Network exception occured.")
 
 
-# def post_review(data_dict):
-# Add code for posting review
+# POST a review for a dealer 
+def post_review(data_dict):
+    """
+    Add a review for specific dealer
+    """
+    request_url = backend_url+"/insert_review"
+    try:
+        response = requests.post(request_url, json = data_dict)
+        print(response.json())
+        return response.json()
+    except:
+        print("Network exception occured.")
+
+

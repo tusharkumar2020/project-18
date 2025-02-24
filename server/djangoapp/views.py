@@ -15,7 +15,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate, initiate_car_models, initiate_car_makes
 from .models import CarMake, CarModel
-from .restapis import get_request, analyze_review_sentiments
+from .restapis import get_request, analyze_review_sentiments, post_review
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -38,6 +38,7 @@ def login_user(request):
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(data)
+
 
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
@@ -85,6 +86,7 @@ def registration(request):
         data = {"userName":username, "error":"Already Rgistered"}
         return JsonResponse(data)
 
+
 # Get the list of the cars
 def get_cars(request):
     count = CarMake.objects.filter().count() # standard way in Django to count records in a database table.
@@ -101,37 +103,23 @@ def get_cars(request):
         cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
     return JsonResponse({"CarModels":cars})
 
+
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
 def get_dealerships(request, state="All"):
-    if (state == "All"):
-        endpoint = "/fetchDealers"
-    else:
-        endpoint = "/fetchDealers/"+state
-    dealerships = get_request(endpoint)
-    return JsonResponse({"status":200, "dealers":dealerships})
-
-# Create a `get_dealer_reviews` view to render the reviews of a dealer
-def get_dealer_reviews(request, dealer_id):
     """
-    Fetches reviews for a given dealer and analyzes their sentiments.
+    Fetches dealerships optionally filtered by state.
     """
-    if not dealer_id:
-        return JsonResponse({"status": 400,"message": "Bad Request"})
-    end_point = f"/fetchReviews/dealer/{dealer_id}"
     try:
-        get_reviews = get_request(end_point)
-        if get_reviews is None:
-            print("There are no review for this dealer.")
-            get_reviews = []
-            sentiments = []
+        if (state == "All"):
+            endpoint = "/fetchDealers"
         else:
-            # Convert reviews to string format and analyze sentiments
-            sentiments = analyze_review_sentiments(json.dumps(get_reviews))
+            endpoint = "/fetchDealers/"+state
+        dealerships = get_request(endpoint)
     except Exception as err:
-        print(f"Error getting review from dealers {dealer_id} with error {err}" )
-        return JsonResponse({"status":500, "message": "Error fetching dealer details"})
-    return JsonResponse({"status":200, "reviews":get_reviews, "sentiments":sentiments})
+        print(f"Error fetching dealerships for state {state}: {err}")
+        return JsonResponse({"status":500, "message": "Error fetching dealer details."})
+    return JsonResponse({"status":200, "dealers":dealerships})
 
 
 # Create a `get_dealer_details` view to render the dealer details
@@ -149,10 +137,53 @@ def get_dealer_details(request, dealer_id):
     except Exception as err:
         print(f"Error getting dealers {dealer_id} with error {err}" )
         return JsonResponse({"status": 500, "message": "Error fetching dealer details"})
-    return JsonResponse({"status":200, "dealer":dealer_details})
+    return JsonResponse({"status": 200, "dealer":dealer_details})
 
-         
+
+# Create a `get_dealer_reviews` view to render the reviews of a dealer
+def get_dealer_reviews(request, dealer_id):
+    """
+    Fetches reviews for a given dealer and analyzes their sentiments.
+    """
+    if not dealer_id:
+        return JsonResponse({"status": 400,"message": "Bad Request"})
+    end_point = f"/fetchReviews/dealer/{dealer_id}"
+    try:
+        get_reviews = get_request(end_point)
+        if not get_reviews:
+            print("There are no review for this dealer.")
+            return JsonResponse({"status": 200, "message": "No reviews available", "reviews": []})
+        else:
+            # Convert reviews to string format and analyze sentiments
+            for review in get_reviews:
+                try: 
+                    sentiment = analyze_review_sentiments(review["review"])
+                    review["sentiment"] = sentiment
+                except Exception as sentiment_err:
+                    print(f"Error analyzing sentiment for review: {sentiment_err}.")
+                    review["sentiment"] = "error"
+    except Exception as err:
+        print(f"Error getting review from dealers {dealer_id} with error {err}" )
+        return JsonResponse({"status":500, "message": "Error fetching dealer reviews"})
+    return JsonResponse({"status":200, "reviews":get_reviews})
+ 
 
 # Create a `add_review` view to submit a review
-# def add_review(request):
-# ...
+def add_review(request):
+    """
+    Add a new review for a dealers.
+    """
+    if not request.user.is_authenticated:
+        return JsonResponse({"status":403, "message":"Unauthorized"})
+    try:
+        data = json.loads(request.body)
+        response = post_review(data)
+        if response.status_code == 201:
+            return JsonResponse({"status":201, "message": "Review successfully added"})
+        else:
+            return JsonResponse({"status": response.status_code, "message": "Could not post a review"})
+    except json.JSONDecodeError:
+        return JsonResponse({"status": 400, "message": "Invalid JSON format"}, status=400)
+    except Exception as err:
+        return JsonResponse({"status": 500, "message": f"Internal Server Error: {err}"}, status=500)
+
