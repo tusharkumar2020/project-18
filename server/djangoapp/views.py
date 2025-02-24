@@ -150,6 +150,7 @@ def get_dealer_reviews(request, dealer_id):
     end_point = f"/fetchReviews/dealer/{dealer_id}"
     try:
         get_reviews = get_request(end_point)
+        print("get_reviews", get_reviews)
         if not get_reviews:
             print("There are no review for this dealer.")
             return JsonResponse({"status": 200, "message": "No reviews available", "reviews": []})

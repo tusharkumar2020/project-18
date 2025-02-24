@@ -35,11 +35,18 @@ def get_request(endpoint, **kwargs):
 
 # Get sentiment analyzer
 def analyze_review_sentiments(text):
-    request_url = sentiment_analyzer_url + "analyze/" + text
+    request_url = sentiment_analyzer_url + "/analyze/" + text
     try:
         # Call get method of requests library with URL and params
         response = requests.get(request_url)
-        return response.json()
+        # DEBUG: Print raw response to find issues
+        print("Sentiment API Response Status:", response.status_code)
+        print("Sentiment API Response Text:", response.text)
+        if response.status_code == 200:
+            return response.json().get("sentiment", "unknown")
+        else:
+            print("Error: Received non-200 status code.")
+            return "error"
         
     except Exception as err:
         print(f"Unexpected {err = }, {type(err) = }")
