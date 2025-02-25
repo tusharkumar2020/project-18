@@ -129,3 +129,15 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+.header-image {
+    width: 80%; 
+    margin: 0 auto; 
+    margin-top: 5%; 
+    text-align: center; 
+}
+
+.header-image img {
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 10px; 
+}
