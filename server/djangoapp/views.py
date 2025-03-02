@@ -131,7 +131,7 @@ def get_dealer_details(request, dealer_id):
     if not dealer_id:
         return JsonResponse({"status": 400,"message": "Bad Request"})
     
-    end_point = f"/fetchDealers/{dealer_id}"
+    end_point = f"/fetchDealer/{dealer_id}"
     try:
         dealer_details = get_request(end_point)
     except Exception as err:
