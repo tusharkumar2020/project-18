@@ -15,6 +15,8 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
 from .models import CarMake, CarModel
+
+from .restapis import get_request, analyze_review_sentiments
 from .restapis import get_request, analyze_review_sentiments, post_review
 
 
@@ -22,7 +24,7 @@ from .restapis import get_request, analyze_review_sentiments, post_review
 logger = logging.getLogger(__name__)
 
 
-# Create your views here.
+# Creating my views here.
 
 # Create a `login_request` view to handle sign in request
 @csrf_exempt
@@ -95,7 +97,7 @@ def get_cars(request):
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
-def get_dealerships(request):
+def get_dealerships(request, state="All"):
     if(state == "All"):
         endpoint = "/fetchDealers"
     else:
