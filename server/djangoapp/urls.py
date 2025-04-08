@@ -7,7 +7,11 @@ urlpatterns = [
     path('register/', views.registration, name='register'),
     path('cars/', views.get_cars, name='get_cars'),
     path('dealerships/', views.get_dealerships, name='get_dealerships'),
-    path('dealerships/<str:state>/', views.get_dealerships, name='get_dealerships_by_state'),
+    path(
+        'dealerships/<str:state>/', 
+        views.get_dealerships, 
+        name='get_dealerships_by_state'
+    ),
     path(
         'dealer/<int:dealer_id>/',
         views.get_dealer_details,
