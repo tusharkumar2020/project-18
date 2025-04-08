@@ -8,8 +8,8 @@ urlpatterns = [
     path('cars/', views.get_cars, name='get_cars'),
     path('dealerships/', views.get_dealerships, name='get_dealerships'),
     path(
-        'dealerships/<str:state>/', 
-        views.get_dealerships, 
+        'dealerships/<str:state>/',
+        views.get_dealerships,
         name='get_dealerships_by_state'
     ),
     path(
