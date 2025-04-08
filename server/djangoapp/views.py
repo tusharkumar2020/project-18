@@ -50,7 +50,7 @@ def registration(request):
     first_name = data['firstName']
     last_name = data['lastName']
     email = data['email']
- 
+
     username_exist = False
     try:
         # Check if user already exists
@@ -120,7 +120,7 @@ def get_dealer_reviews(request, dealer_id):
     if dealer_id:
         endpoint = f"/fetchReviews/dealer/{dealer_id}"
         reviews = get_request(endpoint)
-        
+
         for review_detail in reviews:
             review_detail['sentiment'] = analyze_review_sentiments(
                 review_detail['review']
