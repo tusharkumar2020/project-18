@@ -91,7 +91,7 @@ def get_cars(request):
     return JsonResponse({"CarModels": cars})
 
 
-# Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+# Update the `get_dealerships` render list of dealerships
 def get_dealerships(request, state="All"):
     if state == "All":
         endpoint = "/fetchDealers"
@@ -132,6 +132,8 @@ def add_review(request):
             return JsonResponse({"status": 200})
         except Exception as e:
             print(f"An error occurred: {e}")
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+            return JsonResponse(
+                {"status": 401, "message": "Error in posting review"}
+            )
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
