@@ -48,10 +48,10 @@ class CarModel(models.Model):
     CAR_TYPE_CHOICES =[(SEDAN, "Sedan"), (SUV, "SUV"), (WAGON, "Wagon")]
 
     type = models.CharField(max_length=10, choices=CAR_TYPE_CHOICES, default = SEDAN)
-    year = models.IntegerField(default = 2025,
+    year = models.IntegerField(default = 2020,
         validators = [
-            MaxValueValidator(2025),
-            MinValueValidator(1960)
+            MaxValueValidator(2023),
+            MinValueValidator(2015)
         ]
     )
 
