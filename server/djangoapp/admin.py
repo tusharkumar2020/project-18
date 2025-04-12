@@ -1,29 +1,41 @@
 from django.contrib import admin
 from .models import CarMake, CarModel
 
+
 # Register your models here.
 
 # CarModelInline class
-class CarModelInline(admin.TabularInline): # Use TabularInline to sgow related models inline
+class CarModelInline(admin.TabularInline):  # Use TabularInline for related models
     model = CarModel
-    extra = 1 # Number of empty forms to display for adding new models
+    extra = 1  # Number of extra inline forms
+
 
 # CarModelAdmin class
 @admin.register(CarModel)
 class CarModelAdmin(admin.ModelAdmin):
-    list_display = ("name", "car_make", "type", "year", "dealer_id") #Field to display
-    search_fields = ("name", "car_make") # Enable search
-    list_filter = ("type", "year", "car_make") # Filters for easy access
-    ordering = ("car_make", "name") # Order by brand then model name
+    # Fields to display in the list view
+    list_display = ("name", "car_make", "type", "year", "dealer_id")
+    # Enable search fields
+    search_fields = ("name", "car_make")
+    # Filters for easy access
+    list_filter = ("type", "year", "car_make")
+    # Order by brand then model name
+    ordering = ("car_make", "name")
+
 
 # CarMakeAdmin class with CarModelInline
 @admin.register(CarMake)
 class CarMakeAdmin(admin.ModelAdmin):
-    list_display = ("name", "description") # Display brand name and description
-    search_fields = ("name",) # Search brands by name
-    ordering = ("name",) # Sort brands alphabetically
-    inlines = [CarModelInline] # Show related CarModels inline
+    # Fields to display: brand name and description
+    list_display = ("name", "description")
+    # Search brands by name
+    search_fields = ("name",)
+    # Sort brands alphabetically
+    ordering = ("name",)
+    # Show related CarModels inline
+    inlines = [CarModelInline]
+
 
 # Register models here
-#admin.site.register(CarMake)
-#admin.site.register(CarModel)
+# admin.site.register(CarMake)
+# admin.site.register(CarModel)
