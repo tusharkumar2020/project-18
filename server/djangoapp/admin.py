@@ -5,7 +5,8 @@ from .models import CarMake, CarModel
 # Register your models here.
 
 # CarModelInline class
-class CarModelInline(admin.TabularInline):  # Use TabularInline for related models
+# Use TabularInline for related models
+class CarModelInline(admin.TabularInline):
     model = CarModel
     extra = 1  # Number of extra inline forms
 
