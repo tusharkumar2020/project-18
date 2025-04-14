@@ -24,6 +24,6 @@ spec:
         imagePullPolicy: "Always"
         name: dealership
         ports:
-        - containers: 8000
-          protocol: TCP
+        - containerPort: 8000
+          protocol: "TCP"
       restartPolicy: "Always"
