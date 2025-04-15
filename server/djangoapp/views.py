@@ -51,7 +51,8 @@ def logout_request(request):
 @csrf_exempt
 def registration(request):
     context = {}
-    data = json.load(request.body.decode('utf-8'))
+    data = json.loads(request.body.decode('utf-8'))
+    print("data: ", data)
     username = data['userName']
     password = data['password']
     first_name = data['firstName']
@@ -66,7 +67,7 @@ def registration(request):
         username_exist=True
     except:
         #If not, simply log this is a new user
-        logger.debugged("{} is new user".format(username))
+        logger.debug("{} is new user".format(username))
     
     # If it is a new user
     if not username_exist:
