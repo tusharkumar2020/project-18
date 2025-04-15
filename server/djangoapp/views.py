@@ -84,7 +84,7 @@ def registration(request):
         data = {"userName":username, "status":"Authenticated"}
         return JsonResponse(data)
     else:
-        data = {"userName":username, "error":"Already Rgistered"}
+        data = {"userName":username, "error":"Already Registered"}
         return JsonResponse(data)
 
 
