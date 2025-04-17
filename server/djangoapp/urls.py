@@ -6,11 +6,11 @@ urlpatterns = [
     path('logout/', views.logout_request, name='logout'),
     path('register/', views.registration, name='register'),
     path('cars/', views.get_cars, name='get_cars'),
-    path('dealerships/', views.get_dealerships, name='get_dealerships'),
+    path('get_dealers/', view=views.get_dealerships, name='get_dealers'),
     path(
-        'dealerships/<str:state>/',
+        'get_dealers/<str:state>/',
         views.get_dealerships,
-        name='get_dealerships_by_state'
+        name='get_dealers_by_state'
     ),
     path(
         'dealer/<int:dealer_id>/',
