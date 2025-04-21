@@ -12,25 +12,7 @@ services:
       - mongo_data:/data/db
 
   #Postgres service
-  postgres_db:
-    container_name: postgres_container
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres_db 
-      PGDATA: /var/lib/postgresql/data
-    ports:
-       - 5432:5432
-    restart: always
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD", "pg_isready"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s  
+  
 
 
   # Node api service
@@ -40,11 +22,8 @@ services:
       - 3030:3030
     depends_on: 
       - mongo_db
-      - postgres_db
-
-
-
+     
 volumes:
   mongo_data: {}
-  postgres_data: {}
+
   
