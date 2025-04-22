@@ -92,16 +92,16 @@ def get_cars(request):
 
 def get_dealerships(request, state="All"):
     if(state == "All"):
-        endpoint = "/fetchDealers"
+        endpoint = "fetchDealers"
     else:
-        endpoint = "/fetchDealers/"+state
+        endpoint = "fetchDealers/"+state
     dealerships = get_request(endpoint)
     return JsonResponse({"status":200,"dealers":dealerships})
 
 def get_dealer_reviews(request, dealer_id):
     # if dealer id has been provided
     if(dealer_id):
-        endpoint = "/fetchReviews/dealer/"+str(dealer_id)
+        endpoint = "fetchReviews/dealer/"+str(dealer_id)
         reviews = get_request(endpoint)
         for review_detail in reviews:
             response = analyze_review_sentiments(review_detail['review'])
@@ -111,13 +111,24 @@ def get_dealer_reviews(request, dealer_id):
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
 
+import json
+
 def get_dealer_details(request, dealer_id):
-    if(dealer_id):
-        endpoint = "/fetchDealer/"+str(dealer_id)
+    if dealer_id:
+        endpoint = "fetchDealer/" + str(dealer_id)
         dealership = get_request(endpoint)
-        return JsonResponse({"status":200,"dealer":dealership})
+
+        # If it's a list, get the first item
+        if isinstance(dealership, list) and len(dealership) > 0:
+            return JsonResponse(dealership[0], safe=False)
+        elif isinstance(dealership, dict):
+            return JsonResponse(dealership, safe=False)
+        else:
+            return JsonResponse({}, status=404)
     else:
-        return JsonResponse({"status":400,"message":"Bad Request"})
+        return JsonResponse({"message": "Bad Request"}, status=400)
+
+
 
 def add_review(request):
     if(request.user.is_anonymous == False):
