@@ -6,9 +6,10 @@ from django.conf import settings
 
 app_name = 'djangoapp'
 urlpatterns = [
-    # # path for registration
+    # path for registration
 
     # path for login
+
     # path(route='login', view=views.login_user, name='login'),
 
     # path for dealer reviews view
