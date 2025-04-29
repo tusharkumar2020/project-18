@@ -17,16 +17,18 @@ def get_request(endpoint, **kwargs):
         for key, value in kwargs.items():
             params = params + key + "=" + value + "&"
 
-    request_url = backend_url.rstrip("/") + "/" + endpoint.lstrip("/") + "?" + params
+    request_url = (
+    f"{backend_url.rstrip('/')}/"
+    f"{endpoint.lstrip('/')}?{params}"
+)
 
     print("GET from {} ".format(request_url))
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
         return response.json()
-    except:
-        # If any error occurs
-        print("Network exception occurred")
+    except Exception as e:
+        print(f"Error: {e}")
 
 
 def analyze_review_sentiments(text):
@@ -46,5 +48,5 @@ def post_review(data_dict):
         response = requests.post(request_url, json=data_dict)
         print(response.json())
         return response.json()
-    except:
-        print("Network exception occurred")
+    except Exception as e:
+        print(f"Error: {e}")
