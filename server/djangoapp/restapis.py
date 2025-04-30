@@ -18,9 +18,9 @@ def get_request(endpoint, **kwargs):
             params = params + key + "=" + value + "&"
 
     request_url = (
-    f"{backend_url.rstrip('/')}/"
-    f"{endpoint.lstrip('/')}?{params}"
-)
+        f"{backend_url.rstrip('/')}/"
+        f"{endpoint.lstrip('/')}?{params}"
+    )
 
     print("GET from {} ".format(request_url))
     try:
