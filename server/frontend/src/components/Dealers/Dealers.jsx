@@ -78,11 +78,7 @@ return(
       <th>Zip</th>
       <th>
       <input type="text" placeholder="Search states..." onChange={handleInputChange} onBlur={handleLostFocus} value={searchQuery} />
-      <option value="" selected disabled hidden>State</option>
-      <option value="All">All States</option>
-      {states.map(state => (
-           <option value={state}>{state}</option>
-      ))}
+      
         
 
       </th>
