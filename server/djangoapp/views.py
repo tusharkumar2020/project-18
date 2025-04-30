@@ -138,9 +138,9 @@ def add_review(request):
     if not request.user.is_anonymous:
         data = json.loads(request.body)
         try:
-            response = post_review(data)  # Assuming this returns a useful result
-            return JsonResponse({"status": 200, "data": response})  # Returning the response
-        except SomeSpecificException as e:
+            response = post_review(data)
+            return JsonResponse({"status": 200, "data": response})
+        except Exception as e:
             return JsonResponse({
                 "status": 401,
                 "message": f"Error in posting review: {str(e)}"
