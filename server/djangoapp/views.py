@@ -86,19 +86,63 @@ def get_cars(request):
     for car_model in car_models:
         cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
     return JsonResponse({"CarModels":cars})
-# # Update the `get_dealerships` view to render the index page with
-# a list of dealerships
-# def get_dealerships(request):
-# ...
+# Update the `get_dealerships` view to render the index page with
+#Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
+def get_dealerships(request, state="All"):
+    if(state == "All"):
+        endpoint = "/fetchDealers"
+    else:
+        endpoint = "/fetchDealers/"+state
+    dealerships = get_request(endpoint)
+    return JsonResponse({"status":200,"dealers":dealerships})
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 # def get_dealer_reviews(request,dealer_id):
 # ...
 
 # Create a `get_dealer_details` view to render the dealer details
-# def get_dealer_details(request, dealer_id):
-# ...
+def get_dealer_details(request, dealer_id):
+    if dealer_id:
+        endpoint = "/fetchDealer/" + str(dealer_id)
+        dealership = get_request(endpoint)
+        return JsonResponse({"status": 200, "dealer": dealership})
+    else:
+        return JsonResponse({"status": 400, "message": "Bad Request"})
+
+# NEW: Get dealer reviews and run sentiment analysis
+def get_dealer_reviews(request, dealer_id):
+    if dealer_id:
+        endpoint = "/fetchReviews/dealer/" + str(dealer_id)
+        reviews = get_request(endpoint)
+
+        results = []
+        for review in reviews:
+            sentiment = analyze_review_sentiments(review.get("review", ""))
+            review_detail = {
+                "id": review.get("id"),
+                "name": review.get("name"),
+                "dealership": review.get("dealership"),
+                "review": review.get("review"),
+                "purchase": review.get("purchase"),
+                "sentiment": sentiment.get("label", "neutral")
+            }
+            results.append(review_detail)
+
+        return JsonResponse({"status": 200, "reviews": results})
+    else:
+        return JsonResponse({"status": 400, "message": "Bad Request"})
+
 
 # Create a `add_review` view to submit a review
-# def add_review(request):
-# ...
+def add_review(request):
+    if request.user.is_authenticated:
+        data = json.loads(request.body)
+        try:
+            response = post_review(data)
+            return JsonResponse({"status": 200})
+        except Exception as e:
+            print(e)
+            return JsonResponse({"status": 401, "message": "Error in posting review"})
+    else:
+        return JsonResponse({"status": 403, "message": "Unauthorized"})
+

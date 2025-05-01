@@ -41,4 +41,17 @@ def analyze_review_sentiments(text):
         print("Network exception occurred")
 
 # def post_review(data_dict):
+
+backend_url = os.getenv("backend_url", "https://maryamakanso-3030.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai")  # Make sure backend_url is set
+
+def post_review(data_dict):
+    request_url = backend_url + "/insert_review"
+    try:
+        response = requests.post(request_url, json=data_dict)
+        print(response.json())
+        return response.json()
+    except Exception as e:
+        print("Network exception occurred:", e)
+        return None
+
 # Add code for posting review
