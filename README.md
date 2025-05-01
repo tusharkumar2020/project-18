@@ -1,1 +1,1 @@
-# coding-project-template
+# This is my Full Stack Developer Capstone Project uzing React and Node.JS w/python and html/css & DJANGO,  Express-MongoDB, and a Sentiment Analyzer etc... It's a car dealership with user access / inventory and bare bones functionality that will be improved on, this will serve as a future template for app/web dev.
