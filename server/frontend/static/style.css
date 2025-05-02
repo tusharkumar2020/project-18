@@ -124,3 +124,61 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+
+/*contact page*/
+
+/* Reset some default browser styles */
+body, ul {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+
+/* Navigation bar */
+nav {
+  background-color: #00d0d0; /* Bright turquoise */
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  gap: 30px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+nav ul li a.active,
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Contact section styling */
+.contact-container {
+  padding: 50px;
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.contact-container h1 {
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.contact-container p {
+  font-size: 18px;
+  margin: 10px 0;
+}
