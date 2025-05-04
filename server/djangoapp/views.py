@@ -98,6 +98,9 @@ def get_dealer_reviews(request,dealer_id):
     if(dealer_id):
         endpoint = "/fetchReviews/" + str(dealer_id)
         reviews = get_request(endpoint)
+        # Add this check before iterating
+        if reviews is None:
+            return JsonResponse({"status": "404", "message": "No reviews found for this dealer"})
         return JsonResponse({"status": "200", "reviews": reviews})
     else:
         return JsonResponse({"status": "404", "message": "Bad Request"})
