@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* Additional styles specific to Contact page */
+        body {
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .contact-container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px 40px;
+        }
+        h1.title {
+            font-size: 2.5rem;
+            color: rgb(97, 64, 128);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            padding: 12px 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: rgb(97, 64, 128);
+            outline: none;
+        }
+        textarea {
+            min-height: 120px;
+        }
+        button {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: rgb(97, 64, 128);
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: rgb(120, 90, 160);
+        }
+        .contact-info {
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #555;
+            text-align: center;
+        }
+        @media (max-width: 480px) {
+            .contact-container {
+                margin: 20px 15px;
+                padding: 20px;
+            }
+            h1.title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <h1 class="title">Contact Us</h1>
+        <form action="#" method="POST" id="contactForm">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your full name" required />
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your email address" required />
+
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Subject of your message" required />
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="contact-info">
+            <p>Or reach us at: <a href="mailto:support@example.com">support@example.com</a></p>
+            <p>Phone: +1 (555) 123-4567</p>
+        </div>
+    </div>
+</body>
+</html>
