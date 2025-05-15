@@ -32,10 +32,17 @@ def login_user(request):
                 return JsonResponse({"userName": username, "status": "Authenticated"})
             else:
                 return JsonResponse(
-                    {"userName": username, "status": "Invalid credentials"}, status=401
+                    {"userName": username,
+                     "status": "Invalid credentials"},
+                    status=401
                 )
         except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON format"}, status=400)
+            return JsonResponse(
+                {"userName": username,
+                 "error": "Username already registered"},
+                status=400,
+            )
+
 
 
 @csrf_exempt
