@@ -10,7 +10,10 @@ class CarMake(models.Model):
     country = models.CharField(max_length=100, default="Unknown", blank=True)
     founded_year = models.IntegerField(
         default=1900,
-        validators=[MinValueValidator(1800), MaxValueValidator(datetime.now().year)],
+        validators=[
+            MinValueValidator(1800),
+            MaxValueValidator(datetime.now().year),
+        ],
     )
 
     def __str__(self):

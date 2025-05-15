@@ -32,7 +32,6 @@ def get_request(endpoint, **kwargs):
         return []
 
 
-
 def analyze_review_sentiments(text):
     """Call the sentiment analyzer service."""
     request_url = f'{sentiment_analyzer_url}analyze/{text}'
@@ -45,7 +44,6 @@ def analyze_review_sentiments(text):
     except Exception as e:
         print(f'Unexpected error: {e}')
         return {'sentiment': 'neutral'}
-
 
 
 def post_review(data_dict):

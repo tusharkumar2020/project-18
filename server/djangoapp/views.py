@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import logout, login, authenticate
 from django.http import JsonResponse
@@ -22,7 +21,9 @@ def login_user(request):
             password = data.get('password')
 
             if not username or not password:
-                return JsonResponse({"error": "Username and password are required"}, status=400)
+                return JsonResponse(
+                    {"error": "Username and password are required"}, status=400
+                )
 
             user = authenticate(username=username, password=password)
 
@@ -30,7 +31,9 @@ def login_user(request):
                 login(request, user)
                 return JsonResponse({"userName": username, "status": "Authenticated"})
             else:
-                return JsonResponse({"userName": username, "status": "Invalid credentials"}, status=401)
+                return JsonResponse(
+                    {"userName": username, "status": "Invalid credentials"}, status=401
+                )
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON format"}, status=400)
 
@@ -73,15 +76,21 @@ def registration(request):
                 logger.debug(f"{email} is not registered with any user")
 
         if username_exist:
-            return JsonResponse({
-                "userName": username,
-                "error": "Username already registered"
-            }, status=400)
+            return JsonResponse(
+                {
+                    "userName": username,
+                    "error": "Username already registered"
+                },
+                status=400,
+            )
         elif email_exist:
-            return JsonResponse({
-                "email": email,
-                "error": "Email already registered"
-            }, status=400)
+            return JsonResponse(
+                {
+                    "email": email,
+                    "error": "Email already registered"
+                },
+                status=400,
+            )
 
         try:
             user = User.objects.create_user(
@@ -130,8 +139,8 @@ def get_dealer_reviews(request, dealer_id):
         reviews = get_request(endpoint)
         for review_detail in reviews:
             try:
-                response = analyze_review_sentiments(review_detail['review'])
-                review_detail['sentiment'] = response.get('sentiment', 'neutral')
+                sentiment_response = analyze_review_sentiments(review_detail['review'])
+                review_detail['sentiment'] = sentiment_response.get('sentiment', 'neutral')
             except Exception as e:
                 logger.error(f"Error analyzing sentiment: {e}")
                 review_detail['sentiment'] = 'unknown'
@@ -143,15 +152,19 @@ def add_review(request):
     if not request.user.is_anonymous:
         try:
             data = json.loads(request.body)
-            response = post_review(data)
+            post_review(data)
             return JsonResponse({"status": 200})
         except Exception as e:
             logger.error(f"Error posting review: {e}")
-            return JsonResponse({
-                "status": 401,
-                "message": "Error in posting review"
-            })
-    return JsonResponse({
-        "status": 403,
-        "message": "Unauthorized"
-    })
+            return JsonResponse(
+                {
+                    "status": 401,
+                    "message": "Error in posting review"
+                }
+            )
+    return JsonResponse(
+        {
+            "status": 403,
+            "message": "Unauthorized"
+        }
+    )
