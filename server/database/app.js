@@ -1,3 +1,4 @@
+/* jshint node: true, esversion: 8 */
 'use strict';
 
 const express = require('express');
