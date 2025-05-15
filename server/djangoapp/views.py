@@ -1,31 +1,18 @@
-# Uncomment the required imports before adding the code
-
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth import logout
-from django.contrib import messages
-from datetime import datetime
-
-
+from django.contrib.auth import logout, login, authenticate
 from django.http import JsonResponse
-from django.contrib.auth import login, authenticate
+from django.views.decorators.csrf import csrf_exempt
 import logging
 import json
-from django.views.decorators.csrf import csrf_exempt
-from .models import CarMake, CarModel
-from .populate import initiate
-from .restapis import get_request, analyze_review_sentiments, post_review
 
+from .models import CarModel
+from .restapis import get_request, analyze_review_sentiments, post_review
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 
-# Create your views here.
-
-# Create a `login_request` view to handle sign in request
 @csrf_exempt
 def login_user(request):
     if request.method == "POST":
@@ -47,25 +34,18 @@ def login_user(request):
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON format"}, status=400)
 
-# Create a `logout_request` view to handle sign out request
+
 @csrf_exempt
 def logout_request(request):
     if request.method == "POST":
         logout(request)
-        data = {"userName": ""}
-        return JsonResponse(data)
-    else:
-        return JsonResponse({"error": "POST method required"}, status=405)
+        return JsonResponse({"userName": ""})
+    return JsonResponse({"error": "POST method required"}, status=405)
 
-# ...
 
-# Create a `registration` view to handle sign up request
 @csrf_exempt
 def registration(request):
     if request.method == "POST":
-        context = {}
-
-        # Parse the request body data (JSON)
         try:
             data = json.loads(request.body)
             username = data['userName']
@@ -80,13 +60,11 @@ def registration(request):
         email_exist = False
 
         try:
-            # Check if username already exists
             User.objects.get(username=username)
             username_exist = True
         except User.DoesNotExist:
             logger.debug(f"{username} is a new user")
 
-        # Check if email already exists
         if not username_exist:
             try:
                 User.objects.get(email=email)
@@ -94,13 +72,17 @@ def registration(request):
             except User.DoesNotExist:
                 logger.debug(f"{email} is not registered with any user")
 
-        # If the username or email already exists, return an error response
         if username_exist:
-            return JsonResponse({"userName": username, "error": "Username already registered"}, status=400)
+            return JsonResponse({
+                "userName": username,
+                "error": "Username already registered"
+            }, status=400)
         elif email_exist:
-            return JsonResponse({"email": email, "error": "Email already registered"}, status=400)
+            return JsonResponse({
+                "email": email,
+                "error": "Email already registered"
+            }, status=400)
 
-        # If the user doesn't exist, create the user
         try:
             user = User.objects.create_user(
                 username=username,
@@ -109,77 +91,67 @@ def registration(request):
                 password=password,
                 email=email
             )
-            # Log the user in
             login(request, user)
-
-            # Send a success response
             return JsonResponse({"userName": username, "status": "Authenticated"})
         except Exception as e:
             logger.error(f"Error during user creation: {str(e)}")
             return JsonResponse({"error": "Error creating user"}, status=500)
 
-    else:
-        # If it's not a POST request
-        return JsonResponse({"error": "POST method required"}, status=405)
+    return JsonResponse({"error": "POST method required"}, status=405)
 
-# ...
 
-#Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
 def get_dealerships(request, state="All"):
-    if(state == "All"):
+    if state == "All":
         endpoint = "/fetchDealers"
     else:
-        endpoint = "/fetchDealers/"+state
+        endpoint = f"/fetchDealers/{state}"
+
     dealerships = get_request(endpoint)
-    return JsonResponse({"status":200,"dealers":dealerships})
+    return JsonResponse({"status": 200, "dealers": dealerships})
+
 
 def get_cars(request):
     car_models = CarModel.objects.select_related('car_make').all()
-    cars = []
-
-    for car_model in car_models:
-        cars.append({
-            "CarModel": car_model.name,
-            "CarMake": car_model.car_make.name
-        })
-
+    cars = [{"CarModel": car.name, "CarMake": car.car_make.name} for car in car_models]
     return JsonResponse({"CarModels": cars})
 
-# Create a `get_dealer_reviews` view to render the reviews of a dealer
-# def get_dealer_reviews(request,dealer_id):
-# ...
 
-# Create a `get_dealer_details` view to render the dealer details
 def get_dealer_details(request, dealer_id):
-    if(dealer_id):
-        endpoint = "/fetchDealer/"+str(dealer_id)
+    if dealer_id:
+        endpoint = f"/fetchDealer/{dealer_id}"
         dealership = get_request(endpoint)
-        return JsonResponse({"status":200,"dealer":dealership})
-    else:
-        return JsonResponse({"status":400,"message":"Bad Request"})
-# ...
+        return JsonResponse({"status": 200, "dealer": dealership})
+    return JsonResponse({"status": 400, "message": "Bad Request"})
 
-# Create a `add_review` view to submit a review
+
 def get_dealer_reviews(request, dealer_id):
-    # if dealer id has been provided
-    if(dealer_id):
-        endpoint = "/fetchReviews/dealer/"+str(dealer_id)
+    if dealer_id:
+        endpoint = f"/fetchReviews/dealer/{dealer_id}"
         reviews = get_request(endpoint)
         for review_detail in reviews:
-            response = analyze_review_sentiments(review_detail['review'])
-            print(response)
-            review_detail['sentiment'] = response['sentiment']
-        return JsonResponse({"status":200,"reviews":reviews})
-    else:
-        return JsonResponse({"status":400,"message":"Bad Request"})
+            try:
+                response = analyze_review_sentiments(review_detail['review'])
+                review_detail['sentiment'] = response.get('sentiment', 'neutral')
+            except Exception as e:
+                logger.error(f"Error analyzing sentiment: {e}")
+                review_detail['sentiment'] = 'unknown'
+        return JsonResponse({"status": 200, "reviews": reviews})
+    return JsonResponse({"status": 400, "message": "Bad Request"})
+
 
 def add_review(request):
-    if(request.user.is_anonymous == False):
-        data = json.loads(request.body)
+    if not request.user.is_anonymous:
         try:
+            data = json.loads(request.body)
             response = post_review(data)
-            return JsonResponse({"status":200})
-        except:
-            return JsonResponse({"status":401,"message":"Error in posting review"})
-    else:
-        return JsonResponse({"status":403,"message":"Unauthorized"})
+            return JsonResponse({"status": 200})
+        except Exception as e:
+            logger.error(f"Error posting review: {e}")
+            return JsonResponse({
+                "status": 401,
+                "message": "Error in posting review"
+            })
+    return JsonResponse({
+        "status": 403,
+        "message": "Unauthorized"
+    })

@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
 
+
 class CarMake(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
@@ -9,7 +10,7 @@ class CarMake(models.Model):
     country = models.CharField(max_length=100, default="Unknown", blank=True)
     founded_year = models.IntegerField(
         default=1900,
-        validators=[MinValueValidator(1800), MaxValueValidator(datetime.now().year)]
+        validators=[MinValueValidator(1800), MaxValueValidator(datetime.now().year)],
     )
 
     def __str__(self):
@@ -19,7 +20,7 @@ class CarMake(models.Model):
 class CarModel(models.Model):
     car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    
+
     CAR_TYPES = [
         ('SEDAN', 'Sedan'),
         ('SUV', 'SUV'),
@@ -28,14 +29,14 @@ class CarModel(models.Model):
         ('TRUCK', 'Truck'),
         ('CONVERTIBLE', 'Convertible'),
     ]
-    
+
     type = models.CharField(max_length=15, choices=CAR_TYPES, default='SUV')
     year = models.IntegerField(
         default=datetime.now().year,
         validators=[
             MinValueValidator(1990),
-            MaxValueValidator(datetime.now().year)
-        ]
+            MaxValueValidator(datetime.now().year),
+        ],
     )
     dealer_id = models.IntegerField()  # Refers to a dealer in Cloudant DB
 
