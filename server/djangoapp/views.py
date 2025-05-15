@@ -60,8 +60,68 @@ def logout_request(request):
 # ...
 
 # Create a `registration` view to handle sign up request
-# @csrf_exempt
-# def registration(request):
+@csrf_exempt
+def registration(request):
+    if request.method == "POST":
+        context = {}
+
+        # Parse the request body data (JSON)
+        try:
+            data = json.loads(request.body)
+            username = data['userName']
+            password = data['password']
+            first_name = data['firstName']
+            last_name = data['lastName']
+            email = data['email']
+        except (json.JSONDecodeError, KeyError):
+            return JsonResponse({"error": "Invalid input data"}, status=400)
+
+        username_exist = False
+        email_exist = False
+
+        try:
+            # Check if username already exists
+            User.objects.get(username=username)
+            username_exist = True
+        except User.DoesNotExist:
+            logger.debug(f"{username} is a new user")
+
+        # Check if email already exists
+        if not username_exist:
+            try:
+                User.objects.get(email=email)
+                email_exist = True
+            except User.DoesNotExist:
+                logger.debug(f"{email} is not registered with any user")
+
+        # If the username or email already exists, return an error response
+        if username_exist:
+            return JsonResponse({"userName": username, "error": "Username already registered"}, status=400)
+        elif email_exist:
+            return JsonResponse({"email": email, "error": "Email already registered"}, status=400)
+
+        # If the user doesn't exist, create the user
+        try:
+            user = User.objects.create_user(
+                username=username,
+                first_name=first_name,
+                last_name=last_name,
+                password=password,
+                email=email
+            )
+            # Log the user in
+            login(request, user)
+
+            # Send a success response
+            return JsonResponse({"userName": username, "status": "Authenticated"})
+        except Exception as e:
+            logger.error(f"Error during user creation: {str(e)}")
+            return JsonResponse({"error": "Error creating user"}, status=500)
+
+    else:
+        # If it's not a POST request
+        return JsonResponse({"error": "POST method required"}, status=405)
+
 # ...
 
 #Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
