@@ -29,7 +29,11 @@ def login_user(request):
 
             if user is not None:
                 login(request, user)
-                return JsonResponse({"userName": username, "status": "Authenticated"})
+                return JsonResponse({
+                    "userName": username,
+                    "status": "Authenticated"
+                })
+
             else:
                 return JsonResponse(
                     {"userName": username,
@@ -42,7 +46,6 @@ def login_user(request):
                  "error": "Username already registered"},
                 status=400,
             )
-
 
 
 @csrf_exempt
@@ -108,7 +111,11 @@ def registration(request):
                 email=email
             )
             login(request, user)
-            return JsonResponse({"userName": username, "status": "Authenticated"})
+            return JsonResponse({
+                "userName": username,
+                "status": "Authenticated"
+            })
+
         except Exception as e:
             logger.error(f"Error during user creation: {str(e)}")
             return JsonResponse({"error": "Error creating user"}, status=500)
@@ -128,7 +135,13 @@ def get_dealerships(request, state="All"):
 
 def get_cars(request):
     car_models = CarModel.objects.select_related('car_make').all()
-    cars = [{"CarModel": car.name, "CarMake": car.car_make.name} for car in car_models]
+    cars = [
+        {
+        "CarModel": car.name,
+        "CarMake": car.car_make.name
+        }
+    for car in car_models
+    ]
     return JsonResponse({"CarModels": cars})
 
 
@@ -146,8 +159,14 @@ def get_dealer_reviews(request, dealer_id):
         reviews = get_request(endpoint)
         for review_detail in reviews:
             try:
-                sentiment_response = analyze_review_sentiments(review_detail['review'])
-                review_detail['sentiment'] = sentiment_response.get('sentiment', 'neutral')
+                sentiment_response = analyze_review_sentiments(
+                    review_detail['review']
+                )
+
+                review_detail['sentiment'] = sentiment_response.get(
+                    'sentiment', 'neutral'
+                )
+
             except Exception as e:
                 logger.error(f"Error analyzing sentiment: {e}")
                 review_detail['sentiment'] = 'unknown'
