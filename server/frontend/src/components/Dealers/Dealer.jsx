@@ -70,10 +70,22 @@ const Dealer = () => {
 return(
   <div style={{margin:"20px"}}>
       <Header/>
-      <div style={{marginTop:"10px"}}>
-      <h1 style={{color:"grey"}}>{dealer.full_name}{postReview}</h1>
-      <h4  style={{color:"grey"}}>{dealer['city']},{dealer['address']}, Zip - {dealer['zip']}, {dealer['state']} </h4>
+      <div style={{ marginTop: "10px" }}>
+        {dealer && dealer.full_name ? (
+          <h1 style={{ color: "grey" }}>{dealer.full_name}{postReview}</h1>
+        ) : (
+          <div>Loading dealer information...</div>
+        )}
+
+          <h4 style={{ color: "grey" }}>
+            {dealer?.city || "City not available"},
+            {dealer?.address || " Address not available"},
+            Zip - {dealer?.zip || "N/A"},
+            {dealer?.state || " State not available"}
+          </h4>
+
       </div>
+
       <div class="reviews_panel">
       {reviews.length === 0 && unreviewed === false ? (
         <text>Loading Reviews....</text>

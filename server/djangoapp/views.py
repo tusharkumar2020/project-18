@@ -9,6 +9,7 @@ from .models import CarModel, CarMake
 from .restapis import get_request, analyze_review_sentiments, post_review
 from .populate import initiate
 
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -147,51 +148,33 @@ def get_cars(request):
 
 
 def get_dealer_details(request, dealer_id):
-    if dealer_id:
-        endpoint = f"/fetchDealer/{dealer_id}"
+    if(dealer_id):
+        endpoint = "/fetchDealer/"+str(dealer_id)
         dealership = get_request(endpoint)
-        return JsonResponse({"status": 200, "dealer": dealership})
-    return JsonResponse({"status": 400, "message": "Bad Request"})
-
+        return JsonResponse({"status":200,"dealer":dealership})
+    else:
+        return JsonResponse({"status":400,"message":"Bad Request"})
 
 def get_dealer_reviews(request, dealer_id):
-    if dealer_id:
-        endpoint = f"/fetchReviews/dealer/{dealer_id}"
+    # if dealer id has been provided
+    if(dealer_id):
+        endpoint = "/fetchReviews/dealer/"+str(dealer_id)
         reviews = get_request(endpoint)
         for review_detail in reviews:
-            try:
-                sentiment_response = analyze_review_sentiments(
-                    review_detail['review']
-                )
-
-                review_detail['sentiment'] = sentiment_response.get(
-                    'sentiment', 'neutral'
-                )
-
-            except Exception as e:
-                logger.error(f"Error analyzing sentiment: {e}")
-                review_detail['sentiment'] = 'unknown'
-        return JsonResponse({"status": 200, "reviews": reviews})
-    return JsonResponse({"status": 400, "message": "Bad Request"})
-
+            response = analyze_review_sentiments(review_detail['review'])
+            print(response)
+            review_detail['sentiment'] = response['sentiment']
+        return JsonResponse({"status":200,"reviews":reviews})
+    else:
+        return JsonResponse({"status":400,"message":"Bad Request"})
 
 def add_review(request):
-    if not request.user.is_anonymous:
+    if(request.user.is_anonymous == False):
+        data = json.loads(request.body)
         try:
-            data = json.loads(request.body)
-            post_review(data)
-            return JsonResponse({"status": 200})
-        except Exception as e:
-            logger.error(f"Error posting review: {e}")
-            return JsonResponse(
-                {
-                    "status": 401,
-                    "message": "Error in posting review"
-                }
-            )
-    return JsonResponse(
-        {
-            "status": 403,
-            "message": "Unauthorized"
-        }
-    )
+            response = post_review(data)
+            return JsonResponse({"status":200})
+        except:
+            return JsonResponse({"status":401,"message":"Error in posting review"})
+    else:
+        return JsonResponse({"status":403,"message":"Unauthorized"})
