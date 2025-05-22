@@ -1,5 +1,5 @@
-requests
-Django
-Pillow
+Django>=4.0
+djangorestframework
 gunicorn
-python-dotenv
+psycopg2-binary
+requests

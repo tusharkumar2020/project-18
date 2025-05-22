@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
 import "./Login.css";
-import Header from '../Header/Header';
-
-const Login = ({ onClose }) => {
+const Login = () => {
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -38,18 +36,10 @@ const Login = ({ onClose }) => {
   if (!open) {
     window.location.href = "/";
   };
-  
+
 
   return (
     <div>
-      <Header/>
-    <div onClick={onClose}>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        className='modalContainer'
-      >
           <form className="login_panel" style={{}} onSubmit={login}>
               <div>
               <span className="input_field">Username </span>
@@ -65,8 +55,6 @@ const Login = ({ onClose }) => {
               </div>
               <a className="loginlink" href="/register">Register Now</a>
           </form>
-      </div>
-    </div>
     </div>
   );
 };
