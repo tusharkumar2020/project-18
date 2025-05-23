@@ -7,11 +7,10 @@ from datetime import datetime
 import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
+from .models import CarMake, CarModel
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
-
-# Create your views here.
 
 # Create a `login_user` view to handle sign in request
 @csrf_exempt
@@ -32,8 +31,8 @@ def login_user(request):
 
 # Logout view
 def logout_request(request):
-    logout(request)  # Terminate user session
-    data = {"userName": ""}  # Return empty username
+    logout(request)
+    data = {"userName": ""}
     return JsonResponse(data)
 
 # Registration view to handle user signup and auto login
@@ -48,11 +47,9 @@ def registration(request):
             last_name = data.get('lastName', '')
             email = data.get('email', '')
 
-            # Check if username already exists
             if User.objects.filter(username=username).exists():
                 return JsonResponse({"userName": username, "error": "Already Registered"})
 
-            # Create new user
             user = User.objects.create_user(
                 username=username,
                 password=password,
@@ -61,8 +58,6 @@ def registration(request):
                 email=email
             )
             user.save()
-
-            # Log the user in
             login(request, user)
 
             return JsonResponse({"userName": username, "status": "Authenticated"})
@@ -71,3 +66,25 @@ def registration(request):
             return JsonResponse({"error": "Registration failed."}, status=400)
     else:
         return JsonResponse({"status": "Only POST method allowed."}, status=405)
+
+# NEW: GET all car models
+def get_cars(request):
+    if request.method == 'GET':
+        cars = CarModel.objects.all()
+        results = []
+        for car in cars:
+            results.append({
+                "id": car.id,
+                "name": car.name,
+                "type": car.type,
+                "year": car.year,
+                "dealer_id": car.dealer_id,
+                "make": {
+                    "id": car.car_make.id,
+                    "name": car.car_make.name,
+                    "description": car.car_make.description
+                }
+            })
+        return JsonResponse(results, safe=False)
+    else:
+        return JsonResponse({"error": "Only GET method allowed."}, status=405)

@@ -14,6 +14,7 @@ urlpatterns = [
     path('contact/', TemplateView.as_view(template_name="Contact.html")),
     path('register/', TemplateView.as_view(template_name="index.html")),
     
+    
     # This is the REACT-based login route
     path('login/', TemplateView.as_view(template_name="index.html")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
