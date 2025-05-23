@@ -2,17 +2,26 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from datetime import datetime
 import logging
 import json
-from django.views.decorators.csrf import csrf_exempt
 from .models import CarMake, CarModel
+from dotenv import load_dotenv
+import os
+
+# REST API and Sentiment Analysis
+from .restapis import get_request, post_review, analyze_review_sentiments
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+load_dotenv()
 
-# Create a `login_user` view to handle sign in request
+# ============================
+# User Authentication
+# ============================
+
 @csrf_exempt
 def login_user(request):
     if request.method == 'POST':
@@ -29,13 +38,10 @@ def login_user(request):
     else:
         return JsonResponse({"status": "Only POST method allowed."}, status=405)
 
-# Logout view
 def logout_request(request):
     logout(request)
-    data = {"userName": ""}
-    return JsonResponse(data)
+    return JsonResponse({"userName": ""})
 
-# Registration view to handle user signup and auto login
 @csrf_exempt
 def registration(request):
     if request.method == 'POST':
@@ -67,7 +73,10 @@ def registration(request):
     else:
         return JsonResponse({"status": "Only POST method allowed."}, status=405)
 
-# NEW: GET all car models
+# ============================
+# Local Car Models
+# ============================
+
 def get_cars(request):
     if request.method == 'GET':
         cars = CarModel.objects.all()
@@ -88,3 +97,45 @@ def get_cars(request):
         return JsonResponse(results, safe=False)
     else:
         return JsonResponse({"error": "Only GET method allowed."}, status=405)
+
+# ============================
+# Backend Dealer & Review API
+# ============================
+
+def get_dealerships(request, state="All"):
+    if state == "All":
+        endpoint = "/fetchDealers"
+    else:
+        endpoint = f"/fetchDealers/{state}"
+    dealerships = get_request(endpoint)
+    return JsonResponse({"status": 200, "dealers": dealerships})
+
+def get_dealer_details(request, dealer_id):
+    if dealer_id:
+        endpoint = f"/fetchDealer/{dealer_id}"
+        dealership = get_request(endpoint)
+        return JsonResponse({"status": 200, "dealer": dealership})
+    return JsonResponse({"status": 400, "message": "Bad Request"})
+
+
+
+def get_dealer_reviews(request, dealer_id):
+    if dealer_id:
+        endpoint = f"/fetchReviews/dealer/{dealer_id}"
+        reviews = get_request(endpoint)
+        for review_detail in reviews:
+            response = analyze_review_sentiments(review_detail.get('review', ''))
+            review_detail['sentiment'] = response.get('sentiment', 'neutral')
+        return JsonResponse({"status": 200, "reviews": reviews})
+    return JsonResponse({"status": 400, "message": "Bad Request"})
+
+@csrf_exempt
+def post_review_view(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            result = post_review(data)
+            return JsonResponse(result)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Only POST method allowed."}, status=405)
