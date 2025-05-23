@@ -1,22 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib import messages
-from datetime import datetime
 import logging
 import json
 from .models import CarMake, CarModel
 from dotenv import load_dotenv
-import os
 
 # REST API and Sentiment Analysis
 from .restapis import get_request, post_review, analyze_review_sentiments
 
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
+# Load environment variables
 load_dotenv()
+
+# Logger
+logger = logging.getLogger(__name__)
 
 # ============================
 # User Authentication
@@ -29,18 +28,17 @@ def login_user(request):
         username = data['userName']
         password = data['password']
         user = authenticate(username=username, password=password)
-        if user is not None:
+        if user:
             login(request, user)
-            data = {"userName": username, "status": "Authenticated"}
-        else:
-            data = {"userName": username, "status": "Failed"}
-        return JsonResponse(data)
-    else:
-        return JsonResponse({"status": "Only POST method allowed."}, status=405)
+            return JsonResponse({"userName": username, "status": "Authenticated"})
+        return JsonResponse({"userName": username, "status": "Failed"})
+    return JsonResponse({"status": "Only POST method allowed."}, status=405)
+
 
 def logout_request(request):
     logout(request)
     return JsonResponse({"userName": ""})
+
 
 @csrf_exempt
 def registration(request):
@@ -63,15 +61,14 @@ def registration(request):
                 last_name=last_name,
                 email=email
             )
-            user.save()
             login(request, user)
-
             return JsonResponse({"userName": username, "status": "Authenticated"})
+
         except Exception as e:
-            logger.error(f"Error during registration: {e}")
+            logger.error(f"Registration error: {e}")
             return JsonResponse({"error": "Registration failed."}, status=400)
-    else:
-        return JsonResponse({"status": "Only POST method allowed."}, status=405)
+    return JsonResponse({"status": "Only POST method allowed."}, status=405)
+
 
 # ============================
 # Local Car Models
@@ -95,20 +92,18 @@ def get_cars(request):
                 }
             })
         return JsonResponse(results, safe=False)
-    else:
-        return JsonResponse({"error": "Only GET method allowed."}, status=405)
+    return JsonResponse({"error": "Only GET method allowed."}, status=405)
+
 
 # ============================
-# Backend Dealer & Review API
+# Dealer & Reviews API
 # ============================
 
 def get_dealerships(request, state="All"):
-    if state == "All":
-        endpoint = "/fetchDealers"
-    else:
-        endpoint = f"/fetchDealers/{state}"
+    endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/{state}"
     dealerships = get_request(endpoint)
     return JsonResponse({"status": 200, "dealers": dealerships})
+
 
 def get_dealer_details(request, dealer_id):
     if dealer_id:
@@ -116,7 +111,6 @@ def get_dealer_details(request, dealer_id):
         dealership = get_request(endpoint)
         return JsonResponse({"status": 200, "dealer": dealership})
     return JsonResponse({"status": 400, "message": "Bad Request"})
-
 
 
 def get_dealer_reviews(request, dealer_id):
@@ -129,13 +123,15 @@ def get_dealer_reviews(request, dealer_id):
         return JsonResponse({"status": 200, "reviews": reviews})
     return JsonResponse({"status": 400, "message": "Bad Request"})
 
+
 @csrf_exempt
-def post_review_view(request):
+def add_review(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
             result = post_review(data)
             return JsonResponse(result)
         except Exception as e:
+            logger.error(f"Post review error: {e}")
             return JsonResponse({"error": str(e)}, status=500)
     return JsonResponse({"error": "Only POST method allowed."}, status=405)

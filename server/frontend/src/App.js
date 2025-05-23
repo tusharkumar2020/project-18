@@ -1,5 +1,9 @@
 import LoginPanel from "./components/Login/Login"
 import { Routes, Route } from "react-router-dom";
+import Dealers from './components/Dealers/Dealers';
+import Dealer from "./components/Dealers/Dealer";
+import PostReview from "./components/Dealers/PostReview";
+
 WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
 For more information on production servers see: https://docs.djangoproject.com/en/5.2/howto/deployment/
 /home/project/xrwvm-fullstack_developer_capstone/server/djangoproj/settings.py changed, reloading.
@@ -300,6 +304,9 @@ function App() {
     <Routes>
       <Route path="/login" element={<LoginPanel />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/dealers" element={<Dealers />} />
+      <Route path="/postreview/:id" element={<PostReview />} />
+      <Route path="/dealer/:id" element={<Dealer />} />
     </Routes>
   );
 }
