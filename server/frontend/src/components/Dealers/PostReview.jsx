@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import "./Dealers.css";
 import "../assets/style.css";
-import Header from '../Header/Header';
-
-
 const PostReview = () => {
   const [dealer, setDealer] = useState({});
   const [review, setReview] = useState("");
@@ -91,9 +88,7 @@ const PostReview = () => {
 
 
   return (
-    <div>
-      <Header/>
-      <div  style={{margin:"5%"}}>
+    <div style={{margin:"5%"}}>
       <h1 style={{color:"darkblue"}}>{dealer.full_name}</h1>
       <textarea id='review' cols='50' rows='7' onChange={(e) => setReview(e.target.value)}></textarea>
       <div className='input_field'>
@@ -116,7 +111,6 @@ const PostReview = () => {
       <div>
       <button className='postreview' onClick={postreview}>Post Review</button>
       </div>
-    </div>
     </div>
   )
 }
