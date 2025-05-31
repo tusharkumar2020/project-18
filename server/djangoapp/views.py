@@ -180,4 +180,8 @@ def serve_react_app(request):
 #     return FileResponse(open(os.path.join(settings.BASE_DIR, 'frontend', 'static', 'About.html'), 'rb'))
 
 # def contact_page(request):
+<<<<<<< HEAD
 #     return FileResponse(open(os.path.join(settings.BASE_DIR, 'frontend', 'static', 'Contact.html'), 'rb'))
+=======
+#     return FileResponse(open(os.path.join(settings.BASE_DIR, 'frontend', 'static', 'Contact.html'), 'rb'))
+>>>>>>> 202495d (commit)

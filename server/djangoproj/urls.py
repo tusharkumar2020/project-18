@@ -49,4 +49,8 @@ urlpatterns += [
 # Serve React app only at root URL
 # urlpatterns += [
 #     path('', serve_react_app),
+<<<<<<< HEAD
 # ]
+=======
+# ]
+>>>>>>> 202495d (commit)
