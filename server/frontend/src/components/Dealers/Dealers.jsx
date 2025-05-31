@@ -8,7 +8,7 @@ const Dealers = () => {
   const [dealersList, setDealersList] = useState([]);
   let [states, setStates] = useState([]);
 
-  let dealer_url = "/djangoapp/get_dealers";
+  let dealer_url = "/dealerships/";
   let dealer_url_by_state = "/djangoapp/get_dealers/";
 
   const filterDealers = async (state) => {

@@ -13,7 +13,7 @@ const Breadcrumbs = () => {
     <nav aria-label="breadcrumb" className="breadcrumb-nav">
       <ol className="breadcrumb">
         <li key="home" className="breadcrumb-item">
-          <a href="/index.html">Home</a>
+          <Link to="/">Home</Link>
         </li>
         {pathnames.map((name, index) => {
           // Build the route to this breadcrumb

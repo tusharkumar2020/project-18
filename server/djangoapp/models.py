@@ -46,3 +46,26 @@ class CarModel(models.Model):
 
     def __str__(self):
         return f"{self.car_make} {self.name}"  # Return car make and model as string
+
+
+class Review(models.Model):
+    """
+    Model representing a review for a dealer.
+    """
+    dealer_id = models.IntegerField(db_index=True)
+    name = models.CharField(max_length=100)
+    review = models.TextField()
+    rating = models.IntegerField()
+    purchase = models.BooleanField(default=False)
+    purchase_date = models.DateField(null=True, blank=True)
+    car_make = models.CharField(max_length=100, null=True, blank=True)
+    car_model = models.CharField(max_length=100, null=True, blank=True)
+    car_year = models.IntegerField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Review"
+        verbose_name_plural = "Reviews"
+
+    def __str__(self):
+        return f"Review by {self.name} for dealer {self.dealer_id}"

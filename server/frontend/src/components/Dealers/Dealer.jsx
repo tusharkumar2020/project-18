@@ -14,12 +14,12 @@ const Dealer = () => {
   const [unreviewed, setUnreviewed] = useState(false);
   const [postReview, setPostReview] = useState(<></>);
 
-  let curr_url = window.location.href;
-  let root_url = curr_url.substring(0, curr_url.indexOf("dealer"));
   let params = useParams();
   let id = params.id;
-  let dealer_url = root_url + `djangoapp/dealer/${id}`;
-  let reviews_url = root_url + `djangoapp/reviews/dealer/${id}`;
+  const base_url = "/djangoapp";
+
+  let dealer_url = `${base_url}/dealer/${id}`;
+  let reviews_url = `${base_url}/dealer/${id}/reviews/`;
   let post_review = `/postreview/${id}`;
 
   const get_dealer = async () => {
@@ -29,8 +29,8 @@ const Dealer = () => {
     const retobj = await res.json();
 
     if (retobj.status === 200) {
-      let dealerobjs = Array.from(retobj.dealer);
-      setDealer(dealerobjs[0]);
+      // retobj.dealer is an object, not array
+      setDealer(retobj.dealer);
     }
   };
 
@@ -40,12 +40,11 @@ const Dealer = () => {
     });
     const retobj = await res.json();
 
-    if (retobj.status === 200) {
-      if (retobj.reviews.length > 0) {
-        setReviews(retobj.reviews);
-      } else {
-        setUnreviewed(true);
-      }
+    if (retobj.reviews && retobj.reviews.length > 0) {
+      setReviews(retobj.reviews);
+      setUnreviewed(false);
+    } else {
+      setUnreviewed(true);
     }
   };
 
@@ -73,7 +72,7 @@ const Dealer = () => {
         </Link>
       );
     }
-  }, []);
+  }, [id]);
 
   return (
     <div style={{ margin: "20px" }}>
