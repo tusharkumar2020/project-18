@@ -111,16 +111,22 @@ def get_dealer_details(request, dealer_id):
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
 
+@csrf_exempt
 def add_review(request):
-    if(request.user.is_anonymous == False):
-        data = json.loads(request.body)
+    print(">>> Received add_review request")
+    print(">>> User:", request.user)
+    if not request.user.is_anonymous:
         try:
+            data = json.loads(request.body)
+            print(">>> Review data:", data)
             response = post_review(data)
-            return JsonResponse({"status":200})
-        except:
-            return JsonResponse({"status":401,"message":"Error in posting review"})
+            return JsonResponse({"status": 200})
+        except Exception as e:
+            print(">>> Error posting review:", e)
+            return JsonResponse({"status": 401, "message": "Error in posting review"})
     else:
-        return JsonResponse({"status":403,"message":"Unauthorized"})
+        print(">>> Unauthorized: user is anonymous")
+        return JsonResponse({"status": 403, "message": "Unauthorized"})
 
 def get_cars(request):
     count = CarMake.objects.filter().count()
