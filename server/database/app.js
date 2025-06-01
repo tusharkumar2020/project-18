@@ -17,7 +17,9 @@ const reviews_data = JSON.parse(fs.readFileSync("data/reviews.json", 'utf8'));
 const dealerships_data = JSON.parse(fs.readFileSync("data/dealerships.json", 'utf8'));
 
 // Connect to MongoDB
-mongoose.connect("mongodb://mongo_db:27017/", { dbName: 'dealershipsDB' });
+// Use localhost for local development outside Docker, mongo_db for Docker container networking
+const mongoHost = process.env.MONGO_HOST || 'localhost';
+mongoose.connect(`mongodb://${mongoHost}:27017/`, { dbName: 'dealershipsDB' });
 
 // Models
 const Reviews = require('./review');

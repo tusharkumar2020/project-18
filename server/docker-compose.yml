@@ -14,7 +14,7 @@ services:
   nodejs:
     build: ./database
     ports:
-      - "3030:3030"
+      - "3031:3030"
     depends_on:
       - mongo_db
     networks:

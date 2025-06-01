@@ -23,8 +23,8 @@ load_dotenv()
 # Load environment variables with fallback defaults
 backend_url = os.getenv('backend_url')
 if backend_url is None or backend_url.startswith("to:"):
-    logger.warning("Environment variable 'backend_url' is not set or invalid. Using default http://localhost:8000")
-    backend_url = "http://localhost:8000"
+    logger.warning("Environment variable 'backend_url' is not set or invalid. Using default http://mongo_db:3030")
+    backend_url = "http://mongo_db:3030"
 
 sentiment_analyzer_url = os.getenv('sentiment_analyzer_url')
 if sentiment_analyzer_url is None:
@@ -37,11 +37,13 @@ def get_request(endpoint, **kwargs):
     """Make a GET request to the backend service."""
     try:
         url = backend_url + endpoint
-        print(f"Making GET request to URL: {url}")
+        print(f"Making GET request to URL: {url} with params: {kwargs}")
         response = requests.get(url, params=kwargs)
-        response.raise_for_status()
         print(f"Response status code: {response.status_code}")
-        return response.json()
+        response.raise_for_status()
+        json_response = response.json()
+        print(f"Response JSON: {json_response}")
+        return json_response
     except requests.exceptions.RequestException as e:
         print(f"GET request failed: {e}")
         return None
