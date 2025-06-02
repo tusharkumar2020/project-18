@@ -1,0 +1,35 @@
+name: Auto Format
+
+on:
+  workflow_dispatch:  # Trigger manually from GitHub Actions tab
+
+jobs:
+  auto-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install formatters
+        run: |
+          pip install black
+
+      - name: Run Black formatter
+        run: |
+          black .
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git checkout -b auto/formatting
+          git add .
+          git commit -m "Auto format with black"
+          git push origin auto/formatting
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
