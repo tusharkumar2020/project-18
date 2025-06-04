@@ -49,8 +49,12 @@ jobs:
       - name: Ejecutar JSHint sólo sobre JS "legacy" (sin JSX)
         run: |
           echo "▶️ Ejecutando JSHint en server/database/*.js"
-          find server/database -type f -name "*.js" -exec jshint {} +
-          echo "✔ JSHint completado en server/database/*.js"
+          if [ -d "server/database" ]; then
+            find server/database -type f -name "*.js" ! -name "*.jsx" -exec jshint {} +
+            echo "✔ JSHint completado en server/database/*.js"
+          else
+            echo "⚠️ No se encontró el directorio server/database, saltando JSHint"
+          fi
 
       - name: Ejecutar ESLint sobre todo React/JSX moderno
         run: |
