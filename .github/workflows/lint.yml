@@ -1,58 +1,59 @@
-name: 'Lint Code'
+name: Lint Code
+
 on:
   push:
-    branches: [master, main]
+    branches: [main, master]
   pull_request:
-    branches: [master, main]
+    branches: [main, master]
 
 jobs:
   lint_python:
-    name: Lint Python Files
+    name: Lint Python
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.12
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
 
-    - name: Print working directory
-      run: pwd
+      - name: Instalar flake8
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
 
-    - name: Run Linter
-      run: |
-        pwd
-        # This command finds all Python files recursively and runs flake8 on them
-        find . -name "*.py" -exec flake8 {} +
-        echo "Linted all the python files successfully"
+      - name: Ejecutar flake8 en todos los .py
+        run: |
+          find . -type f -name "*.py" -exec flake8 {} +
 
   lint_js:
-    name: Lint JavaScript Files
+    name: Lint JavaScript & JSX
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 14
+      - name: Instalar Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Install dependencies
-      run: |
-        cd server/frontend
-        npm install
-        npm install eslint --save-dev
+      - name: Instalar JSHint y dependencias de frontend
+        run: |
+          npm install jshint --global
+          cd server/frontend
+          npm ci
 
-    - name: Run ESLint
-      run: |
-        cd server/frontend
-        npx eslint "src/**/*.{js,jsx}" --max-warnings=0
-        echo "Linted all JavaScript/JSX files successfully" 
+      - name: Ejecutar JSHint sobre .js puros
+        run: |
+          # Supongamos que tu código legacy .js (sin JSX) vive en server/database
+          find ./server/database -type f -name "*.js" -exec jshint {} +
+          echo "✔ JSHint completado en server/database/*.js"
+
+      - name: Ejecutar ESLint sobre todo React/JSX moderno
+        run: |
+          cd server/frontend
+          npx eslint "src/**/*.{js,jsx}" --max-warnings=0
+          echo "✔ ESLint completado en server/frontend/src/**/*.{js,jsx}" 
