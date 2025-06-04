@@ -50,8 +50,8 @@ const PostReview = () => {
         }
 
         // Validate car year
-        const year = parseInt(review.car_year);
-        if (isNaN(year) || year < 1900 || year > new Date().getFullYear()) {
+        const year = parseInt(review.car_year, 10);
+        if (Number.isNaN(year) || year < 1900 || year > new Date().getFullYear()) {
           throw new Error("Please enter a valid car year");
         }
       }
