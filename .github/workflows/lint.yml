@@ -52,7 +52,7 @@ jobs:
           find server/database -type f -name "*.js" -exec jshint {} +
           echo "✔ JSHint completado en server/database/*.js"
 
-      - name: Ejecutar ESLint sobre todo React/JSX moderno
+      - name: Ejecutar ESLint sobre React/JSX moderno
         run: |
           echo "▶️ Ejecutando ESLint en server/frontend/src/**/*.{js,jsx}"
           cd server/frontend
