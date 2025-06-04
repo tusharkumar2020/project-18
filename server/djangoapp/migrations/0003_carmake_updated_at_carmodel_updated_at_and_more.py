@@ -8,48 +8,68 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('djangoapp', '0002_alter_carmodel_dealer_id'),
+        ("djangoapp", "0002_alter_carmodel_dealer_id"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='carmake',
-            name='updated_at',
+            model_name="carmake",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='carmodel',
-            name='updated_at',
+            model_name="carmodel",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AlterField(
-            model_name='carmake',
-            name='created_at',
+            model_name="carmake",
+            name="created_at",
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
-            model_name='carmodel',
-            name='car_make',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='djangoapp.carmake'),
+            model_name="carmodel",
+            name="car_make",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="djangoapp.carmake"
+            ),
         ),
         migrations.AlterField(
-            model_name='carmodel',
-            name='created_at',
+            model_name="carmodel",
+            name="created_at",
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
-            model_name='carmodel',
-            name='dealer_id',
+            model_name="carmodel",
+            name="dealer_id",
             field=models.IntegerField(default=1),
         ),
         migrations.AlterField(
-            model_name='carmodel',
-            name='type',
-            field=models.CharField(choices=[('SEDAN', 'Sedan'), ('SUV', 'SUV'), ('WAGON', 'Wagon'), ('COUPE', 'Coupe'), ('HATCHBACK', 'Hatchback'), ('TRUCK', 'Truck'), ('VAN', 'Van')], default='SUV', max_length=10),
+            model_name="carmodel",
+            name="type",
+            field=models.CharField(
+                choices=[
+                    ("SEDAN", "Sedan"),
+                    ("SUV", "SUV"),
+                    ("WAGON", "Wagon"),
+                    ("COUPE", "Coupe"),
+                    ("HATCHBACK", "Hatchback"),
+                    ("TRUCK", "Truck"),
+                    ("VAN", "Van"),
+                ],
+                default="SUV",
+                max_length=10,
+            ),
         ),
         migrations.AlterField(
-            model_name='carmodel',
-            name='year',
-            field=models.IntegerField(default=2023, validators=[django.core.validators.MaxValueValidator(2023), django.core.validators.MinValueValidator(2015)]),
+            model_name="carmodel",
+            name="year",
+            field=models.IntegerField(
+                default=2023,
+                validators=[
+                    django.core.validators.MaxValueValidator(2023),
+                    django.core.validators.MinValueValidator(2015),
+                ],
+            ),
         ),
     ]
