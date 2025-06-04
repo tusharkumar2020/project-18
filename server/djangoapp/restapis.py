@@ -5,7 +5,15 @@ from dotenv import load_dotenv
 from .models import CarDealer, DealerReview
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson import NaturalLanguageUnderstandingV1
-from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
+from ibm_watson.natural_language_understanding_v1 import (
+    Features,
+    SentimentOptions,
+)
+from django.conf import settings
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -23,21 +31,21 @@ sentiment_analyzer_url = os.getenv(
 
 
 def get_request(url, **kwargs):
-    print(kwargs)
-    print("GET from {} ".format(url))
+    """
+    Make a GET request to the specified URL.
+    Returns the JSON response if successful, None otherwise.
+    """
     try:
         response = requests.get(
             url,
-            headers={'Content-Type': 'application/json'},
-            params=kwargs
+            headers={"Content-Type": "application/json"},
+            **kwargs
         )
-    except Exception as e:
-        print("Network exception occurred: {}".format(e))
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Error making GET request to {url}: {e}")
         return None
-    status_code = response.status_code
-    print("With status {} ".format(status_code))
-    json_data = json.loads(response.text)
-    return json_data
 
 
 def post_request(url, json_payload, **kwargs):
@@ -135,12 +143,20 @@ def analyze_review_sentiments(text):
     return label
 
 
-def post_review(data_dict):
-    request_url = backend_url + "/insert_review"
+def post_review(data):
+    """
+    Post a review to the backend service.
+    Returns True if successful, False otherwise.
+    """
+    url = f"{settings.BACKEND_URL}/postreview"
     try:
-        response = requests.post(request_url, json=data_dict)
-        print(response.json())
-        return response.json()
-    except Exception as e:
-        print(f"Network exception occurred: {e}")
-        return None
+        response = requests.post(
+            url,
+            headers={"Content-Type": "application/json"},
+            json=data,
+        )
+        response.raise_for_status()
+        return True
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Error posting review to {url}: {e}")
+        return False
