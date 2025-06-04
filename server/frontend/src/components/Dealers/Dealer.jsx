@@ -8,6 +8,8 @@ import negative_icon from "../assets/negative.png"
 import review_icon from "../assets/reviewbutton.png"
 import Header from '../Header/Header';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const Dealer = () => {
   const [dealer, setDealer] = useState(null);
@@ -142,6 +144,9 @@ const Dealer = () => {
           ))
         )}
       </div>  
+      <Link to={`/dealer/${dealer.id}`}>
+        <Button variant="primary">View Details</Button>
+      </Link>
     </div>
   );
 }

@@ -1,74 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { Button, Form, Alert } from "react-bootstrap";
 
 import "./Login.css";
 import Header from '../Header/Header';
 
 const Login = ({ onClose }) => {
-
-  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [open,setOpen] = useState(true)
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-  let login_url = window.location.origin+"/djangoapp/login";
-
-  const login = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const res = await fetch(login_url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            "userName": userName,
-            "password": password
-        }),
-    });
-    
-    const json = await res.json();
-    if (json.status != null && json.status === "Authenticated") {
-        sessionStorage.setItem('username', json.userName);
-        setOpen(false);        
+    try {
+      setError("");
+      setLoading(true);
+      await login(email, password);
+      navigate("/");
+    } catch (err) {
+      setError("Failed to sign in");
     }
-    else {
-      alert("The user could not be authenticated.")
-    }
-};
-
-  if (!open) {
-    window.location.href = "/";
+    setLoading(false);
   };
-  
 
-  return (
-    <div>
-      <Header/>
-    <div onClick={onClose}>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        className='modalContainer'
-      >
-          <form className="login_panel" style={{}} onSubmit={login}>
-              <div>
-              <span className="input_field">Username </span>
-              <input type="text"  name="username" placeholder="Username" className="input_field" onChange={(e) => setUserName(e.target.value)}/>
-              </div>
-              <div>
-              <span className="input_field">Password </span>
-              <input name="psw" type="password"  placeholder="Password" className="input_field" onChange={(e) => setPassword(e.target.value)}/>            
-              </div>
-              <div>
-              <input className="action_button" type="submit" value="Login"/>
-              <input className="action_button" type="button" value="Cancel" onClick={()=>setOpen(false)}/>
-              </div>
-              <a className="loginlink" href="/register">Register Now</a>
-          </form>
+  if (!loading) {
+    return (
+      <div>
+        <Header/>
+        <div onClick={onClose}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className='modalContainer'
+          >
+            <Form onSubmit={handleSubmit}>
+              <h2>Login</h2>
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Button disabled={loading} type="submit">
+                Login
+              </Button>
+            </Form>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div>
+        <Header/>
+        <div onClick={onClose}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className='modalContainer'
+          >
+            <h2>Loading...</h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default Login;
