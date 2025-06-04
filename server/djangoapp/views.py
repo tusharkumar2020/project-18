@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from datetime import datetime
+from django.conf import settings
 
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
@@ -16,10 +17,13 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import CarMake, CarModel
 from .populate import initiate
 
-
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
+# Define backend URL using settings
+BACKEND_URL = getattr(settings, "BACKEND_URL",
+                     "https://lukaslondono-3030.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai"
+                    ).rstrip("/")
 
 # Create your views here.
 
@@ -90,33 +94,51 @@ def registration(request):
 
 #Update the `get_dealerships` render list of dealerships all by default, particular state if state is passed
 def get_dealerships(request, state="All"):
-    if(state == "All"):
-        endpoint = "/fetchDealers"
-    else:
-        endpoint = "/fetchDealers/"+state
-    dealerships = get_request(endpoint)
+    endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/{state}"
+    dealerships = get_request(f"{BACKEND_URL}{endpoint}")
     return JsonResponse({"status":200,"dealers":dealerships})
 
 def get_dealer_reviews(request, dealer_id):
-    # if dealer id has been provided
     if(dealer_id):
-        endpoint = "/fetchReviews/dealer/"+str(dealer_id)
-        reviews = get_request(endpoint)
-        for review_detail in reviews:
-            response = analyze_review_sentiments(review_detail['review'])
-            print(response)
-            review_detail['sentiment'] = response['sentiment']
-        return JsonResponse({"status":200,"reviews":reviews})
+        endpoint = f"/fetchReviews/dealer/{dealer_id}"
+        reviews = get_request(f"{BACKEND_URL}{endpoint}")
+        if reviews:
+            for review_detail in reviews:
+                try:
+                    response = analyze_review_sentiments(review_detail['review'])
+                    if response and 'sentiment' in response:
+                        review_detail['sentiment'] = response['sentiment']
+                    else:
+                        review_detail['sentiment'] = 'neutral'  # Default sentiment if analysis fails
+                except Exception as e:
+                    print(f"Error analyzing sentiment: {e}")
+                    review_detail['sentiment'] = 'neutral'  # Default sentiment on error
+            return JsonResponse({"status":200,"reviews":reviews})
+        else:
+            return JsonResponse({"status":404,"message":"No reviews found"})
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
 
 def get_dealer_details(request, dealer_id):
     if(dealer_id):
-        endpoint = "/fetchDealer/"+str(dealer_id)
-        dealership = get_request(endpoint)
-        return JsonResponse({"status":200,"dealer":dealership})
+        endpoint = f"/fetchDealer/{dealer_id}"
+        print(f"Fetching dealer details from: {BACKEND_URL}{endpoint}")
+        dealership = get_request(f"{BACKEND_URL}{endpoint}")
+        print(f"Dealership response: {dealership}")
+        
+        if dealership:
+            if isinstance(dealership, list) and len(dealership) > 0:
+                return JsonResponse({"status":200,"dealer":dealership})
+            elif isinstance(dealership, dict):
+                return JsonResponse({"status":200,"dealer":[dealership]})
+            else:
+                print(f"Unexpected dealership data format: {dealership}")
+                return JsonResponse({"status":404,"message":"Dealer not found"})
+        else:
+            return JsonResponse({"status":404,"message":"Dealer not found"})
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})
+
 def add_review(request):
     if(request.user.is_anonymous == False):
         data = json.loads(request.body)
@@ -127,3 +149,6 @@ def add_review(request):
             return JsonResponse({"status":401,"message":"Error in posting review"})
     else:
         return JsonResponse({"status":403,"message":"Unauthorized"})
+
+def contact(request):
+    return JsonResponse({"status": 200, "message": "Contact endpoint is working"})
