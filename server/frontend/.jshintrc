@@ -2,16 +2,24 @@
   "esversion": 10,
   "browser": true,
   "node": true,
-  "strict": false,
-  "undef": true,
-  "unused": true,
   "globals": {
     "React": true,
-    "ReactDOM": true,
-    "module": true,
-    "require": true,
-    "process": true,
-    "__dirname": true,
-    "JSX": true
-  }
+    "JSX": true,
+    "useState": true,
+    "useEffect": true,
+    "useCallback": true,
+    "useParams": true,
+    "useNavigate": true
+  },
+  "expr": true,
+  "multistr": true,
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "trailing": true,
+  "smarttabs": true,
+  "indent": 2,
+  "maxlen": 100,
+  "camelcase": true,
+  "quotmark": "single"
 } 
