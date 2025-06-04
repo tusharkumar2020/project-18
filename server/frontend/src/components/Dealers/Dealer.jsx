@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Dealers.css";
 import "../assets/style.css";
@@ -23,7 +23,7 @@ const Dealer = () => {
   const reviews_url = root_url + "/api/dealerships/" + dealerId + "/reviews";
   const post_review = root_url + "/dealer/" + dealerId + "/review";
 
-  const get_dealer = async () => {
+  const get_dealer = useCallback(async () => {
     try {
       const response = await fetch(dealer_url);
       if (!response.ok) {
@@ -34,9 +34,9 @@ const Dealer = () => {
     } catch (err) {
       setError(err.message);
     }
-  };
+  }, [dealer_url]);
 
-  const get_reviews = async () => {
+  const get_reviews = useCallback(async () => {
     try {
       const response = await fetch(reviews_url);
       if (!response.ok) {
@@ -49,7 +49,7 @@ const Dealer = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [reviews_url]);
 
   const senti_icon = (sentiment) => {
     return sentiment === "positive" ? positive_icon :
@@ -62,7 +62,7 @@ const Dealer = () => {
       await get_reviews();
     };
     fetchData();
-  }, [dealerId, dealer_url, reviews_url]);
+  }, [get_dealer, get_reviews]);
 
   if (loading) {
     return (

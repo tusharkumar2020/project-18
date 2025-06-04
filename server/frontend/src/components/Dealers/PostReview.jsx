@@ -1,87 +1,83 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import "./Dealers.css";
-import "./PostReview.css";
-import "../assets/style.css";
+import { useParams } from 'react-router-dom';
+import './Dealers.css';
+import './PostReview.css';
+import '../assets/style.css';
 import Header from '../Header/Header';
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button, Alert } from 'react-bootstrap';
 
 const PostReview = () => {
-  const [dealer, setDealer] = useState({});
   const [review, setReview] = useState({
-    name: "",
+    name: '',
     purchase: false,
-    purchase_date: "",
-    car_make: "",
-    car_model: "",
-    car_year: "",
-    review: "",
+    purchase_date: '',
+    car_make: '',
+    car_model: '',
+    car_year: '',
+    review: '',
   });
-  const [carmodels, setCarmodels] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const navigate = useNavigate();
-
   const { dealerId } = useParams();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setReview((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
+    setError('');
 
     try {
       // Validate required fields
       if (!review.name || !review.review) {
-        throw new Error("Name and review are required");
+        throw new Error('Name and review are required');
       }
 
       if (review.purchase) {
         if (!review.purchase_date || !review.car_make || !review.car_model || !review.car_year) {
-          throw new Error("All car details are required when purchase is checked");
+          throw new Error('All car details are required when purchase is checked');
         }
 
         // Validate car year
         const year = parseInt(review.car_year, 10);
         if (Number.isNaN(year) || year < 1900 || year > new Date().getFullYear()) {
-          throw new Error("Please enter a valid car year");
+          throw new Error('Please enter a valid car year');
         }
       }
 
       // Validate review length
       if (review.review.length < 10) {
-        throw new Error("Review must be at least 10 characters long");
+        throw new Error('Review must be at least 10 characters long');
       }
 
       const response = await fetch(`/api/dealerships/${dealerId}/reviews`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(review),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit review");
+        throw new Error('Failed to submit review');
       }
 
       setSuccess(true);
       setReview({
-        name: "",
+        name: '',
         purchase: false,
-        purchase_date: "",
-        car_make: "",
-        car_model: "",
-        car_year: "",
-        review: "",
+        purchase_date: '',
+        car_make: '',
+        car_model: '',
+        car_year: '',
+        review: '',
       });
     } catch (err) {
       setError(err.message);
@@ -90,42 +86,8 @@ const PostReview = () => {
     }
   };
 
-  const get_dealer = async () => {
-    try {
-      const res = await fetch(`/api/dealerships/${dealerId}`, {
-        method: "GET"
-      });
-      const retobj = await res.json();
-      
-      if(retobj.status === 200) {
-        let dealerobjs = Array.from(retobj.dealer)
-        if(dealerobjs.length > 0)
-          setDealer(dealerobjs[0])
-      }
-    } catch (err) {
-      setError("Failed to load dealer information");
-    }
-  };
-
-  const get_cars = async () => {
-    try {
-      const res = await fetch(`/api/dealerships/${dealerId}/cars`, {
-        method: "GET"
-      });
-      const retobj = await res.json();
-      
-      let carmodelsarr = Array.from(retobj.CarModels)
-      setCarmodels(carmodelsarr)
-    } catch (err) {
-      setError("Failed to load car models");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    get_dealer();
-    get_cars();
+    setLoading(false);
   }, []);
 
   if (loading) {
@@ -225,7 +187,7 @@ const PostReview = () => {
             />
           </Form.Group>
           <Button variant="primary" type="submit" disabled={loading}>
-            {loading ? "Submitting..." : "Submit Review"}
+            {loading ? 'Submitting...' : 'Submit Review'}
           </Button>
         </Form>
       </div>
