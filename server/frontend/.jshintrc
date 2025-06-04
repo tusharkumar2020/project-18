@@ -1,0 +1,16 @@
+{
+  "esversion": 8,
+  "browser": true,
+  "node": true,
+  "strict": false,
+  "undef": true,
+  "unused": true,
+  "globals": {
+    "React": true,
+    "ReactDOM": true,
+    "module": true,
+    "require": true,
+    "process": true,
+    "__dirname": true
+  }
+} 
