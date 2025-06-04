@@ -21,5 +21,6 @@
   "indent": 2,
   "maxlen": 79,
   "camelcase": true,
-  "quotmark": "single"
+  "quotmark": "single",
+  "sub": true
 } 
