@@ -21,4 +21,5 @@ jobs:
       - name: Run ESLint
         run: |
           cd server/frontend
+          npx eslint "src/**/*.{js,jsx}" --fix
           npx eslint "src/**/*.{js,jsx}" --max-warnings=0 

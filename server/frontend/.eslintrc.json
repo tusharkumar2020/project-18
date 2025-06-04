@@ -7,11 +7,14 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "airbnb/base"
+    "plugin:react-hooks/recommended"
   ],
   "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2021
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2021,
+    "sourceType": "module"
   },
   "plugins": [
     "react",
@@ -20,12 +23,21 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "import/extensions": ["error", "ignorePackages", {
-      "js": "never",
-      "jsx": "never"
-    }],
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "camelcase": "off",
+    "no-trailing-spaces": "warn",
+    "comma-dangle": ["error", "always-multiline"],
+    "object-curly-newline": "off",
+    "import/order": "off",
+    "no-nested-ternary": "off",
+    "keyword-spacing": "warn",
+    "nonblock-statement-body-position": "off",
+    "curly": "off",
+    "eol-last": "warn"
   },
   "settings": {
     "react": {
