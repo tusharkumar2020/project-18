@@ -1,12 +1,14 @@
+/*jshint esversion: 9 */
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Card, Row, Col, Container } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
+import { Card, Row, Col, Container, Button, Form } from "react-bootstrap";
 import Dealer from "./Dealer";
 import PostReview from "./PostReview";
 import "./Dealers.css";
 import "../assets/style.css";
 import Header from "../Header/Header";
 import review_icon from "../assets/reviewicon.png";
+import reviewIcon from '../assets/review.png';
 
 const Dealers = () => {
   const [dealers, setDealers] = useState([]);
@@ -15,6 +17,8 @@ const Dealers = () => {
   const { state } = useParams();
   const [dealersList, setDealersList] = useState([]);
   const [states, setStates] = useState([]);
+  const [selectedState, setSelectedState] = useState('');
+  const navigate = useNavigate();
 
   const dealer_url = "/djangoapp/get_dealers";
   const dealer_url_by_state = "/djangoapp/get_dealers/";
@@ -74,30 +78,87 @@ const Dealers = () => {
   }, [state]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Header />
+        <div className='loading-container'>
+          <div className='loading-spinner'></div>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div>
+        <Header />
+        <div className='error-container'>
+          <p>Error: {error}</p>
+        </div>
+      </div>
+    );
   }
 
   const isLoggedIn = sessionStorage.getItem("username") != null;
 
   return (
-    <Container>
+    <div>
       <Header />
-      <h2>Dealers in {state}</h2>
-      <Row>
-        {dealers.map((dealer) => (
-          <Col key={dealer.id} md={4} className="mb-4">
-            <Card>
-              <Card.Body>
-                <Dealer dealer={dealer} />
-              </Card.Body>
-            </Card>
+      <Container className='mt-4'>
+        <Row>
+          <Col>
+            <Form.Group className='mb-3'>
+              <Form.Label>Filter by State</Form.Label>
+              <Form.Select
+                value={selectedState}
+                onChange={(e) => {
+                  setSelectedState(e.target.value);
+                  if (e.target.value) {
+                    filterDealers(e.target.value);
+                  } else {
+                    get_dealers();
+                  }
+                }}
+              >
+                <option value=''>All States</option>
+                <option value='AL'>Alabama</option>
+                <option value='AK'>Alaska</option>
+                {/* Add more states as needed */}
+              </Form.Select>
+            </Form.Group>
           </Col>
-        ))}
-      </Row>
+        </Row>
+
+        <Row>
+          {dealers.map((dealer) => (
+            <Col key={dealer.id} md={4} className='mb-4'>
+              <Card>
+                <Card.Body>
+                  <Card.Title>{dealer.full_name}</Card.Title>
+                  <Card.Text>
+                    <strong>Address:</strong> {dealer.address}<br />
+                    <strong>City:</strong> {dealer.city}<br />
+                    <strong>State:</strong> {dealer.state}<br />
+                    <strong>Zip:</strong> {dealer.zip}
+                  </Card.Text>
+                  <Button
+                    variant='primary'
+                    onClick={() => navigate(`/dealer/${dealer.id}`)}
+                  >
+                    <img
+                      src={reviewIcon}
+                      alt='Review'
+                      style={{ width: '20px', marginRight: '5px' }}
+                    />
+                    View Reviews
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
       <PostReview />
       <table className="table">
         <tbody>
@@ -151,7 +212,7 @@ const Dealers = () => {
           ))}
         </tbody>
       </table>
-    </Container>
+    </div>
   );
 };
 
