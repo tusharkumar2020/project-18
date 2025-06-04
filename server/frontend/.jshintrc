@@ -1,5 +1,5 @@
 {
-  "esversion": 10,
+  "esversion": 8,
   "browser": true,
   "node": true,
   "globals": {
@@ -19,7 +19,7 @@
   "trailing": true,
   "smarttabs": true,
   "indent": 2,
-  "maxlen": 100,
+  "maxlen": 79,
   "camelcase": true,
   "quotmark": "single"
 } 
