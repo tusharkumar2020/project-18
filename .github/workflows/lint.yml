@@ -40,21 +40,17 @@ jobs:
         with:
           node-version: 18
 
-      - name: Instalar JSHint global y dependencias de frontend
+      - name: Instalar JSHint global y dependencias frontend
         run: |
-          npm install jshint --global
+          npm install -g jshint
           cd server/frontend
           npm ci
 
-      - name: Ejecutar JSHint sólo sobre JS "legacy" (sin JSX)
+      - name: Ejecutar JSHint solo sobre JS "legacy" (sin JSX)
         run: |
           echo "▶️ Ejecutando JSHint en server/database/*.js"
-          if [ -d "server/database" ]; then
-            find server/database -type f -name "*.js" ! -name "*.jsx" -exec jshint {} +
-            echo "✔ JSHint completado en server/database/*.js"
-          else
-            echo "⚠️ No se encontró el directorio server/database, saltando JSHint"
-          fi
+          find server/database -type f -name "*.js" -exec jshint {} +
+          echo "✔ JSHint completado en server/database/*.js"
 
       - name: Ejecutar ESLint sobre todo React/JSX moderno
         run: |
