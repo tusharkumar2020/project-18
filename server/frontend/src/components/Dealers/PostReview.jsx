@@ -20,37 +20,60 @@ const PostReview = () => {
   const [carmodels, setCarmodels] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
-  let curr_url = window.location.href;
-  let root_url = curr_url.substring(0,curr_url.indexOf("postreview"));
-  let params = useParams();
-  let id = params.id;
-  let dealer_url = root_url+`djangoapp/dealer/${id}`;
-  let review_url = root_url+`djangoapp/add_review`;
-  let carmodels_url = root_url+`djangoapp/get_cars`;
+  const { dealerId } = useParams();
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setReview((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+
     try {
-      setError("");
-      setLoading(true);
-      const response = await fetch(review_url, {
+      // Validate required fields
+      if (!review.name || !review.review) {
+        throw new Error("Name and review are required");
+      }
+
+      if (review.purchase) {
+        if (!review.purchase_date || !review.car_make || !review.car_model || !review.car_year) {
+          throw new Error("All car details are required when purchase is checked");
+        }
+
+        // Validate car year
+        const year = parseInt(review.car_year);
+        if (isNaN(year) || year < 1900 || year > new Date().getFullYear()) {
+          throw new Error("Please enter a valid car year");
+        }
+      }
+
+      // Validate review length
+      if (review.review.length < 10) {
+        throw new Error("Review must be at least 10 characters long");
+      }
+
+      const response = await fetch(`/api/dealerships/${dealerId}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...review,
-          dealership: id,
-        }),
+        body: JSON.stringify(review),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to post review");
+        throw new Error("Failed to submit review");
       }
 
+      setSuccess(true);
       setReview({
         name: "",
         purchase: false,
@@ -67,73 +90,9 @@ const PostReview = () => {
     }
   };
 
-  const validateForm = () => {
-    if (!review.car_model || review.review === "" || review.purchase_date === "" || review.car_year === "") {
-      setError("All fields are required");
-      return false;
-    }
-    if (review.car_year < 2015 || review.car_year > 2023) {
-      setError("Year must be between 2015 and 2023");
-      return false;
-    }
-    if (review.review.length < 10) {
-      setError("Review must be at least 10 characters long");
-      return false;
-    }
-    return true;
-  };
-
-  const postreview = async () => {
-    if (!validateForm()) return;
-    
-    setIsSubmitting(true);
-    setError("");
-    
-    try {
-      let name = sessionStorage.getItem("firstname")+" "+sessionStorage.getItem("lastname");
-      if(name.includes("null")) {
-        name = sessionStorage.getItem("username");
-      }
-
-      let model_split = review.car_model.split(" ");
-      let make_chosen = model_split[0];
-      let model_chosen = model_split[1];
-
-      let jsoninput = JSON.stringify({
-        "name": name,
-        "dealership": id,
-        "review": review.review,
-        "purchase": review.purchase,
-        "purchase_date": review.purchase_date,
-        "car_make": make_chosen,
-        "car_model": model_chosen,
-        "car_year": review.car_year,
-      });
-
-      const res = await fetch(review_url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: jsoninput,
-      });
-
-      const json = await res.json();
-      if (json.status === 200) {
-        navigate(`/dealer/${id}`);
-      } else {
-        setError("Failed to post review. Please try again.");
-      }
-    } catch (err) {
-      setError("An error occurred. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const get_dealer = async () => {
     try {
-      const res = await fetch(dealer_url, {
+      const res = await fetch(`/api/dealerships/${dealerId}`, {
         method: "GET"
       });
       const retobj = await res.json();
@@ -150,7 +109,7 @@ const PostReview = () => {
 
   const get_cars = async () => {
     try {
-      const res = await fetch(carmodels_url, {
+      const res = await fetch(`/api/dealerships/${dealerId}/cars`, {
         method: "GET"
       });
       const retobj = await res.json();
@@ -187,26 +146,25 @@ const PostReview = () => {
       <div className="container mt-5">
         <h2>Post a Review</h2>
         {error && <Alert variant="danger">{error}</Alert>}
+        {success && <Alert variant="success">Review submitted successfully!</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
+              name="name"
               value={review.name}
-              onChange={(e) =>
-                setReview({ ...review, name: e.target.value })
-              }
+              onChange={handleChange}
               required
             />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Check
               type="checkbox"
-              label="Did you purchase a car?"
+              name="purchase"
+              label="I purchased a car from this dealer"
               checked={review.purchase}
-              onChange={(e) =>
-                setReview({ ...review, purchase: e.target.checked })
-              }
+              onChange={handleChange}
             />
           </Form.Group>
           {review.purchase && (
@@ -215,10 +173,9 @@ const PostReview = () => {
                 <Form.Label>Purchase Date</Form.Label>
                 <Form.Control
                   type="date"
+                  name="purchase_date"
                   value={review.purchase_date}
-                  onChange={(e) =>
-                    setReview({ ...review, purchase_date: e.target.value })
-                  }
+                  onChange={handleChange}
                   required
                 />
               </Form.Group>
@@ -226,10 +183,9 @@ const PostReview = () => {
                 <Form.Label>Car Make</Form.Label>
                 <Form.Control
                   type="text"
+                  name="car_make"
                   value={review.car_make}
-                  onChange={(e) =>
-                    setReview({ ...review, car_make: e.target.value })
-                  }
+                  onChange={handleChange}
                   required
                 />
               </Form.Group>
@@ -237,10 +193,9 @@ const PostReview = () => {
                 <Form.Label>Car Model</Form.Label>
                 <Form.Control
                   type="text"
+                  name="car_model"
                   value={review.car_model}
-                  onChange={(e) =>
-                    setReview({ ...review, car_model: e.target.value })
-                  }
+                  onChange={handleChange}
                   required
                 />
               </Form.Group>
@@ -248,10 +203,11 @@ const PostReview = () => {
                 <Form.Label>Car Year</Form.Label>
                 <Form.Control
                   type="number"
+                  name="car_year"
                   value={review.car_year}
-                  onChange={(e) =>
-                    setReview({ ...review, car_year: e.target.value })
-                  }
+                  onChange={handleChange}
+                  min="1900"
+                  max={new Date().getFullYear()}
                   required
                 />
               </Form.Group>
@@ -262,15 +218,14 @@ const PostReview = () => {
             <Form.Control
               as="textarea"
               rows={3}
+              name="review"
               value={review.review}
-              onChange={(e) =>
-                setReview({ ...review, review: e.target.value })
-              }
+              onChange={handleChange}
               required
             />
           </Form.Group>
-          <Button disabled={loading} type="submit">
-            Submit Review
+          <Button variant="primary" type="submit" disabled={loading}>
+            {loading ? "Submitting..." : "Submit Review"}
           </Button>
         </Form>
       </div>

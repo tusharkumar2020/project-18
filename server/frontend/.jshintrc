@@ -1,5 +1,5 @@
 {
-  "esversion": 8,
+  "esversion": 10,
   "browser": true,
   "node": true,
   "strict": false,
@@ -11,6 +11,7 @@
     "module": true,
     "require": true,
     "process": true,
-    "__dirname": true
+    "__dirname": true,
+    "JSX": true
   }
 } 
