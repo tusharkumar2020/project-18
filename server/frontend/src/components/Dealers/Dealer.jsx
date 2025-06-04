@@ -1,13 +1,13 @@
-import React, { useState,useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./Dealers.css";
 import "../assets/style.css";
-import positive_icon from "../assets/positive.png"
-import neutral_icon from "../assets/neutral.png"
-import negative_icon from "../assets/negative.png"
-import review_icon from "../assets/reviewbutton.png"
-import Header from '../Header/Header';
-import { Card, CardContent, Typography, Grid } from '@mui/material';
+import positive_icon from "../assets/positive.png";
+import neutral_icon from "../assets/neutral.png";
+import negative_icon from "../assets/negative.png";
+import review_icon from "../assets/reviewbutton.png";
+import Header from "../Header/Header";
+import { Card, CardContent, Typography, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
@@ -18,22 +18,22 @@ const Dealer = () => {
   const [postReview, setPostReview] = useState(<></>);
   const [loading, setLoading] = useState(true);
 
-  let curr_url = window.location.href;
-  let root_url = curr_url.substring(0,curr_url.indexOf("dealer"));
-  let params = useParams();
-  let id = params.id;
-  let dealer_url = root_url+`djangoapp/dealer/${id}`;
-  let reviews_url = root_url+`djangoapp/reviews/dealer/${id}`;
-  let post_review = root_url+`postreview/${id}`;
+  const curr_url = window.location.href;
+  const root_url = curr_url.substring(0, curr_url.indexOf("dealer"));
+  const params = useParams();
+  const id = params.id;
+  const dealer_url = root_url + `djangoapp/dealer/${id}`;
+  const reviews_url = root_url + `djangoapp/reviews/dealer/${id}`;
+  const post_review = root_url + `postreview/${id}`;
   
   const get_dealer = async () => {
     try {
       const res = await fetch(dealer_url, {
-        method: "GET"
+        method: "GET",
       });
       const retobj = await res.json();
       
-      if(retobj.status === 200 && retobj.dealer && retobj.dealer.length > 0) {
+      if (retobj.status === 200 && retobj.dealer && retobj.dealer.length > 0) {
         setDealer(retobj.dealer[0]);
       } else {
         setDealer(null);
@@ -44,17 +44,17 @@ const Dealer = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const get_reviews = async () => {
     try {
       const res = await fetch(reviews_url, {
-        method: "GET"
+        method: "GET",
       });
       const retobj = await res.json();
       
-      if(retobj.status === 200) {
-        if(retobj.reviews && retobj.reviews.length > 0) {
+      if (retobj.status === 200) {
+        if (retobj.reviews && retobj.reviews.length > 0) {
           setReviews(retobj.reviews);
         } else {
           setUnreviewed(true);
@@ -64,25 +64,29 @@ const Dealer = () => {
       console.error("Error fetching reviews:", error);
       setReviews([]);
     }
-  }
+  };
 
   const senti_icon = (sentiment) => {
-    let icon = sentiment === "positive" ? positive_icon : sentiment === "negative" ? negative_icon : neutral_icon;
+    const icon = sentiment === "positive" ? positive_icon : sentiment === "negative" ? negative_icon : neutral_icon;
     return icon;
-  }
+  };
 
   useEffect(() => {
     get_dealer();
     get_reviews();
-    if(sessionStorage.getItem("username")) {
-      setPostReview(<a href={post_review}><img src={review_icon} style={{width:'10%',marginLeft:'10px',marginTop:'10px'}} alt='Post Review'/></a>);
+    if (sessionStorage.getItem("username")) {
+      setPostReview(
+        <a href={post_review}>
+          <img src={review_icon} style={{ width: "10%", marginLeft: "10px", marginTop: "10px" }} alt="Post Review" />
+        </a>
+      );
     }
   }, []);  
 
   if (loading) {
     return (
-      <div style={{margin:"20px"}}>
-        <Header/>
+      <div style={{ margin: "20px" }}>
+        <Header />
         <Card sx={{ minWidth: 275, margin: 2 }}>
           <CardContent>
             <Typography variant="h5" component="div">
@@ -96,8 +100,8 @@ const Dealer = () => {
 
   if (!dealer) {
     return (
-      <div style={{margin:"20px"}}>
-        <Header/>
+      <div style={{ margin: "20px" }}>
+        <Header />
         <Card sx={{ minWidth: 275, margin: 2 }}>
           <CardContent>
             <Typography variant="h5" component="div">
@@ -110,21 +114,21 @@ const Dealer = () => {
   }
 
   return (
-    <div style={{margin:"20px"}}>
-      <Header/>
-      <div style={{marginTop:"10px"}}>
+    <div style={{ margin: "20px" }}>
+      <Header />
+      <div style={{ marginTop: "10px" }}>
         <Card sx={{ minWidth: 275, margin: 2 }}>
           <CardContent>
             <Typography variant="h5" component="div">
-              {dealer.full_name || 'Dealer Name Not Available'}
+              {dealer.full_name || "Dealer Name Not Available"}
             </Typography>
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {dealer.city || 'City Not Available'}, {dealer.state || 'State Not Available'}
+              {dealer.city || "City Not Available"}, {dealer.state || "State Not Available"}
             </Typography>
             <Typography variant="body2">
-              {dealer.address || 'Address Not Available'}
+              {dealer.address || "Address Not Available"}
               <br />
-              {dealer.zip || 'ZIP Not Available'}
+              {dealer.zip || "ZIP Not Available"}
             </Typography>
           </CardContent>
         </Card>
@@ -136,10 +140,12 @@ const Dealer = () => {
           <Typography>No reviews yet!</Typography>
         ) : (
           reviews.map((review, index) => (
-            <div key={index} className='review_panel'>
-              <img src={senti_icon(review.sentiment)} className="emotion_icon" alt='Sentiment'/>
-              <div className='review'>{review.review}</div>
-              <div className="reviewer">{review.name} {review.car_make} {review.car_model} {review.car_year}</div>
+            <div key={index} className="review_panel">
+              <img src={senti_icon(review.sentiment)} className="emotion_icon" alt="Sentiment" />
+              <div className="review">{review.review}</div>
+              <div className="reviewer">
+                {review.name} {review.car_make} {review.car_model} {review.car_year}
+              </div>
             </div>
           ))
         )}
@@ -149,6 +155,6 @@ const Dealer = () => {
       </Link>
     </div>
   );
-}
+};
 
-export default Dealer
+export default Dealer;
