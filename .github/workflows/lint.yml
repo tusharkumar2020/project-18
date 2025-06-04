@@ -45,11 +45,14 @@ jobs:
       with:
         node-version: 14
 
-    - name: Install JSHint
-      run: npm install jshint --global
-
-    - name: Run Linter
+    - name: Install dependencies
       run: |
-        # This command finds all JavaScript files recursively and runs JSHint on them
-        find ./server/database -name "*.js" -exec jshint {} +
-        echo "Linted all the js files successfully" 
+        cd server/frontend
+        npm install
+        npm install eslint --save-dev
+
+    - name: Run ESLint
+      run: |
+        cd server/frontend
+        npx eslint "src/**/*.{js,jsx}" --max-warnings=0
+        echo "Linted all JavaScript/JSX files successfully" 
