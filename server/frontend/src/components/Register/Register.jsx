@@ -1,51 +1,57 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
-import { Button, Form, Alert } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import "./Register.css";
-import user_icon from "../assets/person.png"
-import email_icon from "../assets/email.png"
-import password_icon from "../assets/password.png"
-import close_icon from "../assets/close.png"
 
 const Register = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signup } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      return setError("Passwords do not match");
-    }
+    setLoading(true);
+    setError("");
 
     try {
-      setError("");
-      setLoading(true);
-      await signup(email, password);
-      navigate("/");
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
+
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to register");
+      }
+
+      navigate("/login");
     } catch (err) {
-      setError("Failed to create an account");
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
-    <div className="container mt-5">
+    <div className="register-container">
       <h2>Register</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
-          <Form.Label>Email</Form.Label>
+          <Form.Label>Username</Form.Label>
           <Form.Control
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </Form.Group>
@@ -67,8 +73,8 @@ const Register = () => {
             required
           />
         </Form.Group>
-        <Button disabled={loading} type="submit">
-          Register
+        <Button variant="primary" type="submit" disabled={loading}>
+          {loading ? "Registering..." : "Register"}
         </Button>
       </Form>
     </div>

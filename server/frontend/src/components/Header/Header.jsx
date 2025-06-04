@@ -1,66 +1,49 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
-import "../assets/style.css";
-import "../assets/bootstrap.min.css";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import "./Header.css";
 
 const Header = () => {
-  const { currentUser, logout } = useAuth();
-  const [error, setError] = React.useState("");
-
-  const handleLogout = async () => {
-    try {
-      setError("");
-      await logout();
-    } catch {
-      setError("Failed to log out");
-    }
-  };
+  const isLoggedIn = sessionStorage.getItem("username") != null;
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4">
-            <Link to="/" className="logo">
-              Dealership
-            </Link>
-          </div>
-          <div className="col-md-8">
-            <nav className="nav">
-              <Link to="/" className="nav-link">
-                Home
-              </Link>
-              <Link to="/about" className="nav-link">
-                About
-              </Link>
-              <Link to="/contact" className="nav-link">
-                Contact
-              </Link>
-              {currentUser ? (
-                <>
-                  <Link to="/dealers" className="nav-link">
-                    Dealers
-                  </Link>
-                  <button onClick={handleLogout} className="btn btn-link nav-link">
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link to="/login" className="nav-link">
-                    Login
-                  </Link>
-                  <Link to="/register" className="nav-link">
-                    Register
-                  </Link>
-                </>
-              )}
-            </nav>
-          </div>
-        </div>
-      </div>
-    </header>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <Navbar.Brand as={Link} to="/">
+          Best Cars
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/">
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/about">
+              About
+            </Nav.Link>
+            <Nav.Link as={Link} to="/contact">
+              Contact
+            </Nav.Link>
+          </Nav>
+          <Nav>
+            {isLoggedIn ? (
+              <Nav.Link as={Link} to="/logout">
+                Logout
+              </Nav.Link>
+            ) : (
+              <>
+                <Nav.Link as={Link} to="/login">
+                  Login
+                </Nav.Link>
+                <Nav.Link as={Link} to="/register">
+                  Register
+                </Nav.Link>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 

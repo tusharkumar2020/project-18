@@ -7,7 +7,7 @@ import "./Login.css";
 import Header from '../Header/Header';
 
 const Login = ({ onClose }) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,15 +16,32 @@ const Login = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
+
     try {
-      setError("");
-      setLoading(true);
-      await login(email, password);
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Invalid username or password");
+      }
+
+      const data = await response.json();
+      sessionStorage.setItem("username", data.username);
+      sessionStorage.setItem("token", data.token);
+      await login(username, password);
       navigate("/");
     } catch (err) {
-      setError("Failed to sign in");
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   if (!loading) {
@@ -42,11 +59,11 @@ const Login = ({ onClose }) => {
               <h2>Login</h2>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>Username</Form.Label>
                 <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </Form.Group>
@@ -59,8 +76,8 @@ const Login = ({ onClose }) => {
                   required
                 />
               </Form.Group>
-              <Button disabled={loading} type="submit">
-                Login
+              <Button variant="primary" type="submit" disabled={loading}>
+                {loading ? "Logging in..." : "Login"}
               </Button>
             </Form>
           </div>
