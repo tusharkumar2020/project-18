@@ -1,13 +1,13 @@
 name: Lint Code
 
 # Ejecuta el workflow cuando:
-#  1) alguien hace push a cualquier rama
-#  2) alguien abre / actualiza un Pull Request contra cualquier rama
+#  1) alguien hace push a feature/review-system
+#  2) alguien abre / actualiza un Pull Request contra feature/review-system
 on:
   push:
-    branches: ['*']
+    branches: [feature/review-system]
   pull_request:
-    branches: ['*']
+    branches: [feature/review-system]
 
 jobs:
   # ───────────────────────────────────────────
