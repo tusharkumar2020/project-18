@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us - Best Cars Dealership</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f8fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* .navbar {
+            background-color: rgb(135, 135, 135);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+
+        .navbar a.active {
+            text-decoration: underline;
+        } */
+
+        .contact-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 60px;
+            padding: 60px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .contact-info,
+        .contact-form {
+            flex: 1;
+            padding: 0 30px;
+            min-width: 500px;
+        }
+
+        .contact-info h1,
+        .contact-form h2 {
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
+
+        .contact-section {
+            margin-bottom: 32px;
+        }
+
+        .contact-section h3 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .contact-section p,
+        .contact-form p {
+            font-size: 20px;
+            margin: 4px 0;
+        }
+
+        .contact-divider {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 25px 0;
+        }
+
+        .contact-info a {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            margin-bottom: 18px;
+            padding: 14px;
+            font-size: 20px;
+            width: 100%;
+        }
+
+        .contact-form button {
+            background-color: black;
+            color: white;
+            padding: 14px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .contact-form label {
+            margin-bottom: 18px;
+            font-size: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+        <div class="container-fluid">
+            <h1 style="padding-right: 5%; font-size: 3rem; font-weight: bold;">Dealerships</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" style="font-size: 2rem;" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 2rem;" href="/about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size: 2rem;" href="/contact">Contact Us</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    <div class="loginlink" id="loginlogout">
+                    </div>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- FLEX WRAPPER: contact-info + contact-form -->
+    <div class="contact-wrapper">
+
+        <!-- LEFT: Contact Info -->
+        <div class="contact-info">
+            <h1>Contact Best Cars Dealership</h1>
+
+            <div class="contact-section">
+                <h3>Customer Service</h3>
+                <p>For general inquiries and support</p>
+                <p><a href="mailto:support@bestcars.com">support@bestcars.com</a></p>
+            </div>
+
+            <hr class="contact-divider">
+
+            <div class="contact-section">
+                <h3>National Advertising</h3>
+                <p>For advertising opportunities and partnerships</p>
+                <p><a href="mailto:NationalSales@bestcars.com">NationalSales@bestcars.com</a></p>
+            </div>
+
+            <hr class="contact-divider">
+
+            <div class="contact-section">
+                <h3>Public Relations</h3>
+                <p>For media inquiries and press releases</p>
+                <p><a href="mailto:PR@bestcars.com">PR@bestcars.com</a></p>
+            </div>
+
+            <hr class="contact-divider">
+
+            <div class="contact-section">
+                <h3>Corporate Offices</h3>
+                <p>Phone: 312-611-1111</p>
+                <p>Monday–Friday: 9am–5pm CST</p>
+            </div>
+
+            <hr class="contact-divider">
+
+            <div class="contact-section">
+                <h3>Dealer Inquiries</h3>
+                <p>Join our network of dealers</p>
+                <p><a href="https://growwithbestcars.com" target="_blank">Visit growwithbestcars.com</a></p>
+            </div>
+        </div>
+
+        <!-- RIGHT: Contact Form -->
+        <div class="contact-form">
+            <h2>Contact Us</h2>
+            <p>If you have any questions, fill out the form below and we’ll get back to you.</p>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Name *" required>
+                <input type="text" name="phone" placeholder="Phone number">
+                <input type="email" name="email" placeholder="Email *" required>
+                <input type="text" name="subject" placeholder="Subject *" required>
+                <textarea name="message" placeholder="Message *" required></textarea>
+                <label><input type="checkbox" required> I agree to the Terms and Privacy Policy</label>
+                <button type="submit">Submit Message</button>
+            </form>
+        </div>
+
+    </div> <!-- End .contact-wrapper -->
+
+</body>
+
+</html>
