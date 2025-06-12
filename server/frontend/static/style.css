@@ -1,5 +1,4 @@
 body {
-  background-color: #B9D4AA;
   font-family: 'Roboto', sans-serif;
   width: 100vw;
   min-height: 100vh;
@@ -12,7 +11,6 @@ img{
 }
 
 .card{
-  border: rgb(103, 102, 105) 3px solid;
   display: flex;  
   flex-direction: column;
   margin-left:5%;
