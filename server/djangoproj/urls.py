@@ -36,4 +36,10 @@ urlpatterns = [
     # CONTACT PAGE:
     path('contact/', TemplateView.as_view(template_name="Contact.html")),
 
+    # LOGIN PAGE:
+    path('login/', TemplateView.as_view(template_name="index.html")),
+
+    # REGISTRATION PAGE:
+    path('register/', TemplateView.as_view(template_name="index.html")),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
