@@ -2,8 +2,8 @@
 Konfiguration für das Django-Projekt 'djangoproj'.
 
 Dieses Projekt ist Teil des IBM Full Stack Developer Capstone.
-Diese Datei enthält globale Einstellungen wie Datenbankpfade, installierte Apps,
-Middleware und statische Dateien.
+Diese Datei enthält globale Einstellungen wie Datenbankpfade,
+installierte Apps, Middleware und statische Dateien.
 
 Erstellt mit Django 3.2.5
 Weitere Infos: https://docs.djangoproject.com/en/3.2/topics/settings/
@@ -99,8 +99,11 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':(
+            'django.contrib.auth.password_validation.'
+            'UserAttributeSimilarityValidator'
+        ),
+
     },
     {
         'NAME':

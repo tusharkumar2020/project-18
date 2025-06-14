@@ -1,0 +1,13 @@
+{
+  "esversion": 8,
+  "node": true,
+  "strict": "global",
+  "undef": true,
+  "unused": true,
+  "globals": {
+    "describe": false, 
+    "it": false,
+    "before": false,
+    "after": false
+  }
+}
