@@ -1,7 +1,4 @@
 # Uncomment the required imports before adding the code
-from django.contrib.sites import requests
-from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 
@@ -14,7 +11,7 @@ from .populate import initiate
 
 # MODEL IMPORTS:
 from .models import CarMake, CarModel
-from .restapis import get_request, analyze_review_sentiments, post_review
+from .restapis import get_request, analyze_review_sentiments
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -159,7 +156,6 @@ def get_dealer_reviews(request, dealer_id):
 def add_review(request):
 
     if not request.user.is_anonymous:
-        data = json.loads(request.body)
         try:
             return JsonResponse({"status": 200})
         except Exception as e:

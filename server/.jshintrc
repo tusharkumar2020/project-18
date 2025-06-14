@@ -1,7 +1,7 @@
 {
   "esversion": 8,
   "node": true,
-  "strict": "global",
+  "strict": false,
   "undef": true,
   "unused": true,
   "globals": {
