@@ -55,7 +55,6 @@ urlpatterns = [
         view=views.get_dealer_details,
         name='dealer_details'
     ),
-    
     # Dealer Reviews:
     path(
         route='reviews/dealer/<int:dealer_id>',

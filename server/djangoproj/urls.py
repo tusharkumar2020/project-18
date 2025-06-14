@@ -26,7 +26,6 @@ urlpatterns = [
 
     # DJANGOAPP:
     path('djangoapp/', include('djangoapp.urls')),
-    
     # HOME PAGE:
     path('', TemplateView.as_view(template_name="Home.html")),
 
