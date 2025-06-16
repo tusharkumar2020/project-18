@@ -6,14 +6,13 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from datetime import datetime
-
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
-
+from .models import CarMake, CarModel
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -72,6 +71,16 @@ def registration(request):
         data = {"userName":username,"status":"already registered"}
         return JsonResponse(data)
 
+def get_cars(request):
+    count = CarMake.objects.filter().count()
+    print(count)
+    if (count ==0):
+        initiate()
+    car_models = CarModel.objects.select_related('car_make')
+    cars =[]
+    for car_model in car_models:
+        cars.append({'carModel':car_model.name,'carMake':car_model.car_make.name})
+    return JsonResponse({'CarModels':cars})
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
 # def get_dealerships(request):
