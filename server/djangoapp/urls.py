@@ -9,7 +9,6 @@ urlpatterns = [
     
     # # path for registration
 
-    path('login/', TemplateView.as_view(template_name="index.html")),
     path(route='login', view=views.login_user, name='login'),
 
     # path for dealer reviews view
